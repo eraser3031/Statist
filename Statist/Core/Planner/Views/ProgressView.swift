@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct ProgressView: View {
+    
+    @StateObject var vm: ProgressViewModel
+    
+    init(date: Date){
+        self._vm = StateObject(wrappedValue: ProgressViewModel(date: date))
+    }
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
@@ -15,6 +22,6 @@ struct ProgressView: View {
 
 struct ProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressView()
+        ProgressView(date: Date())
     }
 }

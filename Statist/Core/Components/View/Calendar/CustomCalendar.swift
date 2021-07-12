@@ -9,10 +9,14 @@ import SwiftUI
 
 struct CustomCalendar: View {
     
-    @ObservedObject var vm: CalendarViewModel
+    @ObservedObject var vm: PlannerViewModel
+    var width: CGFloat
+    var height: CGFloat
     
-    init(model: CalendarViewModel){
+    init(model: PlannerViewModel, width: CGFloat, height: CGFloat){
         self.vm = model
+        self.width = width
+        self.height = height
     }
     
     var body: some View {
@@ -22,8 +26,8 @@ struct CustomCalendar: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 20)
             
-            FSCalendarView(model: vm)
-                .padding(.horizontal, 20)
+//            FSCalendarView(model: vm, width: width,  height: height)
+//                .padding(.horizontal, 18)
                 
         }
     }

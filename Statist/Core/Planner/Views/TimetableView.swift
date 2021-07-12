@@ -8,13 +8,22 @@
 import SwiftUI
 
 struct TimetableView: View {
+    
+    @StateObject var vm: TimeTableViewModel
+    
+    init(date: Date){
+        self._vm = StateObject(wrappedValue: TimeTableViewModel(date: date))
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack{
+            TimeTable()
+        }
     }
 }
 
 struct TimetableView_Previews: PreviewProvider {
     static var previews: some View {
-        TimetableView()
+        TimetableView(date: Date())
     }
 }

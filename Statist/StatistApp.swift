@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct StatistApp: App {
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PlannerView()
         }
     }
 }

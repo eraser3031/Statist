@@ -19,27 +19,27 @@ struct CalendarUpper: View {
         GridItem(.flexible()),
     ]
     
-    @ObservedObject var vm: CalendarViewModel
+    @ObservedObject var vm: PlannerViewModel
     
-    init(model: CalendarViewModel) {
+    init(model: PlannerViewModel) {
         self.vm = model
     }
     
     var body: some View {
         HStack {
             Text(vm.date.titleString())
-                .font(.largeTitle)
+                .font(.title)
                 .fontWeight(.heavy)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .onTapGesture {
                     vm.date = Date()
-                    vm.scope = false
+                    vm.calendarScope = false
                 }
             
             Image(systemName: "calendar")
-                .font(.title)
+                .font(.title2)
                 .onTapGesture {
-                    vm.scope.toggle()
+                    vm.calendarScope.toggle()
                 }
         }
         .padding(.horizontal, 8)
@@ -48,7 +48,7 @@ struct CalendarUpper: View {
 
 struct CalendarUpper_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarUpper(model: CalendarViewModel())
+        CalendarUpper(model: PlannerViewModel())
             .padding()
             .previewLayout(.sizeThatFits)
     }

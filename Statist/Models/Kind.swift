@@ -10,5 +10,11 @@ import SwiftUI
 struct Kind: Identifiable {
     let id = UUID().uuidString
     var name: String
-    var colorKind: ColorKind
+    var color: ColorKind
+}
+
+extension KindEntity {
+    var color: ColorKind {
+        return ColorKind.string(name: self.colorKindID ?? "") ?? ColorKind.blue
+    }
 }

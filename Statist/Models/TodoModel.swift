@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TodoItem {
+struct TodoModel {
     let id = UUID().uuidString
     var description: String
     var kind: Kind

@@ -11,29 +11,44 @@ import FSCalendar
 
 struct FSCalendarView: UIViewRepresentable {
     
-    @ObservedObject var vm: CalendarViewModel
+    @ObservedObject var vm: PlannerViewModel
     
-    init(model: CalendarViewModel) {
+    var width: CGFloat
+    var height: CGFloat
+    
+    init(model: PlannerViewModel, width: CGFloat, height: CGFloat) {
         self.vm = model
+        self.width = width
+        self.height = height
     }
-    
-//    typealias UIViewType = FSCalendar
     
     func makeUIView(context: UIViewRepresentableContext<FSCalendarView>) -> UIView {
         let view = UIView(frame: .zero)
-//        view.backgroundColor = .green
-//                view.backgroundColor = .backgroundTheme
 
-        let height: CGFloat = 300.0
-        let width = UIScreen.main.bounds.width - 40
-        let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
+        let frame = CGRect(x: 0.0, y: 0.0, width: width - 36, height: height)
         let calendar = FSCalendar(frame: frame)
-//        let calendar = FSCalendar()
+        
+        func setCalendar(calendar: FSCalendar) {
+            calendar.delegate = context.coordinator
+            calendar.dataSource = context.coordinator
+            calendar.appearance.eventDefaultColor = .black
+            calendar.appearance.borderRadius = 0.4
+            calendar.appearance.headerMinimumDissolvedAlpha = 0
+            calendar.appearance.eventSelectionColor = .black
+            calendar.appearance.selectionColor = .black
+            calendar.appearance.titleTodayColor = .black
+            calendar.appearance.weekdayTextColor = .black
+            calendar.appearance.todayColor = .systemGray5
+            calendar.headerHeight = 0
+            calendar.appearance.caseOptions = FSCalendarCaseOptions.weekdayUsesUpperCase
+            calendar.appearance.weekdayFont = UIFont(name: "Gilroy-Light", size: 10)
+            calendar.appearance.titleFont = UIFont(name: "Gilroy-ExtraBold", size: 12)
+            calendar.scope = vm.calendarScope ? .month : .week
+        }
         
         func addSubscriber() {
-            vm.$scope
+            vm.$calendarScope
                 .sink { isOpen in
-//                        calendar.scope = isOpen ? .month : .week
                     calendar.setScope(isOpen ? .month : .week, animated: true)
                 }
                 .store(in: &vm.cancellables)
@@ -41,27 +56,19 @@ struct FSCalendarView: UIViewRepresentable {
             vm.$date
                 .sink { date in
                     calendar.select(date)
+                    for calendar in view.subviews {
+                        calendar.removeFromSuperview()
+                    }
+                    let calendar = FSCalendar(frame: frame)
+                    setCalendar(calendar: calendar)
+                    view.addSubview(calendar)
+                    view.setNeedsDisplay()
+                    calendar.setNeedsDisplay()
                 }
                 .store(in: &vm.cancellables)
         }
         
-        calendar.delegate = context.coordinator
-        calendar.dataSource = context.coordinator
-        
-        calendar.appearance.eventDefaultColor = .black
-        calendar.appearance.borderRadius = 0.4
-        calendar.appearance.headerMinimumDissolvedAlpha = 0
-        calendar.appearance.eventSelectionColor = .black
-        calendar.appearance.selectionColor = .black
-        calendar.appearance.titleTodayColor = .black
-        calendar.appearance.weekdayTextColor = .black
-        calendar.appearance.todayColor = .systemGray5
-        calendar.headerHeight = 0
-        calendar.appearance.caseOptions = FSCalendarCaseOptions.weekdayUsesUpperCase
-        calendar.appearance.weekdayFont = UIFont(name: "Gilroy-Light", size: 10)
-        calendar.appearance.titleFont = UIFont(name: "Gilroy-ExtraBold", size: 12)
-        calendar.scope = .week
-//        calendar.backgroundColor = .red
+        setCalendar(calendar: calendar)
         addSubscriber()
         
         view.addSubview(calendar)
@@ -69,15 +76,21 @@ struct FSCalendarView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<FSCalendarView>) {
-        
+//        for view in uiView.subviews {
+//            view.frame = CGRect(x: 0.0, y: 0.0, width: width - 36, height: height)
+//        }
     }
     
     class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
         
-        @ObservedObject var vm: CalendarViewModel
+        @ObservedObject var vm: PlannerViewModel
+        var width: CGFloat
+        var height: CGFloat
         
-        init(model: CalendarViewModel) {
+        init(model: PlannerViewModel, width: CGFloat, height: CGFloat) {
             self.vm = model
+            self.width = width
+            self.height = height
         }
         
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -85,30 +98,22 @@ struct FSCalendarView: UIViewRepresentable {
         }
         
         func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-            calendar.frame = bounds
 //            calendar.select(vm.date)
         }
-        
-//        func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-//            vm.date = calendar.currentPage
-////            calendar.select(calendar.currentPage)
-//        }
-        
-        
 
     }
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(model: vm)
+        return Coordinator(model: vm, width: width, height: height)
     }
 
 }
-
-struct FSCalendarView_Previews: PreviewProvider {
-    static var previews: some View {
-        FSCalendarView(model: CalendarViewModel())
-            .frame(height: 280)
-            .padding()
-            .previewLayout(.sizeThatFits)
-    }
-}
+//
+//struct FSCalendarView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FSCalendarView(model: PlannerViewModel())
+//            .frame(height: 280)
+//            .padding()
+//            .previewLayout(.sizeThatFits)
+//    }
+//}

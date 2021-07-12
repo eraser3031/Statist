@@ -8,13 +8,46 @@
 import SwiftUI
 
 struct CustomPicker: View {
+    
+    @Binding var pickedItem: PickerItemOption
+    let items: [PickerItemOption]
+    
+    init(_ pickedItem: Binding<PickerItemOption>, items: [PickerItemOption]){
+        self._pickedItem = pickedItem
+        self.items = items
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack(spacing: 0) {
+            ForEach(items) { item in
+                PickerItem($pickedItem, item: item)
+                    .overlay(
+                        Divider()
+                            .foregroundColor(.theme.dividerColor),
+                        alignment: .trailing
+                    )
+            }
+        }
+        .cornerRadius(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .stroke(Color.theme.dividerColor, lineWidth: 0.5)
+        )
     }
 }
 
 struct CustomPicker_Previews: PreviewProvider {
     static var previews: some View {
-        CustomPicker()
+        Group {
+            CustomPicker(.constant(.TimeTable), items: [.TodoList, .TimeTable, .Progress])
+                .padding()
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.light)
+            
+            CustomPicker(.constant(.TodoList), items: [.TodoList, .TimeTable, .Progress])
+                .padding()
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
+        }
     }
 }
