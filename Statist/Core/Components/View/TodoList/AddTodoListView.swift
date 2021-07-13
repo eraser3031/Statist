@@ -37,6 +37,8 @@ struct AddTodoListView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Kind")
                     .font(Font.system(.subheadline, design: .default).weight(.bold))
+                
+                KindPicker()
             }
 
             CustomButton("Add", "plus") {

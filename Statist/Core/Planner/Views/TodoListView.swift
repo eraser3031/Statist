@@ -65,10 +65,6 @@ struct TodoListView: View {
             if vm.showAddTodoListView {
                 AddTodoListView(vm: vm)
             }
-            
-            if vm.showAddKindView {
-                AddKindView(vm: KindViewModel())
-            }
         }
     }
 }

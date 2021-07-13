@@ -63,7 +63,7 @@ struct KindPicker: View {
         }
     }
 }
-
+//
 //struct KindPicker_AddView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        KindPicker(vm: KindViewModel(), selectedKind: .con)
