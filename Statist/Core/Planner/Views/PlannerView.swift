@@ -16,20 +16,14 @@ struct PlannerView: View {
         
         return VStack{
             
-            CalendarUpper(model: vm)
+            HeaderView(model: vm)
                 .padding(.horizontal, 20)
                 .padding(.top, 20)
             
             GeometryReader { geo in
                 VStack(spacing: 0) {
                     
-//                    FSCalendarView(model: vm, width: geo.size.width, height: 300).padding(.horizontal, 18)
-//                    Rectangle()
-//                        .fill(Color(.systemBackground))
-//                        .overlay(
-//
-//                        )
-                    AlterFSCalendarView(vm: vm, rect: $rect)
+                    CalendarView(vm: vm, rect: $rect)
                     
                     mainView(geo: geo)
                         .frame(height: vm.calendarScope ? geo.size.height - 320: geo.size.height - 100)
@@ -47,17 +41,27 @@ extension PlannerView {
             .fill(Color.blue)
             .overlay(
                 VStack(alignment: .leading, spacing: 20) {
+                
                     CustomPicker($vm.pickedItem, items: [.TodoList, .TimeTable, .Progress])
                         .padding(.horizontal, 20)
                         .padding(.top, 20)
                     
                     if vm.pickedItem == .TodoList {
+                        
                         TodoListView(date: vm.date)
+                        
                     } else if vm.pickedItem == .TimeTable {
+                        
                         TimetableView(date: vm.date)
-                    } else {
+                        
+                    } else if vm.pickedItem == .Progress {
+                        
                         ProgressView(date: vm.date)
+                        
+                    } else {
+                        EmptyView()
                     }
+                
                 }
             )
     }

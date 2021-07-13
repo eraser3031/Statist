@@ -7,17 +7,7 @@
 
 import SwiftUI
 
-struct CalendarUpper: View {
-    
-    var columns: [GridItem] = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-    ]
+struct HeaderView: View {
     
     @ObservedObject var vm: PlannerViewModel
     
@@ -33,7 +23,6 @@ struct CalendarUpper: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .onTapGesture {
                     vm.date = Date()
-                    vm.calendarScope = false
                 }
             
             Image(systemName: "calendar")
@@ -48,7 +37,7 @@ struct CalendarUpper: View {
 
 struct CalendarUpper_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarUpper(model: PlannerViewModel())
+        HeaderView(model: PlannerViewModel())
             .padding()
             .previewLayout(.sizeThatFits)
     }
