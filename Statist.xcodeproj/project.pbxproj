@@ -14,6 +14,8 @@
 		218A10152692BDE300579B1E /* Gilroy-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10132692BDE200579B1E /* Gilroy-ExtraBold.otf */; };
 		218A10162692BDE300579B1E /* Gilroy-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10142692BDE200579B1E /* Gilroy-Light.otf */; };
 		218A10182694008100579B1E /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A10172694008000579B1E /* PlannerView.swift */; };
+		21BE069C269C90AB00C7B06F /* AlterFSCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BE069B269C90AB00C7B06F /* AlterFSCalendarView.swift */; };
+		21BE069E269CA65600C7B06F /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BE069D269CA65600C7B06F /* TestViewModel.swift */; };
 		21D045BC2691F5D90048685A /* StatistApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D045BB2691F5D90048685A /* StatistApp.swift */; };
 		21D045C02691F5DC0048685A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21D045BF2691F5DC0048685A /* Assets.xcassets */; };
 		21D045C32691F5DC0048685A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21D045C22691F5DC0048685A /* Preview Assets.xcassets */; };
@@ -55,6 +57,8 @@
 		218A10132692BDE200579B1E /* Gilroy-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBold.otf"; sourceTree = "<group>"; };
 		218A10142692BDE200579B1E /* Gilroy-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Light.otf"; sourceTree = "<group>"; };
 		218A10172694008000579B1E /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
+		21BE069B269C90AB00C7B06F /* AlterFSCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlterFSCalendarView.swift; sourceTree = "<group>"; };
+		21BE069D269CA65600C7B06F /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
 		21D045B82691F5D90048685A /* Statist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Statist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21D045BB2691F5D90048685A /* StatistApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatistApp.swift; sourceTree = "<group>"; };
 		21D045BF2691F5DC0048685A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 				21D045D32691F8440048685A /* CustomCalendar.swift */,
 				21D045D12691F82E0048685A /* CalendarUpper.swift */,
 				218A10102692B4A400579B1E /* FSCalendarView.swift */,
+				21BE069B269C90AB00C7B06F /* AlterFSCalendarView.swift */,
 				21D1F4DB26948A3400E57727 /* Example */,
 			);
 			path = Calendar;
@@ -310,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				21D1F50C26987FC600E57727 /* PlannerViewModel.swift */,
+				21BE069D269CA65600C7B06F /* TestViewModel.swift */,
 				21D1F50E26987FD700E57727 /* TimeTableViewModel.swift */,
 				21D1F51026987FE500E57727 /* ProgressViewModel.swift */,
 				21D1F51226987FF100E57727 /* TodoListViewModel.swift */,
@@ -399,6 +405,7 @@
 				21D1F4DD26948A4D00E57727 /* CustomPicker.swift in Sources */,
 				21D1F4F72695F2D600E57727 /* TimeInterval.swift in Sources */,
 				21D1F51126987FE500E57727 /* ProgressViewModel.swift in Sources */,
+				21BE069C269C90AB00C7B06F /* AlterFSCalendarView.swift in Sources */,
 				21D1F4E62694949600E57727 /* TimeTableItem.swift in Sources */,
 				216955A8269AA816007DF171 /* RandomAcessCollection.swift in Sources */,
 				21D1F4DF26948AEC00E57727 /* Color.swift in Sources */,
@@ -423,6 +430,7 @@
 				218A10182694008100579B1E /* PlannerView.swift in Sources */,
 				21D1F504269623A200E57727 /* TimetableView.swift in Sources */,
 				21D1F5192699B62300E57727 /* UserDataContainer.xcdatamodeld in Sources */,
+				21BE069E269CA65600C7B06F /* TestViewModel.swift in Sources */,
 				21D1F4FB2696032800E57727 /* TimeTableRow.swift in Sources */,
 				21D045D42691F8440048685A /* CustomCalendar.swift in Sources */,
 				21D045DE26921BDA0048685A /* CalendarViewModel.swift in Sources */,
