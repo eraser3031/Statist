@@ -38,6 +38,25 @@ struct TodoListView: View {
                         vm.save()
                     }
                 }
+                
+                Button(action: {
+                    withAnimation(.spring()) {
+                        vm.showAddTodoListView = true
+                    }
+                }) {
+                    HStack(spacing: 2){
+                        Image(systemName: "plus")
+                        Text("Add")
+                    }
+                    .font(Font.system(.subheadline, design: .default).weight(.bold))
+                    .frame(maxWidth: 414)
+                    .padding(.vertical, 16)
+                    .foregroundColor(Color(.systemBackground))
+                    .background(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(Color.primary)
+                    )
+                }
             }
             .padding(.horizontal, 20)
         }

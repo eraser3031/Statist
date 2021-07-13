@@ -26,7 +26,12 @@ struct PlannerView: View {
                     CalendarView(vm: vm, rect: $rect)
                     
                     mainView(geo: geo)
-                        .frame(height: vm.calendarScope ? geo.size.height - 320: geo.size.height - 100)
+                        .frame(height: vm.calendarScope ? geo.size.height - 300: geo.size.height - 80)
+                        .overlay(
+                            Divider()
+                                .foregroundColor(.theme.dividerColor)
+                            ,alignment: .top
+                        )
                         .animation(.spring(), value: vm.calendarScope)
                 }
             }
@@ -38,7 +43,7 @@ struct PlannerView: View {
 extension PlannerView {
     private func mainView(geo: GeometryProxy) -> some View {
         Rectangle()
-            .fill(Color.blue)
+            .fill(Color(.systemBackground))
             .overlay(
                 VStack(alignment: .leading, spacing: 20) {
                 
