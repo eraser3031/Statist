@@ -14,8 +14,7 @@ struct PlannerView: View {
     
     var body: some View {
         
-        return VStack{
-            
+        VStack{
             HeaderView(model: vm)
                 .padding(.horizontal, 20)
                 .padding(.top, 20)
@@ -24,6 +23,8 @@ struct PlannerView: View {
                 VStack(spacing: 0) {
                     
                     CalendarView(vm: vm, rect: $rect)
+                    
+                    
                     
                     mainView(geo: geo)
                         .frame(height: vm.calendarScope ? geo.size.height - 300: geo.size.height - 80)
@@ -37,6 +38,7 @@ struct PlannerView: View {
             }
             .background(GeometryGetter(rect: $rect))
         }
+
     }
 }
 

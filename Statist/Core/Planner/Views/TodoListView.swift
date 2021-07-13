@@ -23,42 +23,52 @@ struct TodoListView: View {
     }
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false){
-            VStack(alignment: .leading, spacing: 10) {
-                ForEach(vm.todoListEntitys.indexed(), id: \.element.id) { (index, model) in
-                    if vm.sectionIndexes.contains(index) {
-                        Text(model.kindEntity?.name ?? "")
-                            .font(Font.system(.headline, design: .default).weight(.bold))
-                            .foregroundColor(model.kindEntity?.color.toPrimary() ?? Color.primary)
-                            .padding(.top, 10)
-                    }
+        ZStack {
+            ScrollView(.vertical, showsIndicators: false){
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach(vm.todoListEntitys.indexed(), id: \.element.id) { (index, model) in
+                        if vm.sectionIndexes.contains(index) {
+                            Text(model.kindEntity?.name ?? "")
+                                .font(Font.system(.headline, design: .default).weight(.bold))
+                                .foregroundColor(model.kindEntity?.color.toPrimary() ?? Color.primary)
+                                .padding(.top, 10)
+                        }
+                            
                         
+                        TodoItemView(model: binding(for: model)){
+                            vm.save()
+                        }
+                    }
                     
-                    TodoItemView(model: binding(for: model)){
-                        vm.save()
+                    Button(action: {
+                        withAnimation(.spring()) {
+                            vm.showAddTodoListView = true
+                        }
+                    }) {
+                        HStack(spacing: 2){
+                            Image(systemName: "plus")
+                            Text("Add")
+                        }
+                        .font(Font.system(.subheadline, design: .default).weight(.bold))
+                        .frame(maxWidth: 414)
+                        .padding(.vertical, 16)
+                        .foregroundColor(Color(.systemBackground))
+                        .background(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .fill(Color.primary)
+                        )
                     }
                 }
-                
-                Button(action: {
-                    withAnimation(.spring()) {
-                        vm.showAddTodoListView = true
-                    }
-                }) {
-                    HStack(spacing: 2){
-                        Image(systemName: "plus")
-                        Text("Add")
-                    }
-                    .font(Font.system(.subheadline, design: .default).weight(.bold))
-                    .frame(maxWidth: 414)
-                    .padding(.vertical, 16)
-                    .foregroundColor(Color(.systemBackground))
-                    .background(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .fill(Color.primary)
-                    )
-                }
+                .padding(.horizontal, 20)
             }
-            .padding(.horizontal, 20)
+            
+            if vm.showAddTodoListView {
+                AddTodoListView(vm: vm)
+            }
+            
+            if vm.showAddKindView {
+                AddKindView(vm: KindViewModel())
+            }
         }
     }
 }
