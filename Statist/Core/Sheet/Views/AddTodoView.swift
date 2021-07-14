@@ -33,7 +33,9 @@ struct AddTodoView: View {
             
             button
             
-        }.padding(.horizontal, 20)
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 30)
     }
 }
 
@@ -96,7 +98,8 @@ extension AddTodoView {
     
     private var button: some View {
         CustomButton("Add", "plus") {
-            print("hi")
+            vm.addTodoListEntity()
+            presentationMode.wrappedValue.dismiss()
         }
         .disabled(vm.isDisabled())
         .overlay(

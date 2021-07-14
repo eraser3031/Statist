@@ -34,6 +34,17 @@ class AddTodoViewModel: ObservableObject {
             print("Error Fetching KindEntitys \(error)")
         }
     }
+    
+    func addTodoListEntity() {
+        let newTodoList = TodoListEntity(context: manager.context)
+        newTodoList.id = UUID().uuidString
+        newTodoList.name = name
+        newTodoList.kindEntity = selectedKind
+        newTodoList.isDone = false
+        
+        save()
+    }
+    
     func save() {
         manager.save()
         getKindEntitys()

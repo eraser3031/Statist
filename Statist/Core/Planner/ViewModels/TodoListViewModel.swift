@@ -16,8 +16,7 @@ class TodoListViewModel: ObservableObject {
     @Published var todoListEntitys: [TodoListEntity] = []
     var sectionIndexes: [Int] = []
     
-    @Published var showAddTodoListView = false
-    @Published var showAddKindView = false
+    @Published var showAddTodoView = false
     
     let manager = CoreDataManager.instance
     

@@ -41,7 +41,7 @@ struct KindPicker: View {
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .stroke(isSelected(kind: kind) ? Color.primary : Color.theme.dividerColor,
                                     lineWidth:isSelected(kind: kind) ? 3 : 1)
-                            .padding(isSelected(kind: kind) ? 3 : 1)
+                            .padding(isSelected(kind: kind) ? 1.5 : 0.5)
                     )
                     .onTapGesture{
                         selectedKind = kind
@@ -64,6 +64,9 @@ struct KindPicker: View {
                         withAnimation(.spring()) {
                             showAddKindView = true
                         }
+                    }
+                    .sheet(isPresented: $showAddKindView) {
+                        AddKindView()
                     }
             }
         }
