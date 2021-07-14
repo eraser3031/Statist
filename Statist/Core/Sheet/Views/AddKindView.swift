@@ -14,50 +14,71 @@ struct AddKindView: View {
     
     var body: some View {
         VStack(spacing: 32) {
-            VStack(spacing: 20) {
-                HStack {
-                    Text("New Todo")
-                    Spacer()
-                    Image(systemName: "xmark.circle.fill")
-                        .onTapGesture {
-                            withAnimation(.spring()) {
-                                presentationMode.wrappedValue.dismiss()
-                            }
-                        }
-                }
-                .font(Font.system(.title3, design: .default).weight(.heavy))
-                
-                Divider()
-                    .foregroundColor(.theme.dividerColor)
-            }
             
-            VStack(alignment: .leading, spacing: 10){
-                Text("Name")
-                    .font(Font.system(.subheadline, design: .default).weight(.bold))
-                
-                CustomTextField("Write New Todo", text: $vm.name)
-            }
+            header
             
-            VStack(alignment: .leading, spacing: 10){
-                Text("Color")
-                    .font(Font.system(.subheadline, design: .default).weight(.bold))
-                
-                CustomColorPicker($vm.colorKind)
-            }
+            name
             
+            color
+                        
             Spacer()
             
-            CustomButton("Add", "plus") {
-                vm.addKindEntity()
-                presentationMode.wrappedValue.dismiss()
-            }
-            .disabled(vm.isDisabled())
-            .overlay(
-                Color(.systemBackground).opacity(vm.isDisabled() ? 0.8 : 0)
-            )
+            button
+            
         }
         .padding(.horizontal, 20)
         .padding(.top, 30)
+    }
+}
+
+extension AddKindView {
+    private var header: some View {
+        VStack(spacing: 20) {
+            HStack {
+                Text("New Todo")
+                Spacer()
+                Image(systemName: "xmark.circle.fill")
+                    .onTapGesture {
+                        withAnimation(.spring()) {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+            }
+            .font(Font.system(.title3, design: .default).weight(.heavy))
+            
+            Divider()
+                .foregroundColor(.theme.dividerColor)
+        }
+    }
+    
+    private var name: some View {
+        VStack(alignment: .leading, spacing: 10){
+            Text("Name")
+                .font(Font.system(.subheadline, design: .default).weight(.bold))
+            
+            CustomTextField("Write New Todo", text: $vm.name)
+        }
+    }
+    
+    private var color: some View {
+        VStack(alignment: .leading, spacing: 10){
+            Text("Color")
+                .font(Font.system(.subheadline, design: .default).weight(.bold))
+            
+            CustomColorPicker($vm.colorKind)
+        }
+
+    }
+    
+    private var button: some View {
+        CustomButton("Add", "plus") {
+            vm.addKindEntity()
+            presentationMode.wrappedValue.dismiss()
+        }
+        .disabled(vm.isDisabled())
+        .overlay(
+            Color(.systemBackground).opacity(vm.isDisabled() ? 0.8 : 0)
+        )
     }
 }
 

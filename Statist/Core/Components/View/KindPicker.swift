@@ -65,9 +65,6 @@ struct KindPicker: View {
                             showAddKindView = true
                         }
                     }
-                    .sheet(isPresented: $showAddKindView) {
-                        AddKindView()
-                    }
             }
         }
     }

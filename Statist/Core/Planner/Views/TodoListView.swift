@@ -45,7 +45,7 @@ struct TodoListView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .sheet(isPresented: $vm.showAddTodoView) {
+                .sheet(isPresented: $vm.showAddTodoView, onDismiss: vm.getTodoListEntitys) {
                     AddTodoView(date: vm.date)
                 }
             }
