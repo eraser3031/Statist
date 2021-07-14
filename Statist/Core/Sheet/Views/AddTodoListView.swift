@@ -18,6 +18,11 @@ struct AddTodoListView: View {
                 Text("New Todo")
                 Spacer()
                 Image(systemName: "xmark.circle.fill")
+                    .onTapGesture {
+                        withAnimation(.spring()) {
+                            vm.showAddTodoListView = false
+                        }
+                    }
             }
             .font(Font.system(.headline, design: .default).weight(.heavy))
 
@@ -39,6 +44,7 @@ struct AddTodoListView: View {
                     .font(Font.system(.subheadline, design: .default).weight(.bold))
                 
                 KindPicker()
+                    .shadow(color: Color(#colorLiteral(red: 0.1333333333, green: 0.3098039216, blue: 0.662745098, alpha: 0.2)), radius: 40, x: 0.0, y: 20)
             }
 
             CustomButton("Add", "plus") {

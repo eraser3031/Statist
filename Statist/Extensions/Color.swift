@@ -19,6 +19,7 @@ struct ColorTheme {
 //    let secondaryText = Color("SecondaryTextColor")
     let dividerColor = Color("DividerColor")
     let itemBackgroundColor = Color("ItemBackgroundColor")
+    let shadowColor = Color("ShadowColor")
 }
 
 enum ColorKind: String, Identifiable, Codable, CaseIterable {

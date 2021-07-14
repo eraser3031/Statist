@@ -29,8 +29,9 @@ struct CustomButton: View {
                 }
                 Text(name)
             }
-            .font(Font.system(.headline, design: .default).weight(.semibold))
-            .frame(maxWidth: 320)
+            .font(Font.system(.headline, design: .default).weight(.bold))
+            .frame(maxWidth: 360)
+            .padding(.vertical, 16)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .fill(Color.primary)

@@ -15,7 +15,7 @@ struct KindPicker: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
+            HStack(spacing: 16) {
                 ForEach(vm.kindEntitys) { kindEntity in
                     HStack(spacing: 16) {
                         Circle()
@@ -29,14 +29,6 @@ struct KindPicker: View {
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
                             .fill(Color(.systemBackground))
                     )
-                    .shadow(color: Color(#colorLiteral(red: 0.1333333333, green: 0.3098039216, blue: 0.662745098, alpha: 0.2)), radius: 40, x: 0.0, y: 20)
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-//                            .stroke()
-//                            .border((selectedKindEntity?.id ?? "") == kindEntity.id ? Color.black : Color.theme.dividerColor,
-//                                    width: (selectedKindEntity?.id ?? "") == kindEntity.id ? 2 : 1)
-//                        
-//                    )
                     .onTapGesture{
                         selectedKindEntity = kindEntity
                     }

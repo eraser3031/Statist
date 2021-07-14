@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		213EB5F3269EB05500059680 /* AddTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5F2269EB05500059680 /* AddTodoView.swift */; };
+		213EB5F5269EB6F500059680 /* AddTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5F4269EB6F500059680 /* AddTodoViewModel.swift */; };
+		213EB5FA269EBAEA00059680 /* AddKindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5F9269EBAEA00059680 /* AddKindView.swift */; };
+		213EB5FC269EBAFD00059680 /* AddKindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5FB269EBAFD00059680 /* AddKindViewModel.swift */; };
 		21565E08269B144F00E28748 /* RotationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21565E07269B144F00E28748 /* RotationModifier.swift */; };
 		2161501E269D86E000401572 /* KindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161501D269D86E000401572 /* KindViewModel.swift */; };
 		21615020269DAF7E00401572 /* AddKindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161501F269DAF7E00401572 /* AddKindView.swift */; };
@@ -20,7 +24,6 @@
 		218A10182694008100579B1E /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A10172694008000579B1E /* PlannerView.swift */; };
 		21BE069C269C90AB00C7B06F /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BE069B269C90AB00C7B06F /* CalendarView.swift */; };
 		21BE069E269CA65600C7B06F /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BE069D269CA65600C7B06F /* TestViewModel.swift */; };
-		21CC0EA3269D68DA00584873 /* AddTodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CC0EA2269D68DA00584873 /* AddTodoListView.swift */; };
 		21CC0EA5269D715800584873 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CC0EA4269D715800584873 /* UIApplication.swift */; };
 		21CC0EA7269D82F300584873 /* KindPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CC0EA6269D82F300584873 /* KindPicker.swift */; };
 		21D045BC2691F5D90048685A /* StatistApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D045BB2691F5D90048685A /* StatistApp.swift */; };
@@ -56,6 +59,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		213EB5F2269EB05500059680 /* AddTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoView.swift; sourceTree = "<group>"; };
+		213EB5F4269EB6F500059680 /* AddTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewModel.swift; sourceTree = "<group>"; };
+		213EB5F9269EBAEA00059680 /* AddKindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKindView.swift; sourceTree = "<group>"; };
+		213EB5FB269EBAFD00059680 /* AddKindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKindViewModel.swift; sourceTree = "<group>"; };
 		21565E07269B144F00E28748 /* RotationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationModifier.swift; sourceTree = "<group>"; };
 		2161501D269D86E000401572 /* KindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindViewModel.swift; sourceTree = "<group>"; };
 		2161501F269DAF7E00401572 /* AddKindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKindView.swift; sourceTree = "<group>"; };
@@ -68,7 +75,6 @@
 		218A10172694008000579B1E /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
 		21BE069B269C90AB00C7B06F /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		21BE069D269CA65600C7B06F /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
-		21CC0EA2269D68DA00584873 /* AddTodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoListView.swift; sourceTree = "<group>"; };
 		21CC0EA4269D715800584873 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		21CC0EA6269D82F300584873 /* KindPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindPicker.swift; sourceTree = "<group>"; };
 		21D045B82691F5D90048685A /* Statist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Statist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +123,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		213EB5F6269EB74F00059680 /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				213EB5F7269EB75C00059680 /* Views */,
+				213EB5F8269EB76600059680 /* ViewModels */,
+			);
+			path = Sheet;
+			sourceTree = "<group>";
+		};
+		213EB5F7269EB75C00059680 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				213EB5F9269EBAEA00059680 /* AddKindView.swift */,
+				213EB5F2269EB05500059680 /* AddTodoView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		213EB5F8269EB76600059680 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				213EB5FB269EBAFD00059680 /* AddKindViewModel.swift */,
+				213EB5F4269EB6F500059680 /* AddTodoViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		218A10122692B9AB00579B1E /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				21D1F50926987F7B00E57727 /* Planner */,
+				213EB5F6269EB74F00059680 /* Sheet */,
 				21D045CF2691F6A10048685A /* Components */,
 			);
 			path = Core;
@@ -285,7 +319,6 @@
 			isa = PBXGroup;
 			children = (
 				21D1F4F22695AD6F00E57727 /* TodoItemView.swift */,
-				21CC0EA2269D68DA00584873 /* AddTodoListView.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -409,6 +442,7 @@
 			files = (
 				21CC0EA5269D715800584873 /* UIApplication.swift in Sources */,
 				21565E08269B144F00E28748 /* RotationModifier.swift in Sources */,
+				213EB5F3269EB05500059680 /* AddTodoView.swift in Sources */,
 				21D1F51326987FF100E57727 /* TodoListViewModel.swift in Sources */,
 				21D1F4DD26948A4D00E57727 /* CustomPicker.swift in Sources */,
 				21615022269DB50F00401572 /* CustomTextField.swift in Sources */,
@@ -420,6 +454,7 @@
 				216955A8269AA816007DF171 /* RandomAcessCollection.swift in Sources */,
 				21CC0EA7269D82F300584873 /* KindPicker.swift in Sources */,
 				21D1F4DF26948AEC00E57727 /* Color.swift in Sources */,
+				213EB5FA269EBAEA00059680 /* AddKindView.swift in Sources */,
 				21D1F508269623C300E57727 /* TodoListView.swift in Sources */,
 				21D045DA269215F40048685A /* Date.swift in Sources */,
 				21D1F4F32695AD6F00E57727 /* TodoItemView.swift in Sources */,
@@ -436,16 +471,17 @@
 				218A10112692B4A500579B1E /* FSCalendarView.swift in Sources */,
 				21D1F4F52695AEFA00E57727 /* PreviewProvider.swift in Sources */,
 				21D1F5022696236E00E57727 /* ProgressItemView.swift in Sources */,
-				21CC0EA3269D68DA00584873 /* AddTodoListView.swift in Sources */,
 				21D1F4E42694948600E57727 /* TimeTable.swift in Sources */,
 				21D1F4F92695FF6100E57727 /* TimeTableColumn.swift in Sources */,
 				21615020269DAF7E00401572 /* AddKindView.swift in Sources */,
 				218A10182694008100579B1E /* PlannerView.swift in Sources */,
 				21D1F504269623A200E57727 /* TimetableView.swift in Sources */,
 				21D1F5192699B62300E57727 /* UserDataContainer.xcdatamodeld in Sources */,
+				213EB5F5269EB6F500059680 /* AddTodoViewModel.swift in Sources */,
 				21BE069E269CA65600C7B06F /* TestViewModel.swift in Sources */,
 				21D1F4FB2696032800E57727 /* TimeTableRow.swift in Sources */,
 				21D045DE26921BDA0048685A /* CalendarViewModel.swift in Sources */,
+				213EB5FC269EBAFD00059680 /* AddKindViewModel.swift in Sources */,
 				21D1F4E82694954700E57727 /* Kind.swift in Sources */,
 				21D1F506269623B400E57727 /* ProgressView.swift in Sources */,
 			);
