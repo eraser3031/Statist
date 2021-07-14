@@ -11,9 +11,9 @@
 		213EB5F5269EB6F500059680 /* AddTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5F4269EB6F500059680 /* AddTodoViewModel.swift */; };
 		213EB5FA269EBAEA00059680 /* AddKindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5F9269EBAEA00059680 /* AddKindView.swift */; };
 		213EB5FC269EBAFD00059680 /* AddKindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5FB269EBAFD00059680 /* AddKindViewModel.swift */; };
+		213EB5FE269ECA8700059680 /* KindPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5FD269ECA8700059680 /* KindPickerViewModel.swift */; };
 		21565E08269B144F00E28748 /* RotationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21565E07269B144F00E28748 /* RotationModifier.swift */; };
 		2161501E269D86E000401572 /* KindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161501D269D86E000401572 /* KindViewModel.swift */; };
-		21615020269DAF7E00401572 /* AddKindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161501F269DAF7E00401572 /* AddKindView.swift */; };
 		21615022269DB50F00401572 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21615021269DB50F00401572 /* CustomTextField.swift */; };
 		21615024269DB62F00401572 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21615023269DB62F00401572 /* CustomButton.swift */; };
 		216955A8269AA816007DF171 /* RandomAcessCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216955A7269AA816007DF171 /* RandomAcessCollection.swift */; };
@@ -63,9 +63,9 @@
 		213EB5F4269EB6F500059680 /* AddTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewModel.swift; sourceTree = "<group>"; };
 		213EB5F9269EBAEA00059680 /* AddKindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKindView.swift; sourceTree = "<group>"; };
 		213EB5FB269EBAFD00059680 /* AddKindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKindViewModel.swift; sourceTree = "<group>"; };
+		213EB5FD269ECA8700059680 /* KindPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindPickerViewModel.swift; sourceTree = "<group>"; };
 		21565E07269B144F00E28748 /* RotationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationModifier.swift; sourceTree = "<group>"; };
 		2161501D269D86E000401572 /* KindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindViewModel.swift; sourceTree = "<group>"; };
-		2161501F269DAF7E00401572 /* AddKindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKindView.swift; sourceTree = "<group>"; };
 		21615021269DB50F00401572 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		21615023269DB62F00401572 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		216955A7269AA816007DF171 /* RandomAcessCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAcessCollection.swift; sourceTree = "<group>"; };
@@ -178,8 +178,8 @@
 		21D045BA2691F5D90048685A /* Statist */ = {
 			isa = PBXGroup;
 			children = (
-				218A10122692B9AB00579B1E /* Fonts */,
 				21D045BB2691F5D90048685A /* StatistApp.swift */,
+				218A10122692B9AB00579B1E /* Fonts */,
 				21D045CE2691F6440048685A /* Services */,
 				21D045CC2691F6190048685A /* Models */,
 				21D045CB2691F6130048685A /* Utilities */,
@@ -275,6 +275,7 @@
 			children = (
 				21D045DD26921BDA0048685A /* CalendarViewModel.swift */,
 				2161501D269D86E000401572 /* KindViewModel.swift */,
+				213EB5FD269ECA8700059680 /* KindPickerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -283,7 +284,6 @@
 			isa = PBXGroup;
 			children = (
 				21CC0EA6269D82F300584873 /* KindPicker.swift */,
-				2161501F269DAF7E00401572 /* AddKindView.swift */,
 				21615023269DB62F00401572 /* CustomButton.swift */,
 				21615021269DB50F00401572 /* CustomTextField.swift */,
 				21D1F4FC26961F9400E57727 /* Progress */,
@@ -456,6 +456,7 @@
 				21D1F4DF26948AEC00E57727 /* Color.swift in Sources */,
 				213EB5FA269EBAEA00059680 /* AddKindView.swift in Sources */,
 				21D1F508269623C300E57727 /* TodoListView.swift in Sources */,
+				213EB5FE269ECA8700059680 /* KindPickerViewModel.swift in Sources */,
 				21D045DA269215F40048685A /* Date.swift in Sources */,
 				21D1F4F32695AD6F00E57727 /* TodoItemView.swift in Sources */,
 				21D1F4E126948C8E00E57727 /* PickerItem.swift in Sources */,
@@ -473,7 +474,6 @@
 				21D1F5022696236E00E57727 /* ProgressItemView.swift in Sources */,
 				21D1F4E42694948600E57727 /* TimeTable.swift in Sources */,
 				21D1F4F92695FF6100E57727 /* TimeTableColumn.swift in Sources */,
-				21615020269DAF7E00401572 /* AddKindView.swift in Sources */,
 				218A10182694008100579B1E /* PlannerView.swift in Sources */,
 				21D1F504269623A200E57727 /* TimetableView.swift in Sources */,
 				21D1F5192699B62300E57727 /* UserDataContainer.xcdatamodeld in Sources */,

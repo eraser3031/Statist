@@ -61,10 +61,6 @@ struct TodoListView: View {
                 }
                 .padding(.horizontal, 20)
             }
-            
-            if vm.showAddTodoListView {
-                AddTodoListView(vm: vm)
-            }
         }
     }
 }

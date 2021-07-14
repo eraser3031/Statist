@@ -1,29 +1,23 @@
 //
-//  AddTodoViewModel.swift
+//  KindPickerViewModel.swift
 //  Statist
 //
 //  Created by Kimyaehoon on 14/07/2021.
 //
 
-import SwiftUI
+import Foundation
 import CoreData
 
-class AddTodoViewModel: ObservableObject {
-    @Published var date: Date
-    @Published var name: String = ""
+class KindPickerViewModel: ObservableObject {
+    
     @Published var kinds: [KindEntity] = []
     @Published var selectedKind: KindEntity?
-    @Published var showAddKindView: Bool = false
+    @Published var showAddKindView = false
     
     let manager = CoreDataManager.instance
     
-    init(date: Date) {
-        self.date = date
+    init(){
         getKindEntitys()
-    }
-    
-    func isDisabled() -> Bool {
-        return name == "" || selectedKind == nil
     }
     
     func getKindEntitys() {
@@ -37,5 +31,13 @@ class AddTodoViewModel: ObservableObject {
     func save() {
         manager.save()
         getKindEntitys()
+    }
+    
+    func isSelected(kind: KindEntity) -> Bool {
+        if let selectedKind = selectedKind {
+            return (selectedKind.id ?? "") == (kind.id ?? "/")
+        } else {
+            return false
+        }
     }
 }

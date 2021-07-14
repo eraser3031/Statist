@@ -12,6 +12,8 @@ struct AddTodoView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var vm: AddTodoViewModel
     
+    let manager = CoreDataManager.instance
+    
     init(date: Date) {
         self._vm = StateObject(wrappedValue: AddTodoViewModel(date: date))
     }
@@ -86,9 +88,9 @@ extension AddTodoView {
             Text("Kind")
                 .font(Font.system(.subheadline, design: .default).weight(.bold))
             
-            KindPicker()
-                .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 1)
-                .shadow(color: .theme.shadowColor.opacity(0.2), radius: 40, x: 0, y: 20)
+            KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
+//                .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 1)
+//                .shadow(color: .theme.shadowColor.opacity(0.2), radius: 40, x: 0, y: 20)
         }
     }
     
