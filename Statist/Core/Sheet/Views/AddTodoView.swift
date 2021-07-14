@@ -91,8 +91,13 @@ extension AddTodoView {
                 .font(Font.system(.subheadline, design: .default).weight(.bold))
             
             KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
-                .sheet(isPresented: $vm.showAddKindView, onDismiss: vm.getKindEntitys) {
-                    AddKindView()
+                .sheet(isPresented: $vm.showAddKindView,
+                       onDismiss: {
+                        withAnimation(.spring()){
+                            vm.getKindEntitys()
+                        }
+                    }) {
+                        AddKindView()
                 }
 //                .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 1)
 //                .shadow(color: .theme.shadowColor.opacity(0.2), radius: 40, x: 0, y: 20)

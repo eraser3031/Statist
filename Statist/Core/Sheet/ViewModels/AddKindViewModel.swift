@@ -13,6 +13,10 @@ class AddKindViewModel: ObservableObject {
     @Published var kinds: [KindEntity] = []
     @Published var colorKind: ColorKind?
     
+    var isOverlap: Bool {
+        return kinds.first {($0.name ?? "") == name} != nil
+    }
+    
     let manager = CoreDataManager.instance
     
     init() {
@@ -20,7 +24,7 @@ class AddKindViewModel: ObservableObject {
     }
     
     func isDisabled() -> Bool {
-        return name == "" || colorKind == nil
+        return name == "" || colorKind == nil || isOverlap
     }
     
     func getKindEntitys() {

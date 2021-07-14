@@ -26,30 +26,57 @@ struct TodoListView: View {
         ZStack {
             ScrollView(.vertical, showsIndicators: false){
                 VStack(alignment: .leading, spacing: 10) {
-                    ForEach(vm.todoListEntitys.indexed(), id: \.element.id) { (index, model) in
-                        if vm.sectionIndexes.contains(index) {
-                            Text(model.kindEntity?.name ?? "")
-                                .font(Font.system(.headline, design: .default).weight(.bold))
-                                .foregroundColor(model.kindEntity?.color.toPrimary() ?? Color.primary)
-                                .padding(.top, 10)
-                        }
-                            
-                        
-                        TodoItemView(model: binding(for: model)){
-                            vm.save()
-                        }
+                    if vm.todoListEntitys.isEmpty {
+                        empty
+                    } else {
+                        todoList
                     }
                     
                     CustomButton("Add", "plus") {
                         vm.showAddTodoView = true
                     }
+                    .padding(.top, 40)
                 }
                 .padding(.horizontal, 20)
-                .sheet(isPresented: $vm.showAddTodoView, onDismiss: vm.getTodoListEntitys) {
-                    AddTodoView(date: vm.date)
+                .sheet(isPresented: $vm.showAddTodoView,
+                       onDismiss: {
+                        withAnimation(.spring()){
+                            vm.getTodoListEntitys()
+                        }
+                    }) {
+                        AddTodoView(date: vm.date)
                 }
             }
         }
+    }
+}
+
+extension TodoListView {
+    private var todoList: some View {
+        ForEach(vm.todoListEntitys.indexed(), id: \.element.id) { (index, model) in
+            if vm.sectionIndexes.contains(index) {
+                Text(model.kindEntity?.name ?? "")
+                    .font(Font.system(.headline, design: .default).weight(.bold))
+                    .foregroundColor(model.kindEntity?.color.toPrimary() ?? Color.primary)
+                    .padding(.top, 10)
+            }
+                
+            
+            TodoItemView(model: binding(for: model)){
+                vm.save()
+            }
+        }
+    }
+    
+    private var empty: some View {
+        Rectangle()
+            .fill(Color(.systemBackground))
+            .frame(height: 300)
+            .overlay(
+                Text("Empty")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+            )
     }
 }
 

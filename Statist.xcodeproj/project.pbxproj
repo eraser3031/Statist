@@ -13,7 +13,6 @@
 		213EB5FC269EBAFD00059680 /* AddKindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5FB269EBAFD00059680 /* AddKindViewModel.swift */; };
 		213EB600269ED8A900059680 /* CustomColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5FF269ED8A900059680 /* CustomColorPicker.swift */; };
 		21565E08269B144F00E28748 /* RotationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21565E07269B144F00E28748 /* RotationModifier.swift */; };
-		2161501E269D86E000401572 /* KindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161501D269D86E000401572 /* KindViewModel.swift */; };
 		21615022269DB50F00401572 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21615021269DB50F00401572 /* CustomTextField.swift */; };
 		21615024269DB62F00401572 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21615023269DB62F00401572 /* CustomButton.swift */; };
 		216955A8269AA816007DF171 /* RandomAcessCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216955A7269AA816007DF171 /* RandomAcessCollection.swift */; };
@@ -23,7 +22,6 @@
 		218A10162692BDE300579B1E /* Gilroy-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10142692BDE200579B1E /* Gilroy-Light.otf */; };
 		218A10182694008100579B1E /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A10172694008000579B1E /* PlannerView.swift */; };
 		21BE069C269C90AB00C7B06F /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BE069B269C90AB00C7B06F /* CalendarView.swift */; };
-		21BE069E269CA65600C7B06F /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BE069D269CA65600C7B06F /* TestViewModel.swift */; };
 		21CC0EA5269D715800584873 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CC0EA4269D715800584873 /* UIApplication.swift */; };
 		21CC0EA7269D82F300584873 /* KindPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CC0EA6269D82F300584873 /* KindPicker.swift */; };
 		21D045BC2691F5D90048685A /* StatistApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D045BB2691F5D90048685A /* StatistApp.swift */; };
@@ -65,7 +63,6 @@
 		213EB5FB269EBAFD00059680 /* AddKindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKindViewModel.swift; sourceTree = "<group>"; };
 		213EB5FF269ED8A900059680 /* CustomColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColorPicker.swift; sourceTree = "<group>"; };
 		21565E07269B144F00E28748 /* RotationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationModifier.swift; sourceTree = "<group>"; };
-		2161501D269D86E000401572 /* KindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindViewModel.swift; sourceTree = "<group>"; };
 		21615021269DB50F00401572 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		21615023269DB62F00401572 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		216955A7269AA816007DF171 /* RandomAcessCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAcessCollection.swift; sourceTree = "<group>"; };
@@ -74,7 +71,6 @@
 		218A10142692BDE200579B1E /* Gilroy-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Light.otf"; sourceTree = "<group>"; };
 		218A10172694008000579B1E /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
 		21BE069B269C90AB00C7B06F /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		21BE069D269CA65600C7B06F /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
 		21CC0EA4269D715800584873 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		21CC0EA6269D82F300584873 /* KindPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindPicker.swift; sourceTree = "<group>"; };
 		21D045B82691F5D90048685A /* Statist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Statist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,7 +270,6 @@
 			isa = PBXGroup;
 			children = (
 				21D045DD26921BDA0048685A /* CalendarViewModel.swift */,
-				2161501D269D86E000401572 /* KindViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -355,7 +350,6 @@
 			isa = PBXGroup;
 			children = (
 				21D1F50C26987FC600E57727 /* PlannerViewModel.swift */,
-				21BE069D269CA65600C7B06F /* TestViewModel.swift */,
 				21D1F50E26987FD700E57727 /* TimeTableViewModel.swift */,
 				21D1F51026987FE500E57727 /* ProgressViewModel.swift */,
 				21D1F51226987FF100E57727 /* TodoListViewModel.swift */,
@@ -450,7 +444,6 @@
 				21D1F51126987FE500E57727 /* ProgressViewModel.swift in Sources */,
 				21BE069C269C90AB00C7B06F /* CalendarView.swift in Sources */,
 				21D1F4E62694949600E57727 /* TimeTableItem.swift in Sources */,
-				2161501E269D86E000401572 /* KindViewModel.swift in Sources */,
 				216955A8269AA816007DF171 /* RandomAcessCollection.swift in Sources */,
 				21CC0EA7269D82F300584873 /* KindPicker.swift in Sources */,
 				21D1F4DF26948AEC00E57727 /* Color.swift in Sources */,
@@ -477,7 +470,6 @@
 				21D1F504269623A200E57727 /* TimetableView.swift in Sources */,
 				21D1F5192699B62300E57727 /* UserDataContainer.xcdatamodeld in Sources */,
 				213EB5F5269EB6F500059680 /* AddTodoViewModel.swift in Sources */,
-				21BE069E269CA65600C7B06F /* TestViewModel.swift in Sources */,
 				213EB600269ED8A900059680 /* CustomColorPicker.swift in Sources */,
 				21D1F4FB2696032800E57727 /* TimeTableRow.swift in Sources */,
 				21D045DE26921BDA0048685A /* CalendarViewModel.swift in Sources */,
