@@ -22,6 +22,7 @@ class TodoListViewModel: ObservableObject {
     
     let manager = CoreDataManager.instance
     
+    
     private var cancellables = Set<AnyCancellable>()
     
     init(date: Date){
@@ -49,6 +50,7 @@ class TodoListViewModel: ObservableObject {
             
             for (index, item) in todoListEntitys.enumerated() {
                 if index == 0 {
+                    sectionIndexes = []
                     sectionIndexes.append(index)
                 } else {
                     if todoListEntitys[sectionIndexes.last ?? 0].kindEntity != item.kindEntity {
@@ -85,6 +87,17 @@ class TodoListViewModel: ObservableObject {
 //        newTodoListEntity.kindEntity = getKindEntity(name: "guitar")
 //        save()
 //    }
+    
+    func deleteTodoListEntity(entity: TodoListEntity) {
+        let model = todoListEntitys.first { $0.id == entity.id }
+        
+        if let model = model {
+            manager.context.delete(model)
+            save()
+        } else {
+            print("Error Deleting TodoListEntity")
+        }
+    }
     
     func addKindEntity(_ name: String, color: ColorKind) {
         

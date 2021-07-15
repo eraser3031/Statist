@@ -70,9 +70,25 @@ extension TodoListView {
                     .padding(.top, 10)
             }
             
-            TodoItemView(binding(for: model), editing: $vm.editingEntity, showEdit: $vm.showEditTodoView) {
+            TodoItemView(model, editing: $vm.editingEntity, showEdit: $vm.showEditTodoView) {
                 vm.save()
             }
+            .contextMenu {
+                Button(action: { edit(model) }) {
+                    Label("Edit", systemImage: "pencil")
+                }
+                
+                Button(action: { moveBackDate(model) }) {
+                    Label("Move back the date", systemImage: "calendar.badge.clock")
+                }
+                
+                Divider()
+                
+                Button(action: { delete(model) }) {
+                    Label("Delete", systemImage: "trash")
+                }
+            }
+            .transition(.opacity)
         }
     }
     
@@ -85,6 +101,27 @@ extension TodoListView {
                     .font(.footnote)
                     .foregroundColor(.secondary)
             )
+    }
+    
+    private func edit(_ model: TodoListEntity) {
+        withAnimation(.spring()) {
+            vm.editingEntity = model
+        }
+        vm.showEditTodoView = true
+    }
+    
+    private func moveBackDate(_ model: TodoListEntity) {
+        let newDate = Calendar.current.date(byAdding: .day, value: 1, to: model.date ?? Date())
+        model.date = newDate
+        vm.save()
+    }
+    
+    private func delete(_ model: TodoListEntity) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation(.spring()) {
+                vm.deleteTodoListEntity(entity: model)
+            }
+        }
     }
 }
 

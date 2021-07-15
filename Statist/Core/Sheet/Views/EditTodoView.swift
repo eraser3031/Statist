@@ -47,7 +47,7 @@ extension EditTodoView {
                 Spacer()
                 
                 Text("Cancel")
-                    .font(.subheadline)
+                    .font(Font.system(.subheadline, design: .default).weight(.semibold))
                     .onTapGesture {
                         presentationMode.wrappedValue.dismiss()
                     }
