@@ -14,7 +14,7 @@ struct TodoListView: View {
     init(date: Date){
         self._vm = StateObject(wrappedValue: TodoListViewModel(date: date))
     }
-      
+    
     private func binding(for item: TodoListEntity) -> Binding<TodoListEntity> {
         guard let index = vm.todoListEntitys.firstIndex(where: { $0.id == item.id }) else {
             fatalError("Can't find scrum in array")
