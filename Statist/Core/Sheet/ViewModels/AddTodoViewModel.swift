@@ -41,7 +41,7 @@ class AddTodoViewModel: ObservableObject {
         newTodoList.name = name
         newTodoList.kindEntity = selectedKind
         newTodoList.isDone = false
-        
+        newTodoList.date = date
         save()
     }
     

@@ -1,58 +1,57 @@
 //
-//  AddTodoView.swift
+//  EditTodoView.swift
 //  Statist
 //
-//  Created by Kimyaehoon on 14/07/2021.
+//  Created by Kimyaehoon on 15/07/2021.
 //
 
 import SwiftUI
 
-struct AddTodoView: View {
+struct EditTodoView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @StateObject var vm: AddTodoViewModel
+    @Binding var editingEntity: TodoListEntity?
+    @StateObject var vm: EditTodoViewModel
     
-    let manager = CoreDataManager.instance
-    
-    init(date: Date) {
-        self._vm = StateObject(wrappedValue: AddTodoViewModel(date: date))
+    init(_ entity: Binding<TodoListEntity?>) {
+        self._editingEntity = entity
+        self._vm = StateObject(wrappedValue: EditTodoViewModel(entity: entity.wrappedValue))
     }
     
     var body: some View {
-        VStack(spacing: 32) {
-            
+        VStack(spacing: 32){
             header
-             
+            
             date
             
             name
-             
+            
             kind
             
             Spacer()
             
             button
-            
         }
         .padding(.horizontal, 20)
         .padding(.top, 30)
     }
 }
 
-extension AddTodoView {
+extension EditTodoView {
     private var header: some View {
         VStack(spacing: 20) {
             HStack {
-                Text("New Todo")
+                Text("Edit Todo")
+                    .font(Font.system(.title3, design: .default).weight(.heavy))
+                
                 Spacer()
-                Image(systemName: "xmark.circle.fill")
+                
+                Text("Cancel")
+                    .font(.subheadline)
                     .onTapGesture {
-                        withAnimation(.spring()) {
-                            presentationMode.wrappedValue.dismiss()
-                        }
+                        presentationMode.wrappedValue.dismiss()
                     }
             }
-            .font(Font.system(.title3, design: .default).weight(.heavy))
             
             Divider()
                 .foregroundColor(.theme.dividerColor)
@@ -90,7 +89,7 @@ extension AddTodoView {
             Text("Kind")
                 .font(Font.system(.subheadline, design: .default).weight(.bold))
             
-            KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
+            KindPicker($vm.kind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
                 .sheet(isPresented: $vm.showAddKindView,
                        onDismiss: {
                         withAnimation(.spring()){
@@ -100,25 +99,20 @@ extension AddTodoView {
                         AddKindView()
                 }
                 .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 1)
-                .shadow(color: .theme.shadowColor.opacity(0.3), radius: 30, x: 0, y: 40)
+                .shadow(color: .theme.shadowColor.opacity(0.2), radius: 40, x: 0, y: 20)
         }
     }
     
     private var button: some View {
-        CustomButton("Add", "plus") {
-            vm.addTodoListEntity()
-            presentationMode.wrappedValue.dismiss()
+        CustomButton("Save", nil) {
+            vm.updateEntity()
+            withAnimation {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
         .disabled(vm.isDisabled())
         .overlay(
             Color(.systemBackground).opacity(vm.isDisabled() ? 0.8 : 0)
         )
-
-    }
-}
-
-struct AddTodoView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddTodoView(date: Date())
     }
 }

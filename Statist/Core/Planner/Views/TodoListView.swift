@@ -25,17 +25,18 @@ struct TodoListView: View {
     var body: some View {
         ZStack {
             ScrollView(.vertical, showsIndicators: false){
-                VStack(alignment: .leading, spacing: 10) {
-                    if vm.todoListEntitys.isEmpty {
-                        empty
-                    } else {
-                        todoList
+                VStack(spacing: 50) {
+                    VStack(alignment: .leading, spacing: 10){
+                        if vm.todoListEntitys.isEmpty {
+                            empty
+                        } else {
+                            todoList
+                        }
                     }
                     
                     CustomButton("Add", "plus") {
                         vm.showAddTodoView = true
                     }
-                    .padding(.top, 40)
                 }
                 .padding(.horizontal, 20)
                 .sheet(isPresented: $vm.showAddTodoView,
@@ -46,6 +47,14 @@ struct TodoListView: View {
                     }) {
                         AddTodoView(date: vm.date)
                 }
+                .sheet(isPresented: $vm.showEditTodoView,
+                       onDismiss: {
+                        withAnimation(.spring()){
+                            vm.getTodoListEntitys()
+                        }
+                    }) {
+                        EditTodoView($vm.editingEntity)
+                }  
             }
         }
     }
@@ -60,9 +69,8 @@ extension TodoListView {
                     .foregroundColor(model.kindEntity?.color.toPrimary() ?? Color.primary)
                     .padding(.top, 10)
             }
-                
             
-            TodoItemView(model: binding(for: model)){
+            TodoItemView(binding(for: model), editing: $vm.editingEntity, showEdit: $vm.showEditTodoView) {
                 vm.save()
             }
         }

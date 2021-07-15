@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2134DA05269FCBC300ED4544 /* EditTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2134DA04269FCBC300ED4544 /* EditTodoView.swift */; };
+		2134DA07269FD13700ED4544 /* EditTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2134DA06269FD13700ED4544 /* EditTodoViewModel.swift */; };
 		213EB5F3269EB05500059680 /* AddTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5F2269EB05500059680 /* AddTodoView.swift */; };
 		213EB5F5269EB6F500059680 /* AddTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5F4269EB6F500059680 /* AddTodoViewModel.swift */; };
 		213EB5FA269EBAEA00059680 /* AddKindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5F9269EBAEA00059680 /* AddKindView.swift */; };
@@ -57,6 +59,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2134DA04269FCBC300ED4544 /* EditTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoView.swift; sourceTree = "<group>"; };
+		2134DA06269FD13700ED4544 /* EditTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewModel.swift; sourceTree = "<group>"; };
 		213EB5F2269EB05500059680 /* AddTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoView.swift; sourceTree = "<group>"; };
 		213EB5F4269EB6F500059680 /* AddTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewModel.swift; sourceTree = "<group>"; };
 		213EB5F9269EBAEA00059680 /* AddKindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddKindView.swift; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 			children = (
 				213EB5F9269EBAEA00059680 /* AddKindView.swift */,
 				213EB5F2269EB05500059680 /* AddTodoView.swift */,
+				2134DA04269FCBC300ED4544 /* EditTodoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -142,6 +147,7 @@
 			children = (
 				213EB5FB269EBAFD00059680 /* AddKindViewModel.swift */,
 				213EB5F4269EB6F500059680 /* AddTodoViewModel.swift */,
+				2134DA06269FD13700ED4544 /* EditTodoViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -444,6 +450,7 @@
 				21D1F51126987FE500E57727 /* ProgressViewModel.swift in Sources */,
 				21BE069C269C90AB00C7B06F /* CalendarView.swift in Sources */,
 				21D1F4E62694949600E57727 /* TimeTableItem.swift in Sources */,
+				2134DA07269FD13700ED4544 /* EditTodoViewModel.swift in Sources */,
 				216955A8269AA816007DF171 /* RandomAcessCollection.swift in Sources */,
 				21CC0EA7269D82F300584873 /* KindPicker.swift in Sources */,
 				21D1F4DF26948AEC00E57727 /* Color.swift in Sources */,
@@ -455,6 +462,7 @@
 				21D1F50D26987FC600E57727 /* PlannerViewModel.swift in Sources */,
 				21615024269DB62F00401572 /* CustomButton.swift in Sources */,
 				21D1F4F12695ACA800E57727 /* TimeTableModel.swift in Sources */,
+				2134DA05269FCBC300ED4544 /* EditTodoView.swift in Sources */,
 				21D1F50F26987FD700E57727 /* TimeTableViewModel.swift in Sources */,
 				21D1F4EF2695A7FB00E57727 /* TodoModel.swift in Sources */,
 				21D1F51B2699E27F00E57727 /* CoreDataManager.swift in Sources */,

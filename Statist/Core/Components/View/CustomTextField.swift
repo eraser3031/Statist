@@ -33,7 +33,7 @@ struct CustomTextField: View {
                     }
                 , alignment: .trailing
             )
-            .font(.footnote)
+            .font(.callout)
             .padding()
             .overlay(
                 RoundedRectangle(cornerRadius: 12)

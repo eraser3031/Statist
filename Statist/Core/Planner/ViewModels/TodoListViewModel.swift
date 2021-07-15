@@ -17,6 +17,8 @@ class TodoListViewModel: ObservableObject {
     var sectionIndexes: [Int] = []
     
     @Published var showAddTodoView = false
+    @Published var showEditTodoView = false
+    @Published var editingEntity: TodoListEntity?
     
     let manager = CoreDataManager.instance
     
@@ -73,15 +75,16 @@ class TodoListViewModel: ObservableObject {
         return nil
     }
     
-    func addTodoListEntity(_ name: String, kind kindName: String) {
-        let newTodoListEntity = TodoListEntity(context: manager.context)
-        newTodoListEntity.name = name
-        newTodoListEntity.id = UUID().uuidString
-        newTodoListEntity.isDone = false
-        
-        newTodoListEntity.kindEntity = getKindEntity(name: "guitar")
-        save()
-    }
+//    func addTodoListEntity(_ name: String, kind kindName: String) {
+//        let newTodoListEntity = TodoListEntity(context: manager.context)
+//        newTodoListEntity.name = name
+//        newTodoListEntity.id = UUID().uuidString
+//        newTodoListEntity.isDone = false
+//        newTodoListEntity.date = Date()
+//        
+//        newTodoListEntity.kindEntity = getKindEntity(name: "guitar")
+//        save()
+//    }
     
     func addKindEntity(_ name: String, color: ColorKind) {
         

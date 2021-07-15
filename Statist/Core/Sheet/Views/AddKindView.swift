@@ -41,7 +41,7 @@ extension AddKindView {
     private var header: some View {
         VStack(spacing: 20) {
             HStack {
-                Text("New Todo")
+                Text("New Kind")
                 Spacer()
                 Image(systemName: "xmark.circle.fill")
                     .onTapGesture {
