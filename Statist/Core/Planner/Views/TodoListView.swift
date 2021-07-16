@@ -59,7 +59,6 @@ struct TodoListView: View {
                 }  
             }
 
-            
 //            Text(environment.date.description)
         }
         .onReceive(environment.$date) { date in
@@ -144,3 +143,5 @@ struct TodoListView_Previews: PreviewProvider {
         TodoListView(date: Date())
     }
 }
+
+
