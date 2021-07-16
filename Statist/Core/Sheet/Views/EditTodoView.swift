@@ -34,6 +34,7 @@ struct EditTodoView: View {
         }
         .padding(.horizontal, 20)
         .padding(.top, 30)
+        .padding(.bottom, 20)
     }
 }
 
@@ -71,7 +72,8 @@ extension EditTodoView {
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .stroke(Color.theme.dividerColor)
-            )
+                )
+                .accentColor(.primary)
         }
     }
     
