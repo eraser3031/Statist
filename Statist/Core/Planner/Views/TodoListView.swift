@@ -58,6 +58,7 @@ struct TodoListView: View {
                         EditTodoView($vm.editingEntity)
                 }  
             }
+
             
 //            Text(environment.date.description)
         }
