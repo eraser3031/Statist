@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PlannerView: View {
+    
+    @StateObject var environment = StatistViewModel()
     @StateObject var vm = PlannerViewModel()
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @State private var rect: CGRect = CGRect()
@@ -18,14 +20,13 @@ struct PlannerView: View {
             HeaderView(model: vm)
                 .padding(.horizontal, 20)
                 .padding(.top, 20)
+                .environmentObject(environment)
             
             GeometryReader { geo in
                 VStack(spacing: 0) {
                     
-                    CalendarView(vm: vm, rect: $rect)
-                    
-                    
-                    
+                    CalendarView(environment: environment, vm: vm, rect: $rect)
+
                     mainView(geo: geo)
                         .frame(height: vm.calendarScope ? geo.size.height - 300: geo.size.height - 80)
                         .overlay(
@@ -55,15 +56,18 @@ extension PlannerView {
                     
                     if vm.pickedItem == .TodoList {
                         
-                        TodoListView(date: vm.date)
+                        TodoListView(date: environment.date)
+                            .environmentObject(environment)
                         
                     } else if vm.pickedItem == .TimeTable {
                         
-                        TimetableView(date: vm.date)
+                        TimetableView(date: environment.date)
+                            .environmentObject(environment)
                         
                     } else if vm.pickedItem == .Progress {
                         
-                        ProgressView(date: vm.date)
+                        ProgressView(date: environment.date)
+                            .environmentObject(environment)
                         
                     } else {
                         EmptyView()

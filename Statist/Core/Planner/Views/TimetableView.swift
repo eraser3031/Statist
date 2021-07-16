@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TimetableView: View {
     
+    @EnvironmentObject var environment: StatistViewModel
     @StateObject var vm: TimeTableViewModel
     
     init(date: Date){

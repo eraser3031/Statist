@@ -11,7 +11,6 @@ import CoreData
 
 class TimeTableViewModel: ObservableObject {
     
-    @Published var date: Date
     @Published var timeTableEntitys: [TimetableEntity] = []
     
     let manager = CoreDataManager.instance
@@ -19,25 +18,17 @@ class TimeTableViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init(date: Date){
-        self.date = date
-        
-        getTimeTableEntitys()
+        getTimeTableEntitys(date: date)
         addSubscriber()
     }
     
-    func addSubscriber() {
-        $date
-            .sink { date in
-                self.getTimeTableEntitys()
-            }
-            .store(in: &cancellables)
-    }
+    func addSubscriber() { }
     
-    func getTimeTableEntitys() {
+    func getTimeTableEntitys(date: Date) {
         let request = NSFetchRequest<TimetableEntity>(entityName: "TimeTableEntity")
         
-        let filter = NSPredicate(format: "date = %@", date as NSDate)
-        request.predicate = filter
+//        let filter = NSPredicate(format: "date = %@", date as NSDate)
+//        request.predicate = filter
         
         do {
             timeTableEntitys = try manager.context.fetch(request)

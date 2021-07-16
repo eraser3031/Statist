@@ -11,7 +11,6 @@ import CoreData
 
 class TodoListViewModel: ObservableObject {
     
-    @Published var date: Date
     @Published var test = false
     @Published var todoListEntitys: [TodoListEntity] = []
     var sectionIndexes: [Int] = []
@@ -26,24 +25,18 @@ class TodoListViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init(date: Date){
-        self.date = date
-        getTodoListEntitys()
+        getTodoListEntitys(date: date)
+        addSubscriber()
     }
     
-    func addSubscriber() {
-        $date
-            .sink { date in
-                self.getTodoListEntitys()
-            }
-            .store(in: &cancellables)
-    }
+    func addSubscriber() { }
     
-    func getTodoListEntitys() {
+    func getTodoListEntitys(date: Date) {
         let request = NSFetchRequest<TodoListEntity>(entityName: "TodoListEntity")
         let sort = NSSortDescriptor(keyPath: \TodoListEntity.kindEntity, ascending: true)
         request.sortDescriptors = [sort]
-//        let filter = NSPredicate(format: "date = %@", date as NSDate)
-//        request.predicate = filter
+        let filter = NSPredicate(format: "date = %@", date as NSDate)
+        request.predicate = filter
         
         do {
             todoListEntitys = try manager.context.fetch(request)
@@ -88,12 +81,12 @@ class TodoListViewModel: ObservableObject {
 //        save()
 //    }
     
-    func deleteTodoListEntity(entity: TodoListEntity) {
+    func deleteTodoListEntity(entity: TodoListEntity, date: Date) {
         let model = todoListEntitys.first { $0.id == entity.id }
         
         if let model = model {
             manager.context.delete(model)
-            save()
+            save(date: date)
         } else {
             print("Error Deleting TodoListEntity")
         }
@@ -113,9 +106,9 @@ class TodoListViewModel: ObservableObject {
         manager.save()
     }
     
-    func save() {
+    func save(date: Date) {
         manager.save()
-        getTodoListEntitys()
+        getTodoListEntitys(date: date)
     }
 }
 

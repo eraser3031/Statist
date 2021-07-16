@@ -11,6 +11,7 @@ import Combine
 
 struct CalendarView: UIViewRepresentable {
     
+    @ObservedObject var environment: StatistViewModel
     @ObservedObject var vm: PlannerViewModel
     @Binding var rect: CGRect
     
@@ -56,7 +57,7 @@ struct CalendarView: UIViewRepresentable {
                 }
                 .store(in: &vm.cancellables)
             
-            vm.$date
+            environment.$date
                 .sink { date in
                     for subview in view.subviews {
                         if let calendar = subview as? FSCalendar {
@@ -109,9 +110,11 @@ struct CalendarView: UIViewRepresentable {
     
     class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource {
         
+        @ObservedObject var environment: StatistViewModel
         @ObservedObject var vm: PlannerViewModel
         
-        init(model: PlannerViewModel) {
+        init(environment: StatistViewModel, model: PlannerViewModel) {
+            self.environment = environment
             self.vm = model
         }
         
@@ -120,12 +123,12 @@ struct CalendarView: UIViewRepresentable {
         }
         
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-            vm.date = date
+            environment.date = date
         }
     }
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(model: vm)
+        return Coordinator(environment: environment, model: vm)
     }
 }
 

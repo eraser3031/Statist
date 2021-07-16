@@ -11,7 +11,6 @@ import CoreData
 
 class PlannerViewModel: ObservableObject {
     
-    @Published var date: Date = Date()
     @Published var pickedItem: PickerItemOption = .TodoList
     @Published var calendarScope: Bool = false
     @Published var rect: CGRect = CGRect()

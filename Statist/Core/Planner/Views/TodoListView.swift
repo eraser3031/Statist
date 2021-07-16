@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TodoListView: View {
     
+    @EnvironmentObject var environment: StatistViewModel
     @StateObject var vm: TodoListViewModel
     
     init(date: Date){
@@ -37,24 +38,32 @@ struct TodoListView: View {
                     CustomButton("Add", "plus") {
                         vm.showAddTodoView = true
                     }
+                    .padding(.bottom, 20)
                 }
                 .padding(.horizontal, 20)
                 .sheet(isPresented: $vm.showAddTodoView,
                        onDismiss: {
                         withAnimation(.spring()){
-                            vm.getTodoListEntitys()
+                            vm.getTodoListEntitys(date: environment.date)
                         }
                     }) {
-                        AddTodoView(date: vm.date)
+                        AddTodoView(date: environment.date)
                 }
                 .sheet(isPresented: $vm.showEditTodoView,
                        onDismiss: {
                         withAnimation(.spring()){
-                            vm.getTodoListEntitys()
+                            vm.getTodoListEntitys(date: environment.date)
                         }
                     }) {
                         EditTodoView($vm.editingEntity)
                 }  
+            }
+            
+//            Text(environment.date.description)
+        }
+        .onReceive(environment.$date) { date in
+            withAnimation(.spring()) {
+                vm.getTodoListEntitys(date: date)
             }
         }
     }
@@ -71,7 +80,7 @@ extension TodoListView {
             }
             
             TodoItemView(model, editing: $vm.editingEntity, showEdit: $vm.showEditTodoView) {
-                vm.save()
+                vm.save(date: environment.date)
             }
             .contextMenu {
                 Button(action: { edit(model) }) {
@@ -113,13 +122,17 @@ extension TodoListView {
     private func moveBackDate(_ model: TodoListEntity) {
         let newDate = Calendar.current.date(byAdding: .day, value: 1, to: model.date ?? Date())
         model.date = newDate
-        vm.save()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation(.spring()) {
+                vm.save(date: environment.date)
+            }
+        }
     }
     
     private func delete(_ model: TodoListEntity) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             withAnimation(.spring()) {
-                vm.deleteTodoListEntity(entity: model)
+                vm.deleteTodoListEntity(entity: model, date: environment.date)
             }
         }
     }

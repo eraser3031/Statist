@@ -18,6 +18,11 @@ extension Date: Identifiable {
         return formatter.string(from: self)
     }
     
+    func toDay() -> Date {
+        let calendar = Calendar.current
+        return calendar.date(bySettingHour: 0, minute: 0, second: 0, of: self) ?? self
+    }
+    
     func nextMonth() -> Date {
         let calendar = Calendar.current
         let newDate = calendar.date(byAdding: .month, value: 1, to: self) ?? self

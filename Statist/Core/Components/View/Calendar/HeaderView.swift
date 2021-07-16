@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HeaderView: View {
     
+    @EnvironmentObject var environment: StatistViewModel
     @ObservedObject var vm: PlannerViewModel
     
     init(model: PlannerViewModel) {
@@ -17,12 +18,12 @@ struct HeaderView: View {
     
     var body: some View {
         HStack {
-            Text(vm.date.titleString())
+            Text(environment.date.titleString())
                 .font(.title)
                 .fontWeight(.heavy)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .onTapGesture {
-                    vm.date = Date()
+                    environment.date = Date().toDay()
                 }
             
             Image(systemName: "calendar")

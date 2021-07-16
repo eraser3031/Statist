@@ -73,8 +73,7 @@ extension AddTodoView {
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .stroke(Color.theme.dividerColor)
-            )
-            .accentColor(.primary)
+                )
         }
     }
     
