@@ -9,16 +9,18 @@ import SwiftUI
 
 struct HeaderView: View {
     
-    @EnvironmentObject var environment: StatistViewModel
+    @ObservedObject var environment: StatistViewModel
     @ObservedObject var vm: PlannerViewModel
+    @State var alterDate: Date = Date().toDay()
     
-    init(model: PlannerViewModel) {
+    init(environment: StatistViewModel, model: PlannerViewModel) {
+        self.environment = environment
         self.vm = model
     }
     
     var body: some View {
         HStack {
-            Text(environment.date.titleString())
+            Text(alterDate.titleString())
                 .font(.title)
                 .fontWeight(.heavy)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -33,12 +35,15 @@ struct HeaderView: View {
                 }
         }
         .padding(.horizontal, 8)
+        .onReceive(environment.$date) { date in
+            alterDate = date
+        }
     }
 }
 
 struct CalendarUpper_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderView(model: PlannerViewModel())
+        HeaderView(environment: StatistViewModel(), model: PlannerViewModel())
             .padding()
             .previewLayout(.sizeThatFits)
     }

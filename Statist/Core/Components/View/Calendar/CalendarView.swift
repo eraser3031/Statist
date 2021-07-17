@@ -122,12 +122,19 @@ struct CalendarView: UIViewRepresentable {
             calendar.frame = bounds
         }
         
+//        func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+//            print("didSelect: \(date.description)")
+//            environment.date = date
+//            print("didSelect/environment: \(environment.date.description)")
+//            return true
+//        }
+        
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
             environment.date = date
         }
     }
     
-    func makeCoordinator() -> Coordinator {
+    func makeCoordinator() -> CalendarView.Coordinator {
         return Coordinator(environment: environment, model: vm)
     }
 }

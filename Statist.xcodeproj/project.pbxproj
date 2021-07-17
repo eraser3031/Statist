@@ -20,7 +20,6 @@
 		216955A8269AA816007DF171 /* RandomAcessCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216955A7269AA816007DF171 /* RandomAcessCollection.swift */; };
 		21897C9B26A1C023003C12C5 /* StatistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21897C9A26A1C023003C12C5 /* StatistViewModel.swift */; };
 		218A100F2692B31800579B1E /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 218A100E2692B31800579B1E /* FSCalendar */; };
-		218A10112692B4A500579B1E /* FSCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A10102692B4A400579B1E /* FSCalendarView.swift */; };
 		218A10152692BDE300579B1E /* Gilroy-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10132692BDE200579B1E /* Gilroy-ExtraBold.otf */; };
 		218A10162692BDE300579B1E /* Gilroy-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10142692BDE200579B1E /* Gilroy-Light.otf */; };
 		218A10182694008100579B1E /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218A10172694008000579B1E /* PlannerView.swift */; };
@@ -72,7 +71,6 @@
 		21615023269DB62F00401572 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		216955A7269AA816007DF171 /* RandomAcessCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAcessCollection.swift; sourceTree = "<group>"; };
 		21897C9A26A1C023003C12C5 /* StatistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatistViewModel.swift; sourceTree = "<group>"; };
-		218A10102692B4A400579B1E /* FSCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarView.swift; sourceTree = "<group>"; };
 		218A10132692BDE200579B1E /* Gilroy-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBold.otf"; sourceTree = "<group>"; };
 		218A10142692BDE200579B1E /* Gilroy-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Light.otf"; sourceTree = "<group>"; };
 		218A10172694008000579B1E /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
@@ -269,7 +267,6 @@
 			children = (
 				21D045D12691F82E0048685A /* HeaderView.swift */,
 				21BE069B269C90AB00C7B06F /* CalendarView.swift */,
-				218A10102692B4A400579B1E /* FSCalendarView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -473,7 +470,6 @@
 				21D1F5002696203000E57727 /* ProgressModel.swift in Sources */,
 				21D045BC2691F5D90048685A /* StatistApp.swift in Sources */,
 				21897C9B26A1C023003C12C5 /* StatistViewModel.swift in Sources */,
-				218A10112692B4A500579B1E /* FSCalendarView.swift in Sources */,
 				21D1F4F52695AEFA00E57727 /* PreviewProvider.swift in Sources */,
 				21D1F5022696236E00E57727 /* ProgressItemView.swift in Sources */,
 				21D1F4E42694948600E57727 /* TimeTable.swift in Sources */,

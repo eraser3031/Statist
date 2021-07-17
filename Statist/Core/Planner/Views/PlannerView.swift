@@ -17,10 +17,9 @@ struct PlannerView: View {
     var body: some View {
         
         VStack{
-            HeaderView(model: vm)
+            HeaderView(environment: environment, model: vm)
                 .padding(.horizontal, 20)
                 .padding(.top, 20)
-                .environmentObject(environment)
             
             GeometryReader { geo in
                 VStack(spacing: 0) {

@@ -58,8 +58,6 @@ struct TodoListView: View {
                         EditTodoView($vm.editingEntity)
                 }  
             }
-
-//            Text(environment.date.description)
         }
         .onReceive(environment.$date) { date in
             withAnimation(.spring()) {
@@ -77,6 +75,7 @@ extension TodoListView {
                     .font(Font.system(.headline, design: .default).weight(.bold))
                     .foregroundColor(model.kindEntity?.color.toPrimary() ?? Color.primary)
                     .padding(.top, 10)
+                    .id(model.kindEntity?.name ?? "")
             }
             
             TodoItemView(model, editing: $vm.editingEntity, showEdit: $vm.showEditTodoView) {
