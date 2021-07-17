@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TimeTableRow: View {
     var body: some View {
-        HStack(spacing: 0){
+        HStack(spacing: 1){
             Rectangle()
                 .fill(Color(.systemBackground))
                 .frame(maxWidth: 48)
@@ -39,6 +39,10 @@ struct TimeTableRow: View {
         }
         .frame(height: 24)
         .background(Color(.systemBackground))
+        .overlay(
+            Rectangle()
+                .stroke(Color.theme.dividerColor, lineWidth: 1)
+        )
     }
 }
 

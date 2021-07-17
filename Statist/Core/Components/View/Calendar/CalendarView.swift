@@ -41,7 +41,7 @@ struct CalendarView: UIViewRepresentable {
         
         view.addSubview(calendar)
         
-        let newRect = CGRect(x: 0, y: 0, width: rect.width, height: 300)
+        let newRect = CGRect(x: 0, y: 0, width: rect.width - 32, height: 300)
         calendar.frame = newRect
         
         func addSubscriber() {
@@ -76,9 +76,9 @@ struct CalendarView: UIViewRepresentable {
     
     func updateUIView(_ view: UIView, context: UIViewRepresentableContext<CalendarView>) {
         for calendar in view.subviews {
-            if rect.width != calendar.frame.width {
+            if (rect.width - 32) != calendar.frame.width {
                 calendar.removeFromSuperview()
-                let newRect = CGRect(x: 0, y: 0, width: rect.width, height: 300)
+                let newRect = CGRect(x: 0, y: 0, width: rect.width - 32, height: 300)
                 let calendar = FSCalendar(frame: newRect)
                 
                 func setCalendar(calendar: FSCalendar) {

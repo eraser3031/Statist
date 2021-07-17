@@ -13,19 +13,20 @@ struct TimeTable: View {
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 1) {
-                TimeTableRow()
-                HStack(spacing: 0){
-                    TimeTableColumn()
-                    LazyVStack(spacing: 1){
-                        
-                        ForEach(0..<25){ _ in
-                            TimeTableItem()
+            
+            LazyVStack(spacing: 1, pinnedViews: [.sectionHeaders]) {
+                Section(header: TimeTableRow()) {
+                    HStack(spacing: 1){
+                        TimeTableColumn()
+                        LazyVStack(spacing: 1){
+                            ForEach(0..<25){ _ in
+                                TimeTableItem()
+                            }
                         }
                     }
                 }
             }
-            .padding(1)
+            .padding([.horizontal, .bottom], 1)
             .background(Color.theme.dividerColor)
             .padding()
             .frame(width: UIScreen.main.bounds.width)

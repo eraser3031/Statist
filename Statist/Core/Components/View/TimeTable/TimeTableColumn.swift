@@ -19,13 +19,6 @@ struct TimeTableColumn: View {
                             .font(.footnote)
                             .foregroundColor(Color(.tertiaryLabel))
                     )
-                    .overlay(
-                        HStack {
-                        Divider()
-                            .foregroundColor(.theme.dividerColor)
-                        },
-                        alignment: .trailing
-                    )
             }
         }
     }

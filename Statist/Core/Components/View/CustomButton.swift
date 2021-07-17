@@ -12,10 +12,12 @@ struct CustomButton: View {
     let label: String?
     let name: String
     let action: () -> Void
+    var isPrimary = true
     
-    init(_ name: String, _ label: String?, action: @escaping () -> Void) {
+    init(_ name: String, _ label: String?, isPrimary: Bool = true, action: @escaping () -> Void) {
         self.name = name
         self.label = label
+        self.isPrimary = isPrimary
         self.action = action
     }
     
@@ -33,10 +35,17 @@ struct CustomButton: View {
             .frame(maxWidth: 360)
             .padding(.vertical, 16)
             .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.primary)
+                isPrimary ?
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Color.primary) : nil
             )
-            .foregroundColor(Color(.systemBackground))
+            .background(
+                !isPrimary ?
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(Color.theme.dividerColor) : nil
+            )
+            .foregroundColor(isPrimary ?
+                             Color(.systemBackground) : Color.primary)
         }
     }
 }

@@ -11,15 +11,10 @@ struct TimeTableItem: View {
     
     var body: some View {
         
-        HStack(spacing: 0){
+        HStack(spacing: 1){
             ForEach(0..<6){ i in
                 Rectangle()
                     .fill(Color(.systemBackground))
-                    .overlay(
-                        Divider()
-                            .foregroundColor(i == 5 ? .clear : .theme.dividerColor),
-                        alignment: .trailing
-                    )
                     .frame(minHeight: 48)
             }
         }

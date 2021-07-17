@@ -35,7 +35,7 @@ struct TodoListView: View {
                         }
                     }
                     
-                    CustomButton("Add", "plus") {
+                    CustomButton("Add", "plus", isPrimary: false) {
                         vm.showAddTodoView = true
                     }
                     .padding(.bottom, 20)

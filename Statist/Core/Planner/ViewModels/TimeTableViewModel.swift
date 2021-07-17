@@ -25,7 +25,7 @@ class TimeTableViewModel: ObservableObject {
     func addSubscriber() { }
     
     func getTimeTableEntitys(date: Date) {
-        let request = NSFetchRequest<TimetableEntity>(entityName: "TimeTableEntity")
+        let request = NSFetchRequest<TimetableEntity>(entityName: "TimetableEntity")
         
 //        let filter = NSPredicate(format: "date = %@", date as NSDate)
 //        request.predicate = filter

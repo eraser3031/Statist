@@ -25,6 +25,7 @@ struct PlannerView: View {
                 VStack(spacing: 0) {
                     
                     CalendarView(environment: environment, vm: vm, rect: $rect)
+                        .padding(.horizontal, 16)
 
                     mainView(geo: geo)
                         .frame(height: vm.calendarScope ? geo.size.height - 300: geo.size.height - 80)
@@ -73,6 +74,9 @@ extension PlannerView {
                     }
                 
                 }
+                .background(
+                    vm.pickedItem != .TodoList ? Color.theme.groupBackgroundColor : nil
+                )
             )
     }
 }
