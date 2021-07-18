@@ -17,8 +17,34 @@ struct TimetableView: View {
     }
     
     var body: some View {
-        ZStack{
-            TimeTable()
+        VStack{
+            
+            KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
+            
+            AlterTimeTable(items: vm.items, tapColumn: vm.tapColumn) { i in
+                Rectangle()
+                    .fill(vm.items[i.out][i.in]?.color.toPrimary() ?? Color.clear)
+                    .background(Divider(), alignment: .trailing)
+                    .background(
+                        VStack{
+                            Spacer()
+                            Divider()
+                        }, alignment: .bottom)
+                    .frame(minHeight: 48)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        if vm.items[i.out][i.in] == nil {
+                            withAnimation(.easeOutExpo){
+                                vm.items[i.out][i.in] = vm.decodeToKind()
+                            }
+                        } else {
+                            withAnimation(.easeOutExpo){
+                                vm.items[i.out][i.in] = nil
+                            }
+                        }
+                    }
+                    .transition(.scale)
+            }
         }
     }
 }

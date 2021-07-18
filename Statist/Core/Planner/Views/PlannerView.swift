@@ -75,7 +75,7 @@ extension PlannerView {
                 
                 }
                 .background(
-                    vm.pickedItem != .TodoList ? Color.theme.groupBackgroundColor : nil
+                    vm.pickedItem != .TodoList ? Color.theme.groupBackgroundColor.ignoresSafeArea() : nil
                 )
             )
     }

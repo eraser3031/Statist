@@ -47,14 +47,4 @@ class DeveloperPreview {
 //            print("why...")
 //        }
     }
-    
-    var kind1 = Kind(name: "개발", color: .purple)
-    var kind2 = Kind(name: "기타", color: .red)
-    var kind3 = Kind(name: "일본어", color: .green)
-    
-    
-    var todoModel1 = TodoModel("WWDC21 Formatter 강의 듣기", kind: Kind(name: "개발", color: .purple))
-    var todoModel2 = TodoModel("김민태의 프론트엔드 강의 2개 학습", kind: Kind(name: "개발", color: .purple))
-    var todoModel3 = TodoModel("솔로 파트 연습", kind: Kind(name: "기타", color: .red))
-    var todoModel4 = TodoModel("단어 복습 후 20개 암기", kind: Kind(name: "일본어", color: .green))
 }

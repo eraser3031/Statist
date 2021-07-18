@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Kind: Identifiable {
-    let id = UUID().uuidString
+    let id: String
     var name: String
     var color: ColorKind
 }

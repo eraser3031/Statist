@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct TimeTableColumn: View {
+    
+    let tapColumn: (Int) -> Void
+    
     var body: some View {
-        VStack(spacing: 1) {
-            ForEach(0..<25) { i in
+        VStack(spacing: 0) {
+            ForEach(0..<24) { i in
                 Rectangle()
                     .fill(Color(.systemBackground))
                     .frame(maxWidth: 48, minHeight: 48)
@@ -19,15 +22,28 @@ struct TimeTableColumn: View {
                             .font(.footnote)
                             .foregroundColor(Color(.tertiaryLabel))
                     )
+                    .overlay(Divider(), alignment: .bottom)
+                    .overlay(
+                        HStack{
+                            Divider()
+                            Spacer()
+                            Divider()
+                        }
+                    )
+                    .onTapGesture {
+                        withAnimation(.easeOutExpo) {
+                            tapColumn(i)
+                        }
+                    }
             }
         }
     }
 }
-
-struct TimeTableColumn_Previews: PreviewProvider {
-    static var previews: some View {
-        TimeTableColumn()
-            .padding()
-            .previewLayout(.sizeThatFits)
-    }
-}
+//
+//struct TimeTableColumn_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TimeTableColumn()
+//            .padding()
+//            .previewLayout(.sizeThatFits)
+//    }
+//}
