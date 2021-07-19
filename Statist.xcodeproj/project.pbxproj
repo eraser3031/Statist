@@ -23,7 +23,6 @@
 		218A100F2692B31800579B1E /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 218A100E2692B31800579B1E /* FSCalendar */; };
 		218A10152692BDE300579B1E /* Gilroy-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10132692BDE200579B1E /* Gilroy-ExtraBold.otf */; };
 		218A10162692BDE300579B1E /* Gilroy-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10142692BDE200579B1E /* Gilroy-Light.otf */; };
-		21A3E9F026A2CCCC002401E5 /* TimeTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A3E9EF26A2CCCC002401E5 /* TimeTableItem.swift */; };
 		21BE069C269C90AB00C7B06F /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BE069B269C90AB00C7B06F /* CalendarView.swift */; };
 		21C51E7326A2B58F007EEBCB /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C51E7226A2B58F007EEBCB /* PlannerView.swift */; };
 		21CC0EA5269D715800584873 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CC0EA4269D715800584873 /* UIApplication.swift */; };
@@ -39,15 +38,12 @@
 		21D1F4E126948C8E00E57727 /* PickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4E026948C8E00E57727 /* PickerItem.swift */; };
 		21D1F4E42694948600E57727 /* TimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4E32694948600E57727 /* TimeTable.swift */; };
 		21D1F4E62694949600E57727 /* TimeTableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4E52694949600E57727 /* TimeTableRow.swift */; };
-		21D1F4E82694954700E57727 /* Kind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4E72694954700E57727 /* Kind.swift */; };
-		21D1F4EF2695A7FB00E57727 /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4EE2695A7FB00E57727 /* TodoModel.swift */; };
-		21D1F4F12695ACA800E57727 /* TimeTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4F02695ACA800E57727 /* TimeTableModel.swift */; };
+		21D1F4E82694954700E57727 /* KindEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4E72694954700E57727 /* KindEntity.swift */; };
 		21D1F4F32695AD6F00E57727 /* TodoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4F22695AD6F00E57727 /* TodoItemView.swift */; };
 		21D1F4F52695AEFA00E57727 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4F42695AEFA00E57727 /* PreviewProvider.swift */; };
 		21D1F4F72695F2D600E57727 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4F62695F2D600E57727 /* TimeInterval.swift */; };
 		21D1F4F92695FF6100E57727 /* TimeTableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4F82695FF6100E57727 /* TimeTableColumn.swift */; };
 		21D1F4FB2696032800E57727 /* TimeTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4FA2696032800E57727 /* TimeTableHeader.swift */; };
-		21D1F5002696203000E57727 /* ProgressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4FF2696203000E57727 /* ProgressModel.swift */; };
 		21D1F5022696236E00E57727 /* ProgressItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F5012696236E00E57727 /* ProgressItemView.swift */; };
 		21D1F504269623A200E57727 /* TimetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F503269623A200E57727 /* TimetableView.swift */; };
 		21D1F506269623B400E57727 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F505269623B400E57727 /* ProgressView.swift */; };
@@ -76,7 +72,6 @@
 		21897C9A26A1C023003C12C5 /* StatistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatistViewModel.swift; sourceTree = "<group>"; };
 		218A10132692BDE200579B1E /* Gilroy-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBold.otf"; sourceTree = "<group>"; };
 		218A10142692BDE200579B1E /* Gilroy-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Light.otf"; sourceTree = "<group>"; };
-		21A3E9EF26A2CCCC002401E5 /* TimeTableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableItem.swift; sourceTree = "<group>"; };
 		21BE069B269C90AB00C7B06F /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		21C51E7226A2B58F007EEBCB /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
 		21CC0EA4269D715800584873 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -94,15 +89,12 @@
 		21D1F4E026948C8E00E57727 /* PickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerItem.swift; sourceTree = "<group>"; };
 		21D1F4E32694948600E57727 /* TimeTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTable.swift; sourceTree = "<group>"; };
 		21D1F4E52694949600E57727 /* TimeTableRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableRow.swift; sourceTree = "<group>"; };
-		21D1F4E72694954700E57727 /* Kind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kind.swift; sourceTree = "<group>"; };
-		21D1F4EE2695A7FB00E57727 /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
-		21D1F4F02695ACA800E57727 /* TimeTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableModel.swift; sourceTree = "<group>"; };
+		21D1F4E72694954700E57727 /* KindEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindEntity.swift; sourceTree = "<group>"; };
 		21D1F4F22695AD6F00E57727 /* TodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemView.swift; sourceTree = "<group>"; };
 		21D1F4F42695AEFA00E57727 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		21D1F4F62695F2D600E57727 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		21D1F4F82695FF6100E57727 /* TimeTableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableColumn.swift; sourceTree = "<group>"; };
 		21D1F4FA2696032800E57727 /* TimeTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableHeader.swift; sourceTree = "<group>"; };
-		21D1F4FF2696203000E57727 /* ProgressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressModel.swift; sourceTree = "<group>"; };
 		21D1F5012696236E00E57727 /* ProgressItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressItemView.swift; sourceTree = "<group>"; };
 		21D1F503269623A200E57727 /* TimetableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableView.swift; sourceTree = "<group>"; };
 		21D1F505269623B400E57727 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
@@ -231,10 +223,7 @@
 		21D045CC2691F6190048685A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				21D1F4E72694954700E57727 /* Kind.swift */,
-				21D1F4F02695ACA800E57727 /* TimeTableModel.swift */,
-				21D1F4EE2695A7FB00E57727 /* TodoModel.swift */,
-				21D1F4FF2696203000E57727 /* ProgressModel.swift */,
+				21D1F4E72694954700E57727 /* KindEntity.swift */,
 				21D1F5172699B62300E57727 /* UserDataContainer.xcdatamodeld */,
 			);
 			path = Models;
@@ -313,9 +302,8 @@
 			isa = PBXGroup;
 			children = (
 				21D1F4E32694948600E57727 /* TimeTable.swift */,
-				21D1F4FA2696032800E57727 /* TimeTableHeader.swift */,
 				21D1F4E52694949600E57727 /* TimeTableRow.swift */,
-				21A3E9EF26A2CCCC002401E5 /* TimeTableItem.swift */,
+				21D1F4FA2696032800E57727 /* TimeTableHeader.swift */,
 				21D1F4F82695FF6100E57727 /* TimeTableColumn.swift */,
 			);
 			path = TimeTable;
@@ -468,19 +456,15 @@
 				21D1F4E126948C8E00E57727 /* PickerItem.swift in Sources */,
 				21D1F50D26987FC600E57727 /* PlannerViewModel.swift in Sources */,
 				21615024269DB62F00401572 /* CustomButton.swift in Sources */,
-				21D1F4F12695ACA800E57727 /* TimeTableModel.swift in Sources */,
 				2134DA05269FCBC300ED4544 /* EditTodoView.swift in Sources */,
 				21C51E7326A2B58F007EEBCB /* PlannerView.swift in Sources */,
 				21D1F50F26987FD700E57727 /* TimeTableViewModel.swift in Sources */,
-				21D1F4EF2695A7FB00E57727 /* TodoModel.swift in Sources */,
 				21D1F51B2699E27F00E57727 /* CoreDataManager.swift in Sources */,
 				21D045D22691F82E0048685A /* HeaderView.swift in Sources */,
-				21D1F5002696203000E57727 /* ProgressModel.swift in Sources */,
 				21D045BC2691F5D90048685A /* StatistApp.swift in Sources */,
 				21897C9B26A1C023003C12C5 /* StatistViewModel.swift in Sources */,
 				21D1F4F52695AEFA00E57727 /* PreviewProvider.swift in Sources */,
 				21D1F5022696236E00E57727 /* ProgressItemView.swift in Sources */,
-				21A3E9F026A2CCCC002401E5 /* TimeTableItem.swift in Sources */,
 				21D1F4E42694948600E57727 /* TimeTable.swift in Sources */,
 				21D1F4F92695FF6100E57727 /* TimeTableColumn.swift in Sources */,
 				21D1F504269623A200E57727 /* TimetableView.swift in Sources */,
@@ -490,7 +474,7 @@
 				21D1F4FB2696032800E57727 /* TimeTableHeader.swift in Sources */,
 				21D045DE26921BDA0048685A /* CalendarViewModel.swift in Sources */,
 				213EB5FC269EBAFD00059680 /* AddKindViewModel.swift in Sources */,
-				21D1F4E82694954700E57727 /* Kind.swift in Sources */,
+				21D1F4E82694954700E57727 /* KindEntity.swift in Sources */,
 				21D1F506269623B400E57727 /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

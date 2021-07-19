@@ -7,51 +7,26 @@
 
 import SwiftUI
 
-struct TimeTableRow: View {
+struct TimeTableRow<ItemView>: View where ItemView: View {
     
-    let selectedKind: Kind?
-    
-    init(_ selectedKind: Kind?) {
-        self.selectedKind = selectedKind
-    }
-    
-    var body: some View {
-        HStack(spacing: 1){
-            ForEach(0..<6){ i in
-                TimeTableItem(selectedKind)
-            }
-        }
-    }
-}
-
-//struct TimeTableRow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TimeTableRow()
-//            .previewLayout(.fixed(width: 50, height: 45))
-//    }
-//}
-
-struct AlterTimeTableRow<ItemView>: View where ItemView: View {
-    
-    typealias indexes = (out: Int, in: Int)
     let index: Int
-    let items: [Kind?]
-    let content: (indexes) -> ItemView
+    let items: [KindEntity?]
+    let content: (KindEntity?, Int, Int) -> ItemView
     
     init(
         index: Int,
-        items: [Kind?],
-        @ViewBuilder content: @escaping (indexes) -> ItemView
+        models: [KindEntity?],
+        @ViewBuilder content: @escaping (KindEntity?, Int, Int) -> ItemView
     ) {
         self.index = index
-        self.items = items
+        self.items = models
         self.content = content
     }
     
     var body: some View {
         HStack(spacing: 0){
             ForEach(0..<6){ i in
-                self.content( (index, i) )
+                self.content( items[i], index, i )
             }
         }
     }

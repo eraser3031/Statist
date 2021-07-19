@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-struct Kind: Identifiable {
-    let id: String
-    var name: String
-    var color: ColorKind
-}
-
 extension KindEntity {
     var color: ColorKind {
         return ColorKind.string(name: self.colorKindID ?? "") ?? ColorKind.blue

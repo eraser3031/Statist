@@ -9,19 +9,19 @@ import SwiftUI
 
 struct TimeTableItem: View {
     
-    let selectedKind: Kind?
-    @State var kind: Kind?
+    let model: TTItemModel
+    @State var kind: KindEntity?
     
-    init(_ selectedKind: Kind?) {
-        self.selectedKind = selectedKind
+    init(_ model: TTItemModel) {
+        self.model = model
     }
     
     var body: some View {
         Rectangle()
-            .fill(kind?.color.toPrimary() ?? Color(.systemBackground))
+            .fill(model.kindEntity?.color.toPrimary() ?? Color(.systemBackground))
             .frame(minHeight: 48)
             .onTapGesture {
-                kind = selectedKind
+                kind = model.kindEntity
             }
     }
 }

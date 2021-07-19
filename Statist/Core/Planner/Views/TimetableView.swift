@@ -21,9 +21,9 @@ struct TimetableView: View {
             
             KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
             
-            AlterTimeTable(items: vm.items, tapColumn: vm.tapColumn) { i in
+            TimeTable(models: vm.items, tapColumn: vm.tapColumn) { item, outIndex, inIndex in
                 Rectangle()
-                    .fill(vm.items[i.out][i.in]?.color.toPrimary() ?? Color.clear)
+                    .fill(item?.color.toPrimary() ?? Color.clear)
                     .background(Divider(), alignment: .trailing)
                     .background(
                         VStack{
@@ -33,17 +33,22 @@ struct TimetableView: View {
                     .frame(minHeight: 48)
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        if vm.items[i.out][i.in] == nil {
+                        if item == nil {
                             withAnimation(.easeOutExpo){
-                                vm.items[i.out][i.in] = vm.decodeToKind()
+                                vm.items[outIndex][inIndex] = vm.selectedKind
                             }
                         } else {
                             withAnimation(.easeOutExpo){
-                                vm.items[i.out][i.in] = nil
+                                vm.items[outIndex][inIndex] = nil
                             }
                         }
                     }
                     .transition(.scale)
+            }
+        }
+        .onReceive(environment.$date) { date in
+            withAnimation(.spring()) {
+                vm.getTimeTableEntitys(date: date)
             }
         }
     }

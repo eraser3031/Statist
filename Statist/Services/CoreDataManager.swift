@@ -23,9 +23,6 @@ class CoreDataManager {
             newItem.name = i == 1 ? "Study" : i == 2 ? "Guitar" : "Exercise"
             newItem.id = UUID().uuidString
             newItem.colorKindID = i == 1 ? "blue" : i == 2 ? "purple" : "red"
-            newItem.progressEntitys = []
-            newItem.timeTableEntitys = []
-            newItem.todoListEntitys = []
         }
         
         do {

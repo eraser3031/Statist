@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProgressModel {
     let id = UUID().uuidString
-    var kind: Kind
+//    var kind: Kind
     var name: String
     var goal: Int
     var records: [Date]

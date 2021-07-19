@@ -7,57 +7,18 @@
 
 import SwiftUI
 
-struct TimeTable: View {
+struct TimeTable<ItemView>: View where ItemView: View {
     
-    let selectedKind: Kind?
-    var columns: [GridItem] = Array(repeating: .init(.flexible(), spacing: 1), count: 7)
-    
-    var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            
-            LazyVStack(spacing: 1, pinnedViews: [.sectionHeaders]) {
-                Section(header: TimeTableHeader()) {
-                    HStack(spacing: 1){
-//                        TimeTableColumn()
-                        LazyVStack(spacing: 1){
-                            ForEach(0..<25){ _ in
-                                TimeTableRow(selectedKind)
-                            }
-                        }
-                    }
-                }
-            }
-            .padding([.horizontal, .bottom], 1)
-            .background(Color.theme.dividerColor)
-            .padding()
-            .frame(width: UIScreen.main.bounds.width)
-            
-        }
-    }
-}
-
-//struct TimeTable_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TimeTable()
-////            .preferredColorScheme(.dark)
-//    }
-//}
-
-
-struct AlterTimeTable<ItemView>: View where ItemView: View {
-    
-    typealias indexes = (out: Int, in: Int)
-    
-    let items: [[Kind?]]
+    let items: [[KindEntity?]]
     let tapColumn: (Int) -> Void
-    let content: (indexes) -> ItemView
+    let content: (KindEntity?, Int, Int) -> ItemView
     
     init(
-        items: [[Kind?]],
+        models: [[KindEntity?]],
         tapColumn: @escaping (Int) -> Void,
-        @ViewBuilder content: @escaping (indexes) -> ItemView
+        @ViewBuilder content: @escaping (KindEntity?, Int, Int) -> ItemView
     ) {
-        self.items = items
+        self.items = models
         self.tapColumn = tapColumn
         self.content = content
     }
@@ -70,7 +31,7 @@ struct AlterTimeTable<ItemView>: View where ItemView: View {
                         TimeTableColumn(tapColumn: tapColumn)
                         LazyVStack(spacing: 0){
                             ForEach(0..<items.count){ index in
-                                AlterTimeTableRow(index: index, items: items[index], content: self.content)
+                                TimeTableRow(index: index, models: items[index], content: self.content)
                             }
                         }
                     }
