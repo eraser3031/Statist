@@ -98,7 +98,9 @@ class TodoListViewModel: ObservableObject {
         newKindEntity.name = name
         newKindEntity.id = UUID().uuidString
         newKindEntity.colorKindID = color.id
-        
+        newKindEntity.progressEntitys = []
+        newKindEntity.timetableEntitys = []
+        newKindEntity.todolistEntitys = []
         manager.save()
     }
     

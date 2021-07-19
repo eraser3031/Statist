@@ -41,7 +41,9 @@ class AddKindViewModel: ObservableObject {
         newKind.id = UUID().uuidString
         newKind.name = name
         newKind.colorKindID = colorKind?.id ?? "blue"
-        
+        newKind.progressEntitys = []
+        newKind.timetableEntitys = []
+        newKind.todolistEntitys = []
         save()
     }
     

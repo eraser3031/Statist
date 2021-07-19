@@ -28,18 +28,17 @@ class TimeTableViewModel: ObservableObject {
         getTimeTableEntitys(date: date)
         getKindEntitys()
         addSubscriber()
-        items = [[KindEntity?]](repeating: [KindEntity?](repeating: nil, count: 6), count: 24)
     }
     
     func addSubscriber() {
         $items
-            .debounce(for: .seconds(3), scheduler: DispatchQueue.main)
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
             .map(encodeToTimetableEntitys)
             .sink { [weak self] entitys in
                 guard let self = self else { return }
                 self.removeTimetableEntitys(date: self.date)
                 self.timeTableEntitys = entitys
-                self.save(date: self.date)
+                self.manager.save()
             }
             .store(in: &cancellables)
     }
@@ -65,15 +64,15 @@ class TimeTableViewModel: ObservableObject {
                 if flattenItems[i] != nil {
                     makeEntity(i)
                 }
+            }
+            
+            if flattenItems[i] == flattenItems[i+1] {
+                if flattenItems[i+1] != nil {
+                    entitys[entitys.endIndex - 1].minute += 10
+                }
             } else {
-                if flattenItems[i] == flattenItems[i+1] {
-                    if flattenItems[i+1] != nil {
-                        entitys[entitys.endIndex - 1].minute += 10
-                    }
-                } else {
-                    if flattenItems[i+1] != nil {
-                        makeEntity(i)
-                    }
+                if flattenItems[i+1] != nil {
+                    makeEntity(i+1)
                 }
             }
         }
@@ -99,9 +98,31 @@ class TimeTableViewModel: ObservableObject {
         
         do {
             timeTableEntitys = try manager.context.fetch(request)
+            items = decodeToItems(entitys: timeTableEntitys)
         } catch let error {
             print("Error Fetching TimetableEntity \(error)")
         }
+    }
+    
+    func decodeToItems(entitys: [TimetableEntity]) -> [[KindEntity?]] {
+        
+        var items = [[KindEntity?]](repeating: [KindEntity?](repeating: nil, count: 6), count: 24)
+        
+        let calendar = Calendar.current
+        
+        for entity in entitys {
+             
+            let dateInfo = calendar.dateComponents([.hour, .minute], from: entity.date ?? Date().toDay())
+            let hour = dateInfo.hour ?? 0
+            print(hour)
+            let minute = dateInfo.minute ?? 0
+            print(minute)
+            for i in 0..<(minute/10) {
+                items[hour + i/6][(minute/11) + i%6] = entity.kindEntity
+            }
+        }
+        
+        return items
     }
     
     func removeTimetableEntitys(date: Date) {
@@ -125,7 +146,9 @@ class TimeTableViewModel: ObservableObject {
         newKindEntity.name = name
         newKindEntity.id = UUID().uuidString
         newKindEntity.colorKindID = color.id
-        
+        newKindEntity.progressEntitys = []
+        newKindEntity.timetableEntitys = []
+        newKindEntity.todolistEntitys = []
         manager.save()
     }
     
