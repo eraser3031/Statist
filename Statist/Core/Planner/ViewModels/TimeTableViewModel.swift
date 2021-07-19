@@ -124,7 +124,7 @@ class TimeTableViewModel: ObservableObject {
         
         return items
     }
-    
+     
     func removeTimetableEntitys(date: Date) {
         for entity in timeTableEntitys {
             manager.context.delete(entity)
