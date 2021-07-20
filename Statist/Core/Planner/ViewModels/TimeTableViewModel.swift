@@ -32,7 +32,7 @@ class TimeTableViewModel: ObservableObject {
     
     func addSubscriber() {
         $items
-            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+//            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .map(encodeToTimetableEntitys)
             .sink { [weak self] entitys in
                 guard let self = self else { return }
@@ -54,7 +54,7 @@ class TimeTableViewModel: ObservableObject {
             let newEntity = TimetableEntity(context: manager.context)
             newEntity.kindEntity = flattenItems[i]
             newEntity.id = UUID().uuidString
-            newEntity.date = calendar.date(bySettingHour: i/6, minute: i%6, second: 0, of: date)
+            newEntity.date = calendar.date(bySettingHour: i/6, minute: ((i)%6)*10, second: 0, of: date)
             newEntity.minute = 10
             entitys.append(newEntity)
         }
@@ -111,14 +111,13 @@ class TimeTableViewModel: ObservableObject {
         let calendar = Calendar.current
         
         for entity in entitys {
-             
+            print(entity)
             let dateInfo = calendar.dateComponents([.hour, .minute], from: entity.date ?? Date().toDay())
             let hour = dateInfo.hour ?? 0
-            print(hour)
             let minute = dateInfo.minute ?? 0
-            print(minute)
-            for i in 0..<(minute/10) {
-                items[hour + i/6][(minute/11) + i%6] = entity.kindEntity
+            print("\(hour) // \(minute)")
+            for i in 0..<(entity.minute/10) {
+                items[hour + Int(i)/6][(minute/10 + Int(i))%6] = entity.kindEntity
             }
         }
         
