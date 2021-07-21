@@ -23,13 +23,15 @@ struct KindPicker: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
+                Spacer()
+                    .frame(width: 4)
                 ForEach(kinds) { kind in
                     HStack(spacing: 16) {
                         Circle()
                             .fill(kind.color.toPrimary())
                             .frame(width: 12, height: 12)
                         Text(kind.name ?? "")
-                            .font(Font.system(.subheadline, design: .default).weight(.bold))
+                            .font(Font.system(.footnote, design: .default).weight(.bold))
                     }
                     .padding(18)
                     .padding(.horizontal, 4)
@@ -65,6 +67,8 @@ struct KindPicker: View {
                             showAddKindView = true
                         }
                     }
+                Spacer()
+                    .frame(width: 4)
             }
         }
     }

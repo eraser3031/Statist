@@ -12,28 +12,31 @@ import CoreData
 class ProgressViewModel: ObservableObject {
     
     @Published var progressEntitys: [ProgressEntity] = []
+    @Published var showAddProgressView = false
     
     let manager = CoreDataManager.instance
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(date: Date){
-        getProgressEntitys(date: date)
+    init(){
+        getProgressEntitys()
         addSubscriber()
     }
     
     func addSubscriber() { }
     
-    func getProgressEntitys(date: Date) {
+    func getProgressEntitys() {
         let request = NSFetchRequest<ProgressEntity>(entityName: "ProgressEntity")
-
-//        let filter = NSPredicate(format: "date = %@", date as NSDate)
-//        request.predicate = filter
         
         do {
             progressEntitys = try manager.context.fetch(request)
         } catch let error {
             print("Error Fetching ProgressEntity \(error)")
         }
+    }
+    
+    func save() {
+        manager.save()
+        getProgressEntitys()
     }
 }

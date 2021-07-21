@@ -32,7 +32,7 @@ class TimeTableViewModel: ObservableObject {
     
     func addSubscriber() {
         $items
-//            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .map(encodeToTimetableEntitys)
             .sink { [weak self] entitys in
                 guard let self = self else { return }
@@ -111,11 +111,11 @@ class TimeTableViewModel: ObservableObject {
         let calendar = Calendar.current
         
         for entity in entitys {
-            print(entity)
+//            print(entity)
             let dateInfo = calendar.dateComponents([.hour, .minute], from: entity.date ?? Date().toDay())
             let hour = dateInfo.hour ?? 0
             let minute = dateInfo.minute ?? 0
-            print("\(hour) // \(minute)")
+//            print("\(hour) // \(minute)")
             for i in 0..<(entity.minute/10) {
                 items[hour + Int(i)/6][(minute/10 + Int(i))%6] = entity.kindEntity
             }

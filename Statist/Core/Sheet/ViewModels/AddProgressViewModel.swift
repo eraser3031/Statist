@@ -1,16 +1,16 @@
 //
-//  AddTodoViewModel.swift
+//  AddProgressViewModel.swift
 //  Statist
 //
-//  Created by Kimyaehoon on 14/07/2021.
+//  Created by Kimyaehoon on 21/07/2021.
 //
 
-import SwiftUI
+import Foundation
 import CoreData
 
-class AddTodoViewModel: ObservableObject {
-    @Published var date: Date
-    @Published var name: String = ""
+class AddProgressViewModel: ObservableObject {
+    @Published var name = ""
+    @Published var goal: Float = 0
     @Published var selectedKind: KindEntity?
     
     @Published var kinds: [KindEntity] = []
@@ -18,13 +18,12 @@ class AddTodoViewModel: ObservableObject {
     
     let manager = CoreDataManager.instance
     
-    init(date: Date) {
-        self.date = date
+    init() {
         getKindEntitys()
     }
     
     func isDisabled() -> Bool {
-        return name == "" || selectedKind == nil
+        return name == "" || selectedKind == nil || goal == 0
     }
     
     func getKindEntitys() {
@@ -36,14 +35,14 @@ class AddTodoViewModel: ObservableObject {
         }
     }
     
-    func addTodoListEntity() {
-        let newTodoList = TodoListEntity(context: manager.context)
-        newTodoList.id = UUID().uuidString
-        newTodoList.name = name
-        newTodoList.kindEntity = selectedKind
-        newTodoList.isDone = false
-        newTodoList.date = date
-        save()
+    func addProgressEntity() {
+        let newEntity = ProgressEntity(context: manager.context)
+        newEntity.goal = Int16(goal)
+        newEntity.progressPoints = nil
+        newEntity.kindEntity = selectedKind
+        newEntity.name = name
+        newEntity.id = UUID().uuidString
+        manager.save()
     }
     
     func save() {

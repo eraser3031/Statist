@@ -24,8 +24,11 @@ struct PlannerView: View {
             GeometryReader { geo in
                 VStack(spacing: 0) {
                     
-                    CalendarView(environment: environment, vm: vm, rect: $rect)
-                        .padding(.horizontal, 16)
+                    if vm.pickedItem != .Progress {
+                        CalendarView(environment: environment, vm: vm, rect: $rect)
+                            .padding(.horizontal, 16)
+                            .transition(.move(edge: .bottom))
+                    }
 
                     mainView(geo: geo)
                         .frame(height: vm.calendarScope ? geo.size.height - 300: geo.size.height - 80)
@@ -38,6 +41,11 @@ struct PlannerView: View {
                 }
             }
             .background(GeometryGetter(rect: $rect))
+        }
+        .onReceive(vm.$pickedItem) { pickedItem in
+            if pickedItem == .Progress {
+                environment.date = Date().toDay()
+            }
         }
 
     }
@@ -65,8 +73,7 @@ extension PlannerView {
                             .environmentObject(environment)
                         
                     } else if vm.pickedItem == .Progress {
-                        
-                        ProgressView(date: environment.date)
+                        ProgressView()
                             .environmentObject(environment)
                         
                     } else {

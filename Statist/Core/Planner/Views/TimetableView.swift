@@ -17,9 +17,17 @@ struct TimetableView: View {
     }
     
     var body: some View {
-        VStack{
+        VStack(spacing: 10){
             
             KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
+                .sheet(isPresented: $vm.showAddKindView,
+                       onDismiss: {
+                        withAnimation(.spring()){
+                            vm.getKindEntitys()
+                        }
+                    }) {
+                        AddKindView()
+                }
             
             TimeTable(models: vm.items, tapColumn: vm.tapColumn) { item, outIndex, inIndex in
                 Rectangle()
