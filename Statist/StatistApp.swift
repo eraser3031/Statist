@@ -19,6 +19,7 @@ import SwiftUI
  7. 프로그레스 뷰 목표치 도달 시 아이템 뷰 형태 생각하기
  */
 
+
 @main
 struct StatistApp: App {
     
