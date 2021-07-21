@@ -1,36 +1,38 @@
 //
-//  EditTodoView.swift
+//  EditProgressView.swift
 //  Statist
 //
-//  Created by Kimyaehoon on 15/07/2021.
+//  Created by Kimyaehoon on 21/07/2021.
 //
 
 import SwiftUI
 
-struct EditTodoView: View {
+struct EditProgressView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @Binding var editingEntity: TodoListEntity?
-    @StateObject var vm: EditTodoViewModel
+    @StateObject var vm: EditProgressViewModel
+    @Binding var editingEntity: ProgressEntity?
     
-    init(_ entity: Binding<TodoListEntity?>) {
+    init(_ entity: Binding<ProgressEntity?>) {
         self._editingEntity = entity
-        self._vm = StateObject(wrappedValue: EditTodoViewModel(entity: entity.wrappedValue))
+        self._vm = StateObject(wrappedValue: EditProgressViewModel(entity: entity.wrappedValue))
     }
     
     var body: some View {
         VStack(spacing: 32){
+            
             header
             
-            date
-            
             name
+            
+            goal
             
             kind
             
             Spacer()
             
             button
+
         }
         .padding(.horizontal, 20)
         .padding(.top, 30)
@@ -38,13 +40,11 @@ struct EditTodoView: View {
     }
 }
 
-extension EditTodoView {
+extension EditProgressView {
     private var header: some View {
         VStack(spacing: 20) {
             HStack {
-                Text("Edit Todo")
-                    .font(Font.system(.title3, design: .default).weight(.heavy))
-                
+                Text("Edit Progress")
                 Spacer()
                 
                 Text("Cancel")
@@ -53,26 +53,10 @@ extension EditTodoView {
                         presentationMode.wrappedValue.dismiss()
                     }
             }
+            .font(Font.system(.title3, design: .default).weight(.heavy))
             
             Divider()
                 .foregroundColor(.theme.dividerColor)
-        }
-    }
-    
-    private var date: some View {
-        VStack(alignment: .leading, spacing: 10){
-            
-            Text("Date")
-                .font(Font.system(.subheadline, design: .default).weight(.bold))
-            
-            DatePicker("Select Todo Date", selection: $vm.date, displayedComponents: .date)
-                .font(.callout)
-                .foregroundColor(Color(.tertiaryLabel))
-                .padding(10)
-                .background(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .stroke(Color.theme.dividerColor)
-                )
         }
     }
     
@@ -81,7 +65,17 @@ extension EditTodoView {
             Text("Name")
                 .font(Font.system(.subheadline, design: .default).weight(.bold))
             
-            CustomTextField("Write Updated Todo", text: $vm.name)
+            CustomTextField("Write New Progress", text: $vm.name)
+        }
+    }
+    
+    private var goal: some View {
+        VStack(alignment: .leading, spacing: 10){
+            Text("Goal")
+                .font(Font.system(.subheadline, design: .default).weight(.bold))
+            
+            Slider(value: $vm.goal, in: 0...20, step: 1)
+                .accentColor(vm.selectedKind?.color.toPrimary() ?? .primary)
         }
     }
     
@@ -90,7 +84,7 @@ extension EditTodoView {
             Text("Kind")
                 .font(Font.system(.subheadline, design: .default).weight(.bold))
             
-            KindPicker($vm.kind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
+            KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
                 .sheet(isPresented: $vm.showAddKindView,
                        onDismiss: {
                         withAnimation(.spring()){
@@ -100,20 +94,19 @@ extension EditTodoView {
                         AddKindView()
                 }
                 .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 1)
-                .shadow(color: .theme.shadowColor.opacity(0.2), radius: 40, x: 0, y: 20)
+                .shadow(color: .theme.shadowColor.opacity(0.3), radius: 30, x: 0, y: 40)
         }
     }
     
     private var button: some View {
         CustomButton("Save", nil) {
-            vm.updateEntity()
-            withAnimation {
-                presentationMode.wrappedValue.dismiss()
-            }
+            vm.updateProgressEntity()
+            presentationMode.wrappedValue.dismiss()
         }
         .disabled(vm.isDisabled())
         .overlay(
             Color(.systemBackground).opacity(vm.isDisabled() ? 0.8 : 0)
         )
+
     }
 }

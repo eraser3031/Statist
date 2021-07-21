@@ -69,6 +69,7 @@ extension AddProgressView {
                 .font(Font.system(.subheadline, design: .default).weight(.bold))
             
             Slider(value: $vm.goal, in: 0...20, step: 1)
+                .accentColor(vm.selectedKind?.color.toPrimary() ?? .primary)
         }
     }
     

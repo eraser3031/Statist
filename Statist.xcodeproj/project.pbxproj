@@ -16,6 +16,8 @@
 		213EB600269ED8A900059680 /* CustomColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5FF269ED8A900059680 /* CustomColorPicker.swift */; };
 		2152D28826A7EB74000B0B19 /* AddProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152D28726A7EB74000B0B19 /* AddProgressView.swift */; };
 		2152D28A26A7EB7E000B0B19 /* AddProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152D28926A7EB7E000B0B19 /* AddProgressViewModel.swift */; };
+		2152D28C26A7FA77000B0B19 /* EditProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152D28B26A7FA77000B0B19 /* EditProgressView.swift */; };
+		2152D28E26A7FA87000B0B19 /* EditProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152D28D26A7FA87000B0B19 /* EditProgressViewModel.swift */; };
 		21565E08269B144F00E28748 /* RotationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21565E07269B144F00E28748 /* RotationModifier.swift */; };
 		21615022269DB50F00401572 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21615021269DB50F00401572 /* CustomTextField.swift */; };
 		21615024269DB62F00401572 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21615023269DB62F00401572 /* CustomButton.swift */; };
@@ -71,6 +73,8 @@
 		213EB5FF269ED8A900059680 /* CustomColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColorPicker.swift; sourceTree = "<group>"; };
 		2152D28726A7EB74000B0B19 /* AddProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProgressView.swift; sourceTree = "<group>"; };
 		2152D28926A7EB7E000B0B19 /* AddProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProgressViewModel.swift; sourceTree = "<group>"; };
+		2152D28B26A7FA77000B0B19 /* EditProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProgressView.swift; sourceTree = "<group>"; };
+		2152D28D26A7FA87000B0B19 /* EditProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProgressViewModel.swift; sourceTree = "<group>"; };
 		21565E07269B144F00E28748 /* RotationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationModifier.swift; sourceTree = "<group>"; };
 		21615021269DB50F00401572 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		21615023269DB62F00401572 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 				213EB5F2269EB05500059680 /* AddTodoView.swift */,
 				2134DA04269FCBC300ED4544 /* EditTodoView.swift */,
 				2152D28726A7EB74000B0B19 /* AddProgressView.swift */,
+				2152D28B26A7FA77000B0B19 /* EditProgressView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -156,6 +161,7 @@
 				213EB5F4269EB6F500059680 /* AddTodoViewModel.swift */,
 				2134DA06269FD13700ED4544 /* EditTodoViewModel.swift */,
 				2152D28926A7EB7E000B0B19 /* AddProgressViewModel.swift */,
+				2152D28D26A7FA87000B0B19 /* EditProgressViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -472,6 +478,7 @@
 				21D1F4F32695AD6F00E57727 /* TodoItemView.swift in Sources */,
 				21D1F4E126948C8E00E57727 /* PickerItem.swift in Sources */,
 				21D1F50D26987FC600E57727 /* PlannerViewModel.swift in Sources */,
+				2152D28C26A7FA77000B0B19 /* EditProgressView.swift in Sources */,
 				21615024269DB62F00401572 /* CustomButton.swift in Sources */,
 				2134DA05269FCBC300ED4544 /* EditTodoView.swift in Sources */,
 				21C51E7326A2B58F007EEBCB /* PlannerView.swift in Sources */,
@@ -481,6 +488,7 @@
 				21D045BC2691F5D90048685A /* StatistApp.swift in Sources */,
 				21897C9B26A1C023003C12C5 /* StatistViewModel.swift in Sources */,
 				21D1F4F52695AEFA00E57727 /* PreviewProvider.swift in Sources */,
+				2152D28E26A7FA87000B0B19 /* EditProgressViewModel.swift in Sources */,
 				21D1F5022696236E00E57727 /* ProgressItemView.swift in Sources */,
 				21D1F4E42694948600E57727 /* TimeTable.swift in Sources */,
 				2152D28A26A7EB7E000B0B19 /* AddProgressViewModel.swift in Sources */,

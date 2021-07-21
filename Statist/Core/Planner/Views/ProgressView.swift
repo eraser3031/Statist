@@ -19,13 +19,8 @@ struct ProgressView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
             VStack(spacing: 50){
-                VStack(spacing: 20) {
-                    ForEach(vm.progressEntitys) { entity in
-                        ProgressItemView(entity: entity) {
-                            vm.save()
-                        }
-                    }
-                }
+                
+                progressList
                 
                 CustomButton("Add", "plus", isPrimary: false) {
                     vm.showAddProgressView = true
@@ -42,6 +37,53 @@ struct ProgressView: View {
                 }
             }) {
                 AddProgressView()
+        }
+        .sheet(isPresented: $vm.showEditProgressView,
+               onDismiss: {
+                withAnimation(.spring()){
+                    vm.getProgressEntitys()
+                }
+            }) {
+                EditProgressView($vm.editingEntity)
+        }
+    }
+}
+
+extension ProgressView {
+    private var progressList: some View {
+        VStack(spacing: 20) {
+            ForEach(vm.progressEntitys) { entity in
+                ProgressItemView(entity: entity) {
+                    vm.save()
+                }
+                .contextMenu {
+                    Button(action: { edit(entity) }) {
+                        Label("Edit", systemImage: "pencil")
+                    }
+                    
+                    Divider()
+                    
+                    Button(action: { delete(entity) }) {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
+                .transition(.opacity)
+            }
+        }
+    }
+    
+    private func edit(_ entity: ProgressEntity) {
+        withAnimation(.spring()) {
+            vm.editingEntity = entity
+        }
+        vm.showEditProgressView = true
+    }
+    
+    private func delete(_ entity: ProgressEntity) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation(.spring()) {
+                vm.deleteProgressEntity(entity: entity)
+            }
         }
     }
 }

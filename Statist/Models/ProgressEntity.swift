@@ -9,7 +9,7 @@ import Foundation
 
 extension ProgressEntity {
     var percent: Int {
-        return (self.progressPoints?.count ?? 0) / Int(self.goal)
+        return Int(Float(self.progressPoints?.count ?? 0) / Float(self.goal) * 100)
     }
     
     var now: Int {

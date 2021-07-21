@@ -13,6 +13,8 @@ class ProgressViewModel: ObservableObject {
     
     @Published var progressEntitys: [ProgressEntity] = []
     @Published var showAddProgressView = false
+    @Published var showEditProgressView = false
+    @Published var editingEntity: ProgressEntity?
     
     let manager = CoreDataManager.instance
     
@@ -32,6 +34,17 @@ class ProgressViewModel: ObservableObject {
             progressEntitys = try manager.context.fetch(request)
         } catch let error {
             print("Error Fetching ProgressEntity \(error)")
+        }
+    }
+    
+    func deleteProgressEntity(entity: ProgressEntity) {
+        let model = progressEntitys.first { $0.id == entity.id }
+        
+        if let model = model {
+            manager.context.delete(model)
+            save()
+        } else {
+            print("Error Deleting TodoListEntity")
         }
     }
     

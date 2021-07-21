@@ -16,10 +16,15 @@ struct ProgressItemView: View {
         VStack(spacing: 20){
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
+                    
                     Text(entity.name ?? "")
                         .font(Font.system(.headline, design: .default).weight(.bold))
+                        .lineLimit(1)
+                    
                     Text(entity.kindEntity?.name ?? "")
+                        .foregroundColor(entity.kindEntity?.color.toPrimary() ?? .primary)
                         .font(Font.system(.footnote, design: .default).weight(.semibold))
+                        .lineLimit(1)
                 }
                 
                 Spacer()
@@ -37,6 +42,7 @@ struct ProgressItemView: View {
                     HStack(spacing: 2){
                         Text("\(entity.now)")
                             .foregroundColor(entity.kindEntity?.color.toPrimary())
+                            .animation(.none)
                         Text("/")
                         Text("\(entity.goal)")
                     }
@@ -46,6 +52,7 @@ struct ProgressItemView: View {
                     
                     HStack(spacing: 2){
                         Text("\(entity.percent)")
+                            .animation(.none)
                         Text("%")
                     }
                     .font(.footnote)
