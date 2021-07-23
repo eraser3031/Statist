@@ -48,6 +48,27 @@ class ProgressViewModel: ObservableObject {
         }
     }
     
+    func addProgressPoint(_ entity: ProgressEntity) {
+        if entity.isNotFinish {
+            let newPoint = ProgressPoint(context: manager.context)
+            newPoint.date = Date().toDay()
+            newPoint.id = UUID().uuidString
+            newPoint.progressEntity = entity
+            withAnimation(.spring()) {
+                save()
+            }
+        }
+    }
+    
+    func deleteProgressPoints(_ points: [ProgressPoint]) {
+        for point in points {
+            manager.context.delete(point)
+        }
+        withAnimation(.spring()) {
+            save()
+        }
+    }
+    
     func save() {
         manager.save()
         getProgressEntitys()

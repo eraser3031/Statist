@@ -15,4 +15,12 @@ extension ProgressEntity {
     var now: Int {
         return self.progressPoints?.count ?? 0
     }
+    
+    var isFinish: Bool {
+        return self.now >= Int(self.goal)
+    }
+    
+    var isNotFinish: Bool {
+        return !isFinish
+    }
 }

@@ -44,6 +44,7 @@ struct PlannerView: View {
         }
         .onReceive(vm.$pickedItem) { pickedItem in
             if pickedItem == .Progress {
+                vm.calendarScope = false
                 environment.date = Date().toDay()
             }
         }

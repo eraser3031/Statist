@@ -17,41 +17,45 @@ struct TimetableView: View {
     }
     
     var body: some View {
-        VStack(spacing: 10){
+        GeometryReader { geo in
+            VStack(spacing: 10){
             
-            KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
-                .sheet(isPresented: $vm.showAddKindView,
-                       onDismiss: {
-                        withAnimation(.spring()){
-                            vm.getKindEntitys()
-                        }
-                    }) {
-                        AddKindView()
-                }
-            
-            TimeTable(models: vm.items, tapColumn: vm.tapColumn) { item, outIndex, inIndex in
-                Rectangle()
-                    .fill(item?.color.toPrimary() ?? Color.clear)
-                    .background(Divider(), alignment: .trailing)
-                    .background(
-                        VStack{
-                            Spacer()
-                            Divider()
-                        }, alignment: .bottom)
-                    .frame(minHeight: 48)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        if item == nil {
-                            withAnimation(.easeOutExpo){
-                                vm.items[outIndex][inIndex] = vm.selectedKind
+                KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
+                    .sheet(isPresented: $vm.showAddKindView,
+                           onDismiss: {
+                            withAnimation(.spring()){
+                                vm.getKindEntitys()
                             }
-                        } else {
-                            withAnimation(.easeOutExpo){
-                                vm.items[outIndex][inIndex] = nil
-                            }
-                        }
+                        }) {
+                            AddKindView()
                     }
-                    .transition(.scale)
+            
+            
+                TimeTable(models: vm.items, tapColumn: vm.tapColumn) { item, outIndex, inIndex in
+                    Rectangle()
+                        .fill(item?.color.toPrimary() ?? Color.clear)
+                        .background(Divider(), alignment: .trailing)
+                        .background(
+                            VStack{
+                                Spacer()
+                                Divider()
+                            }, alignment: .bottom)
+                        .frame(minHeight: 48)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            if item == nil {
+                                withAnimation(.easeOutExpo){
+                                    vm.items[outIndex][inIndex] = vm.selectedKind
+                                }
+                            } else {
+                                withAnimation(.easeOutExpo){
+                                    vm.items[outIndex][inIndex] = nil
+                                }
+                            }
+                        }
+                        .transition(.scale)
+                }
+                .frame(width: geo.size.width)
             }
         }
         .onReceive(environment.$date) { date in

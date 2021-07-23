@@ -29,7 +29,6 @@
 		218A10162692BDE300579B1E /* Gilroy-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10142692BDE200579B1E /* Gilroy-Light.otf */; };
 		219C544926A6BBCE009D639D /* ProgressEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219C544826A6BBCD009D639D /* ProgressEntity.swift */; };
 		219C544B26A6BC35009D639D /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219C544A26A6BC35009D639D /* ProgressBar.swift */; };
-		219C544D26A6BC5B009D639D /* ProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219C544C26A6BC5B009D639D /* ProgressButton.swift */; };
 		21BE069C269C90AB00C7B06F /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BE069B269C90AB00C7B06F /* CalendarView.swift */; };
 		21C51E7326A2B58F007EEBCB /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C51E7226A2B58F007EEBCB /* PlannerView.swift */; };
 		21CC0EA5269D715800584873 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CC0EA4269D715800584873 /* UIApplication.swift */; };
@@ -85,7 +84,6 @@
 		218A10142692BDE200579B1E /* Gilroy-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Light.otf"; sourceTree = "<group>"; };
 		219C544826A6BBCD009D639D /* ProgressEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressEntity.swift; sourceTree = "<group>"; };
 		219C544A26A6BC35009D639D /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
-		219C544C26A6BC5B009D639D /* ProgressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressButton.swift; sourceTree = "<group>"; };
 		21BE069B269C90AB00C7B06F /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		21C51E7226A2B58F007EEBCB /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
 		21CC0EA4269D715800584873 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -341,7 +339,6 @@
 			isa = PBXGroup;
 			children = (
 				21D1F5012696236E00E57727 /* ProgressItemView.swift */,
-				219C544C26A6BC5B009D639D /* ProgressButton.swift */,
 			);
 			path = Progress;
 			sourceTree = "<group>";
@@ -492,7 +489,6 @@
 				21D1F5022696236E00E57727 /* ProgressItemView.swift in Sources */,
 				21D1F4E42694948600E57727 /* TimeTable.swift in Sources */,
 				2152D28A26A7EB7E000B0B19 /* AddProgressViewModel.swift in Sources */,
-				219C544D26A6BC5B009D639D /* ProgressButton.swift in Sources */,
 				21D1F4F92695FF6100E57727 /* TimeTableColumn.swift in Sources */,
 				219C544B26A6BC35009D639D /* ProgressBar.swift in Sources */,
 				21D1F504269623A200E57727 /* TimetableView.swift in Sources */,

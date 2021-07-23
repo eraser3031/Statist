@@ -40,8 +40,6 @@ struct TimeTable<ItemView>: View where ItemView: View {
             .padding([.horizontal, .bottom], 1)
             .background(Color(.systemBackground))
             .padding()
-            .frame(width: UIScreen.main.bounds.width)
-            
         }
 
     }

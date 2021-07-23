@@ -54,7 +54,7 @@ extension ProgressView {
         VStack(spacing: 20) {
             ForEach(vm.progressEntitys) { entity in
                 ProgressItemView(entity: entity) {
-                    vm.save()
+                    progressButtons(entity)
                 }
                 .contextMenu {
                     Button(action: { edit(entity) }) {
@@ -72,6 +72,16 @@ extension ProgressView {
         }
     }
     
+    private func progressButtons(_ entity: ProgressEntity) -> some View {
+        HStack(spacing: 10) {
+            cancelProgressButton(entity)
+            
+            if entity.isNotFinish {
+                progressButton(entity)
+            }
+        }
+    }
+    
     private func edit(_ entity: ProgressEntity) {
         withAnimation(.spring()) {
             vm.editingEntity = entity
@@ -85,6 +95,49 @@ extension ProgressView {
                 vm.deleteProgressEntity(entity: entity)
             }
         }
+    }
+    
+    private func cancelProgressButton(_ entity: ProgressEntity) -> some View {
+        Circle()
+            .stroke(Color.theme.dividerColor)
+            .frame(width: 44, height: 44)
+            .overlay(
+                Image(systemName: "arrow.uturn.left")
+                    .font(Font.system(.footnote, design: .default).weight(.bold))
+            )
+            .onTapGesture {
+                cancelProgressInToday(entity)
+            }
+    }
+    
+    private func progressButton(_ entity: ProgressEntity) -> some View {
+        Circle()
+            .fill(entity.kindEntity?.color.toPrimary() ?? Color.primary)
+            .frame(width: 44, height: 44)
+            .overlay(
+                Image(systemName: "arrow.right")
+                    .font(Font.system(.footnote, design: .default).weight(.bold))
+                    .foregroundColor(Color(.systemBackground))
+            )
+            .onTapGesture {
+                progress(entity)
+            }
+    }
+    
+    private func cancelProgressInToday(_ entity: ProgressEntity) {
+        var points: [ProgressPoint] = []
+        for data in (entity.progressPoints?.allObjects ?? []) {
+            if let point = data as? ProgressPoint {
+                if (point.date ?? Date().toDay()) == Date().toDay() {
+                    points.append(point)
+                }
+            }
+        }
+        vm.deleteProgressPoints(points)
+    }
+    
+    private func progress(_ entity: ProgressEntity) {
+        vm.addProgressPoint(entity)
     }
 }
 

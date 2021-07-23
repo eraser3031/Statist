@@ -7,10 +7,19 @@
 
 import SwiftUI
 
-struct ProgressItemView: View {
+struct ProgressItemView<ButtonView>: View where ButtonView: View {
     
     let entity: ProgressEntity
-    let save: () -> Void
+//    let save: () -> Void
+    let content: () -> ButtonView
+    
+    init(
+        entity: ProgressEntity,
+        @ViewBuilder content: @escaping () -> ButtonView
+    ){
+        self.entity = entity
+        self.content = content
+    }
     
     var body: some View {
         VStack(spacing: 20){
@@ -18,57 +27,64 @@ struct ProgressItemView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     
                     Text(entity.name ?? "")
+                        .foregroundColor(entity.isFinish ? Color(.systemBackground) : .primary)
                         .font(Font.system(.headline, design: .default).weight(.bold))
                         .lineLimit(1)
                     
                     Text(entity.kindEntity?.name ?? "")
-                        .foregroundColor(entity.kindEntity?.color.toPrimary() ?? .primary)
+                        .foregroundColor(entity.isFinish ? Color(.systemBackground) : (entity.kindEntity?.color.toPrimary() ?? .primary))
                         .font(Font.system(.footnote, design: .default).weight(.semibold))
                         .lineLimit(1)
                 }
                 
                 Spacer()
                 
-                ProgressButton(entity: entity) {
-                    save()
-                }
+                self.content() // Progress Buttons
             }
             
-            VStack(spacing: 10){
-                
-                ProgressBar(now: entity.now, goal: Int(entity.goal), entity.kindEntity?.color.toPrimary())
-                
-                HStack{
-                    HStack(spacing: 2){
-                        Text("\(entity.now)")
-                            .foregroundColor(entity.kindEntity?.color.toPrimary())
-                            .animation(.none)
-                        Text("/")
-                        Text("\(entity.goal)")
-                    }
-                    .font(.footnote)
+            if entity.isNotFinish {
+                VStack(spacing: 10){
                     
-                    Spacer()
+                    ProgressBar(now: entity.now, goal: Int(entity.goal), entity.kindEntity?.color.toPrimary())
                     
-                    HStack(spacing: 2){
-                        Text("\(entity.percent)")
-                            .animation(.none)
-                        Text("%")
-                    }
-                    .font(.footnote)
+                    progressBarFootNote
                 }
             }
         }
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color(.systemBackground))
+                .fill(entity.isFinish ? (entity.kindEntity?.color.toPrimary() ?? Color(.systemBackground)) : Color(.systemBackground) )
         )
         .overlay(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .stroke(Color.theme.dividerColor)
                 .padding(0.5)
         )
+    }
+}
+
+extension ProgressItemView {
+    private var progressBarFootNote: some View {
+        HStack{
+            HStack(spacing: 2){
+                Text("\(entity.now)")
+                    .foregroundColor(entity.kindEntity?.color.toPrimary())
+                    .animation(.none)
+                Text("/")
+                Text("\(entity.goal)")
+            }
+            .font(.footnote)
+            
+            Spacer()
+            
+            HStack(spacing: 2){
+                Text("\(entity.percent)")
+                    .animation(.none)
+                Text("%")
+            }
+            .font(.footnote)
+        }
     }
 }
 
