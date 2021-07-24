@@ -17,9 +17,9 @@ struct HeaderView: View {
         self.environment = environment
         self.vm = model
     }
-    
+     
     var body: some View {
-        HStack {  
+        HStack {
             Text(alterDate.titleString())
                 .font(.title2)
                 .fontWeight(.heavy)
