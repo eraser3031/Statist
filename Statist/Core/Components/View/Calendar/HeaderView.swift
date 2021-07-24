@@ -21,7 +21,7 @@ struct HeaderView: View {
     var body: some View {
         HStack {
             Text(alterDate.titleString())
-                .font(.title)
+                .font(.title2)
                 .fontWeight(.heavy)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .onTapGesture {

@@ -16,10 +16,10 @@ struct PlannerView: View {
     
     var body: some View {
         
-        VStack{
+        VStack(spacing: 12){
             HeaderView(environment: environment, model: vm)
                 .padding(.horizontal, 20)
-                .padding(.top, 20)
+                .padding(.top, 12)
             
             GeometryReader { geo in
                 VStack(spacing: 0) {
@@ -31,7 +31,7 @@ struct PlannerView: View {
                     }
 
                     mainView(geo: geo)
-                        .frame(height: vm.calendarScope ? geo.size.height - 300: geo.size.height - 80)
+                        .frame(height: calMainViewHeight(geo))
                         .overlay(
                             Divider()
                                 .foregroundColor(.theme.dividerColor)
@@ -49,6 +49,11 @@ struct PlannerView: View {
             }
         }
 
+    }
+    
+    private func calMainViewHeight(_ geo: GeometryProxy) -> CGFloat {
+        let minus: CGFloat = vm.pickedItem == .Progress ? 0 : vm.calendarScope ? 300 : 80
+        return geo.size.height - minus
     }
 }
 
@@ -82,9 +87,6 @@ extension PlannerView {
                     }
                 
                 }
-                .background(
-                    vm.pickedItem != .TodoList ? Color.theme.groupBackgroundColor.ignoresSafeArea() : nil
-                )
             )
     }
 }

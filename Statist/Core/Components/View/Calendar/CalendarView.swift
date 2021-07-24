@@ -31,8 +31,8 @@ struct CalendarView: UIViewRepresentable {
             calendar.appearance.weekdayTextColor = .black
             calendar.appearance.todayColor = .systemGray5
             calendar.headerHeight = 0
-            calendar.appearance.caseOptions = FSCalendarCaseOptions.weekdayUsesUpperCase
-            calendar.appearance.weekdayFont = UIFont(name: "Gilroy-Light", size: 10)
+            calendar.appearance.caseOptions = FSCalendarCaseOptions.weekdayUsesSingleUpperCase
+            calendar.appearance.weekdayFont = UIFont(name: "Gilroy-ExtraBold", size: 10)
             calendar.appearance.titleFont = UIFont(name: "Gilroy-ExtraBold", size: 12)
             calendar.scope = vm.calendarScope ? .month : .week
         }
@@ -93,8 +93,8 @@ struct CalendarView: UIViewRepresentable {
                     calendar.appearance.weekdayTextColor = .black
                     calendar.appearance.todayColor = .systemGray5
                     calendar.headerHeight = 0
-                    calendar.appearance.caseOptions = FSCalendarCaseOptions.weekdayUsesUpperCase
-                    calendar.appearance.weekdayFont = UIFont(name: "Gilroy-Light", size: 10)
+                    calendar.appearance.caseOptions = FSCalendarCaseOptions.weekdayUsesSingleUpperCase
+                    calendar.appearance.weekdayFont = UIFont(name: "Gilroy-ExtraBold", size: 10)
                     calendar.appearance.titleFont = UIFont(name: "Gilroy-ExtraBold", size: 12)
                     calendar.scope = vm.calendarScope ? .month : .week
                 }
