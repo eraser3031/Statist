@@ -19,7 +19,7 @@ struct HeaderView: View {
     }
     
     var body: some View {
-        HStack {
+        HStack { 
             Text(alterDate.titleString())
                 .font(.title2)
                 .fontWeight(.heavy)
