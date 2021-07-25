@@ -31,6 +31,7 @@ struct CustomPicker: View {
         .cornerRadius(8)
         .overlay(
             RoundedRectangle(cornerRadius: 8, style: .continuous)
+//            Rectangle()
                 .stroke(Color.theme.dividerColor, lineWidth: 0.5)
         )
     }

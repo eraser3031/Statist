@@ -62,7 +62,7 @@ extension PlannerView {
         Rectangle()
             .fill(Color(.systemBackground))
             .overlay(
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(spacing: 20) {
                 
                     CustomPicker($vm.pickedItem, items: [.TodoList, .TimeTable, .Progress])
                         .padding(.horizontal, 20)

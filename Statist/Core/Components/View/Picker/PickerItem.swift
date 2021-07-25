@@ -19,19 +19,20 @@ struct PickerItem: View {
     var body: some View {
         Image(systemName: item.symbol)
             .font(Font.system(.footnote, design: .default).weight(.bold))
-            .padding(.horizontal, 22)
+//            .padding(.horizontal, 22)
             .padding(.vertical, 10)
-            .onTapGesture {
-                withAnimation(.spring()) {
-                    pickedItem = item
-                }
-            }
+            .frame(maxWidth: .infinity)
             .foregroundColor(
                 pickedItem == item ? Color(.systemBackground) : Color.primary 
             )
             .background(
                 pickedItem == item ? Color.primary : Color(.systemBackground) 
             )
+            .onTapGesture {
+                withAnimation(.spring()) {
+                    pickedItem = item
+                }
+            }
     }
 }
 

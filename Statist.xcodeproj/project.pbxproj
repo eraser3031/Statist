@@ -19,6 +19,15 @@
 		2152D28C26A7FA77000B0B19 /* EditProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152D28B26A7FA77000B0B19 /* EditProgressView.swift */; };
 		2152D28E26A7FA87000B0B19 /* EditProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152D28D26A7FA87000B0B19 /* EditProgressViewModel.swift */; };
 		21565E08269B144F00E28748 /* RotationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21565E07269B144F00E28748 /* RotationModifier.swift */; };
+		215760F326AD9E9A009F617B /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215760F226AD9E99009F617B /* AchievementView.swift */; };
+		215760F526AD9F3E009F617B /* PeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215760F426AD9F3E009F617B /* PeriodView.swift */; };
+		215760F726AD9F4B009F617B /* PercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215760F626AD9F4B009F617B /* PercentageView.swift */; };
+		215760F926AD9F55009F617B /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215760F826AD9F55009F617B /* StatView.swift */; };
+		215760FB26AD9F63009F617B /* ProgressGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215760FA26AD9F63009F617B /* ProgressGraphView.swift */; };
+		215760FE26AD9F93009F617B /* StatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215760FD26AD9F93009F617B /* StatViewModel.swift */; };
+		2157610026AD9FBE009F617B /* CircleChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215760FF26AD9FBE009F617B /* CircleChart.swift */; };
+		2157610226AD9FCE009F617B /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2157610126AD9FCE009F617B /* LineChart.swift */; };
+		2157610426ADA018009F617B /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2157610326ADA018009F617B /* Graph.swift */; };
 		21615022269DB50F00401572 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21615021269DB50F00401572 /* CustomTextField.swift */; };
 		21615024269DB62F00401572 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21615023269DB62F00401572 /* CustomButton.swift */; };
 		216955A8269AA816007DF171 /* RandomAcessCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216955A7269AA816007DF171 /* RandomAcessCollection.swift */; };
@@ -75,6 +84,15 @@
 		2152D28B26A7FA77000B0B19 /* EditProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProgressView.swift; sourceTree = "<group>"; };
 		2152D28D26A7FA87000B0B19 /* EditProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProgressViewModel.swift; sourceTree = "<group>"; };
 		21565E07269B144F00E28748 /* RotationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationModifier.swift; sourceTree = "<group>"; };
+		215760F226AD9E99009F617B /* AchievementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementView.swift; sourceTree = "<group>"; };
+		215760F426AD9F3E009F617B /* PeriodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodView.swift; sourceTree = "<group>"; };
+		215760F626AD9F4B009F617B /* PercentageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentageView.swift; sourceTree = "<group>"; };
+		215760F826AD9F55009F617B /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
+		215760FA26AD9F63009F617B /* ProgressGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressGraphView.swift; sourceTree = "<group>"; };
+		215760FD26AD9F93009F617B /* StatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatViewModel.swift; sourceTree = "<group>"; };
+		215760FF26AD9FBE009F617B /* CircleChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleChart.swift; sourceTree = "<group>"; };
+		2157610126AD9FCE009F617B /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
+		2157610326ADA018009F617B /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		21615021269DB50F00401572 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		21615023269DB62F00401572 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		216955A7269AA816007DF171 /* RandomAcessCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAcessCollection.swift; sourceTree = "<group>"; };
@@ -164,6 +182,35 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		215760EF26AD9DD1009F617B /* Stat */ = {
+			isa = PBXGroup;
+			children = (
+				215760F026AD9DD8009F617B /* Views */,
+				215760F126AD9DDD009F617B /* ViewModels */,
+			);
+			path = Stat;
+			sourceTree = "<group>";
+		};
+		215760F026AD9DD8009F617B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				215760F826AD9F55009F617B /* StatView.swift */,
+				215760F226AD9E99009F617B /* AchievementView.swift */,
+				215760F426AD9F3E009F617B /* PeriodView.swift */,
+				215760F626AD9F4B009F617B /* PercentageView.swift */,
+				215760FA26AD9F63009F617B /* ProgressGraphView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		215760F126AD9DDD009F617B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				215760FD26AD9F93009F617B /* StatViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		218A10122692B9AB00579B1E /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +296,7 @@
 		21D045CD2691F63B0048685A /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				215760EF26AD9DD1009F617B /* Stat */,
 				21D1F50926987F7B00E57727 /* Planner */,
 				213EB5F6269EB74F00059680 /* Sheet */,
 				21D045CF2691F6A10048685A /* Components */,
@@ -298,6 +346,9 @@
 				21615023269DB62F00401572 /* CustomButton.swift */,
 				21615021269DB50F00401572 /* CustomTextField.swift */,
 				219C544A26A6BC35009D639D /* ProgressBar.swift */,
+				215760FF26AD9FBE009F617B /* CircleChart.swift */,
+				2157610126AD9FCE009F617B /* LineChart.swift */,
+				2157610326ADA018009F617B /* Graph.swift */,
 				21D1F4FC26961F9400E57727 /* Progress */,
 				21D1F4E92695558700E57727 /* TodoList */,
 				21D1F4E22694946E00E57727 /* TimeTable */,
@@ -456,6 +507,7 @@
 				21565E08269B144F00E28748 /* RotationModifier.swift in Sources */,
 				213EB5F3269EB05500059680 /* AddTodoView.swift in Sources */,
 				21D1F51326987FF100E57727 /* TodoListViewModel.swift in Sources */,
+				2157610226AD9FCE009F617B /* LineChart.swift in Sources */,
 				217BB3BC26A41BEF00FD5D7A /* Animation.swift in Sources */,
 				21D1F4DD26948A4D00E57727 /* CustomPicker.swift in Sources */,
 				21615022269DB50F00401572 /* CustomTextField.swift in Sources */,
@@ -464,6 +516,7 @@
 				21BE069C269C90AB00C7B06F /* CalendarView.swift in Sources */,
 				21D1F4E62694949600E57727 /* TimeTableRow.swift in Sources */,
 				2134DA07269FD13700ED4544 /* EditTodoViewModel.swift in Sources */,
+				215760FB26AD9F63009F617B /* ProgressGraphView.swift in Sources */,
 				216955A8269AA816007DF171 /* RandomAcessCollection.swift in Sources */,
 				21CC0EA7269D82F300584873 /* KindPicker.swift in Sources */,
 				21D1F4DF26948AEC00E57727 /* Color.swift in Sources */,
@@ -477,6 +530,7 @@
 				21D1F50D26987FC600E57727 /* PlannerViewModel.swift in Sources */,
 				2152D28C26A7FA77000B0B19 /* EditProgressView.swift in Sources */,
 				21615024269DB62F00401572 /* CustomButton.swift in Sources */,
+				215760FE26AD9F93009F617B /* StatViewModel.swift in Sources */,
 				2134DA05269FCBC300ED4544 /* EditTodoView.swift in Sources */,
 				21C51E7326A2B58F007EEBCB /* PlannerView.swift in Sources */,
 				21D1F50F26987FD700E57727 /* TimeTableViewModel.swift in Sources */,
@@ -485,19 +539,25 @@
 				21D045BC2691F5D90048685A /* StatistApp.swift in Sources */,
 				21897C9B26A1C023003C12C5 /* StatistViewModel.swift in Sources */,
 				21D1F4F52695AEFA00E57727 /* PreviewProvider.swift in Sources */,
+				2157610426ADA018009F617B /* Graph.swift in Sources */,
+				2157610026AD9FBE009F617B /* CircleChart.swift in Sources */,
 				2152D28E26A7FA87000B0B19 /* EditProgressViewModel.swift in Sources */,
 				21D1F5022696236E00E57727 /* ProgressItemView.swift in Sources */,
 				21D1F4E42694948600E57727 /* TimeTable.swift in Sources */,
 				2152D28A26A7EB7E000B0B19 /* AddProgressViewModel.swift in Sources */,
 				21D1F4F92695FF6100E57727 /* TimeTableColumn.swift in Sources */,
 				219C544B26A6BC35009D639D /* ProgressBar.swift in Sources */,
+				215760F326AD9E9A009F617B /* AchievementView.swift in Sources */,
+				215760F726AD9F4B009F617B /* PercentageView.swift in Sources */,
 				21D1F504269623A200E57727 /* TimetableView.swift in Sources */,
 				21D1F5192699B62300E57727 /* UserDataContainer.xcdatamodeld in Sources */,
 				213EB5F5269EB6F500059680 /* AddTodoViewModel.swift in Sources */,
+				215760F926AD9F55009F617B /* StatView.swift in Sources */,
 				213EB600269ED8A900059680 /* CustomColorPicker.swift in Sources */,
 				21D1F4FB2696032800E57727 /* TimeTableHeader.swift in Sources */,
 				21D045DE26921BDA0048685A /* CalendarViewModel.swift in Sources */,
 				213EB5FC269EBAFD00059680 /* AddKindViewModel.swift in Sources */,
+				215760F526AD9F3E009F617B /* PeriodView.swift in Sources */,
 				21D1F4E82694954700E57727 /* KindEntity.swift in Sources */,
 				21D1F506269623B400E57727 /* ProgressView.swift in Sources */,
 			);
