@@ -8,13 +8,45 @@
 import SwiftUI
 
 struct CircleChart: View {
+    
+    var percent: Int
+    var colors: [Color]
+    var trim: CGFloat
+    
+    init(percent: Int, colors: [Color]) {
+        self.percent = percent
+        self.colors = colors
+        self.trim = CGFloat(percent)/100
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader { geo in
+            ZStack {
+                Circle()
+                    .stroke(Color(.quaternaryLabel), lineWidth: geo.size.width/8)
+                
+                Circle()
+                    .trim(from: 1-trim, to: 1)
+                    .stroke(
+                        LinearGradient(gradient: Gradient(colors: colors),
+                                       startPoint: .topLeading,
+                                       endPoint: .bottomTrailing)
+                        ,style: StrokeStyle(lineWidth: geo.size.width/8,
+                                            lineCap: .round,
+                                            lineJoin: .round,
+                                            miterLimit: .infinity)
+                    )
+                    .rotationEffect(Angle(degrees: 90))
+                    .rotation3DEffect(Angle(degrees: 180), axis: (x: 1, y: 0, z: 0))
+            }
+        }
     }
 }
 
-struct CircleChart_Previews: PreviewProvider {
+struct ChartView_Previews: PreviewProvider {
     static var previews: some View {
-        CircleChart()
+        CircleChart(percent: 70, colors: [.red])
+            .padding()
+            .previewLayout(.sizeThatFits)
     }
 }

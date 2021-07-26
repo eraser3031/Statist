@@ -28,6 +28,7 @@
 		2157610026AD9FBE009F617B /* CircleChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215760FF26AD9FBE009F617B /* CircleChart.swift */; };
 		2157610226AD9FCE009F617B /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2157610126AD9FCE009F617B /* LineChart.swift */; };
 		2157610426ADA018009F617B /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2157610326ADA018009F617B /* Graph.swift */; };
+		2157610826AEB407009F617B /* TimetableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2157610726AEB407009F617B /* TimetableEntity.swift */; };
 		21615022269DB50F00401572 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21615021269DB50F00401572 /* CustomTextField.swift */; };
 		21615024269DB62F00401572 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21615023269DB62F00401572 /* CustomButton.swift */; };
 		216955A8269AA816007DF171 /* RandomAcessCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216955A7269AA816007DF171 /* RandomAcessCollection.swift */; };
@@ -93,6 +94,7 @@
 		215760FF26AD9FBE009F617B /* CircleChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleChart.swift; sourceTree = "<group>"; };
 		2157610126AD9FCE009F617B /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
 		2157610326ADA018009F617B /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
+		2157610726AEB407009F617B /* TimetableEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableEntity.swift; sourceTree = "<group>"; };
 		21615021269DB50F00401572 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		21615023269DB62F00401572 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		216955A7269AA816007DF171 /* RandomAcessCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAcessCollection.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 			children = (
 				21D1F4E72694954700E57727 /* KindEntity.swift */,
 				219C544826A6BBCD009D639D /* ProgressEntity.swift */,
+				2157610726AEB407009F617B /* TimetableEntity.swift */,
 				21D1F5172699B62300E57727 /* UserDataContainer.xcdatamodeld */,
 			);
 			path = Models;
@@ -551,6 +554,7 @@
 				215760F726AD9F4B009F617B /* PercentageView.swift in Sources */,
 				21D1F504269623A200E57727 /* TimetableView.swift in Sources */,
 				21D1F5192699B62300E57727 /* UserDataContainer.xcdatamodeld in Sources */,
+				2157610826AEB407009F617B /* TimetableEntity.swift in Sources */,
 				213EB5F5269EB6F500059680 /* AddTodoViewModel.swift in Sources */,
 				215760F926AD9F55009F617B /* StatView.swift in Sources */,
 				213EB600269ED8A900059680 /* CustomColorPicker.swift in Sources */,

@@ -8,13 +8,70 @@
 import SwiftUI
 
 struct LineChart: View {
+    
+    let datas: [[TimetableEntity]]
+    
+    init(datas: [[TimetableEntity]]) {
+        self.datas = datas
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        chartView
+            .background(chartBackground)
+            .overlay(graphYAxis)
     }
 }
 
-struct LineChart_Previews: PreviewProvider {
-    static var previews: some View {
-        LineChart()
+extension LineChart {
+    private var chartView: some View {
+        GeometryReader { geo in
+            HStack{
+                ForEach(0..<datas.count) { index in
+                    VStack(spacing: 0){
+                        ForEach(datas[index]) { data in
+                            Rectangle()
+                                .fill(data.kindEntity?.color.toPrimary() ?? Color.primary)
+                                .frame(width: 8,
+                                       height: geo.size.height / calTotalMin(datas[index]) * CGFloat(data.minute ) )
+                        }
+                    }
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: 2, style: .continuous)
+                    )
+                }
+            }
+        }
+    }
+    
+    private var chartBackground: some View {
+        VStack(spacing: 0){
+            Divider()
+            Spacer()
+            Divider()
+            Spacer()
+            Divider()
+        }
+    }
+    
+    private var graphYAxis: some View {
+        VStack{
+//            Text("\(Int(maxY))")
+//            Spacer()
+//            Text("\(Int((minY + maxY) / 2))")
+//            Spacer()
+//            Text("\(Int(minY))")
+        }
+    }
+    
+    private func calTotalMin(_ entitys: [TimetableEntity]) -> CGFloat {
+        return entitys.reduce(0) { result, entity in
+            return result + CGFloat(entity.minute)
+        }
     }
 }
+
+//struct LineChart_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LineChart()
+//    }
+//}

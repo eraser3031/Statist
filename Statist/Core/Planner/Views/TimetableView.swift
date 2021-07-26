@@ -56,6 +56,8 @@ struct TimetableView: View {
                         .transition(.scale)
                 }
                 .frame(width: geo.size.width)
+                
+                LineChart(datas: [vm.timeTableEntitys])
             }
         }
         .onReceive(environment.$date) { date in

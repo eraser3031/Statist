@@ -15,21 +15,52 @@ struct Graph: View {
     @State private var percentage: CGFloat = 0
     
     init(entity: ProgressEntity){
-        let data: [ProgressPoint] = entity.progressPoints?.allObjects as? [ProgressPoint] ?? []
+        let points = entity.getProgressPoints()
+        let calendar = Calendar.current
+        var data: [Double] = []
+        
+        for (index, _) in points.enumerated() {
+            if points.count == 1 {
+                data.append(Double(points.first!.count))
+                break
+            }
+            
+            if index == points.count-1 {
+                data.append(Double(points[index].count))
+                break
+            }
+            
+            let now = points[index].date ?? Date().toDay()
+            let next = points[index+1].date ?? Date().toDay()
+            let duration = calendar.dateComponents([.day], from: now, to: next).day ?? 0
+            
+            for _ in 0...duration {
+                data.append(Double(points[index].count))
+            }
+        }
+        
+        self.data = data
+        self.maxY = Double(entity.goal)
+        self.minY = 0
+        self.lineColor = entity.kindEntity?.color.toPrimary() ?? Color.primary
     }
     
     var body: some View {
-        chartView
-            .background(
-                graphBackground
-            )
-            .onAppear{
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    withAnimation(.linear(duration: 1.5)) {
-                        percentage = 1.0
-                    }
+        VStack {
+            chartView
+                .frame(height: 200)
+                .background(graphBackground)
+                .overlay(graphYAxis.padding(.horizontal, 4), alignment: .leading)
+        }
+        .font(.caption)
+        .foregroundColor(.theme.groupBackgroundColor)
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                withAnimation(.linear(duration: 1.5)) {
+                    percentage = 1.0
                 }
             }
+        }
     }
 }
 
@@ -39,7 +70,7 @@ extension Graph {
             Path { path in
                 for index in data.indices {
                     let xPosition = geo.size.width / CGFloat(data.count) * CGFloat(index + 1)
-                    let yAxis = maxY - minY // maxY 와 minY는 무엇을 뜻하는가?
+                    let yAxis = maxY - minY
                     let yPosition = (1-CGFloat((data[index] - minY) / yAxis)) * geo.size.height
                     
                     if index == 0 {
@@ -60,6 +91,16 @@ extension Graph {
             Divider()
             Spacer()
             Divider()
+        }
+    }
+    
+    private var graphYAxis: some View {
+        VStack{
+            Text("\(Int(maxY))")
+            Spacer()
+            Text("\(Int((minY + maxY) / 2))")
+            Spacer()
+            Text("\(Int(minY))")
         }
     }
 }
