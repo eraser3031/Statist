@@ -63,3 +63,4 @@ class StatViewModel: ObservableObject {
         }
     }
 }
+ 
