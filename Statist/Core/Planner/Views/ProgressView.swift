@@ -4,7 +4,7 @@
 //
 //  Created by Kimyaehoon on 08/07/2021.
 //
-
+// 이번주안에 스탯 뷰 완성은 무난하게 가능할 듯. 그리고 다음 주엔 플래너 디자인과 인식기능 추가 -> 화이팅..
 import SwiftUI
 
 struct ProgressView: View {
@@ -106,7 +106,7 @@ extension ProgressView {
                     .font(Font.system(.footnote, design: .default).weight(.bold))
             )
             .onTapGesture {
-                cancelProgressInToday(entity)
+                vm.deleteProgressPoint(entity)
             }
     }
     
@@ -122,18 +122,6 @@ extension ProgressView {
             .onTapGesture {
                 progress(entity)
             }
-    }
-    
-    private func cancelProgressInToday(_ entity: ProgressEntity) {
-        var points: [ProgressPoint] = []
-        for data in (entity.progressPoints?.allObjects ?? []) {
-            if let point = data as? ProgressPoint {
-                if (point.date ?? Date().toDay()) == Date().toDay() {
-                    points.append(point)
-                }
-            }
-        }
-        vm.deleteProgressPoints(points)
     }
     
     private func progress(_ entity: ProgressEntity) {

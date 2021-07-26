@@ -9,11 +9,14 @@ import Foundation
 
 extension ProgressEntity {
     var percent: Int {
-        return Int(Float(self.progressPoints?.count ?? 0) / Float(self.goal) * 100)
+        return Int(Float(self.now) / Float(self.goal) * 100)
     }
     
     var now: Int {
-        return self.progressPoints?.count ?? 0
+        let data = getProgressPoints()
+        return data.reduce(0) { result, point in
+            return result + Int(point.count)
+        }
     }
     
     var isFinish: Bool {
@@ -22,5 +25,14 @@ extension ProgressEntity {
     
     var isNotFinish: Bool {
         return !isFinish
+    }
+    
+    func getProgressPoints() -> [ProgressPoint] {
+        return self.progressPoints?.allObjects as? [ProgressPoint] ?? []
+    }
+    
+    func findPoint(_ date: Date) -> ProgressPoint? {
+        let data = getProgressPoints()
+        return data.first(where: { $0.date == date })
     }
 }

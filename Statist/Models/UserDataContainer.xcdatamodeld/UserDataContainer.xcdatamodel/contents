@@ -16,6 +16,7 @@
         <relationship name="progressPoints" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProgressPoint" inverseName="progressEntity" inverseEntity="ProgressPoint"/>
     </entity>
     <entity name="ProgressPoint" representedClassName="ProgressPoint" syncable="YES" codeGenerationType="class">
+        <attribute name="count" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <relationship name="progressEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProgressEntity" inverseName="progressPoints" inverseEntity="ProgressEntity"/>
@@ -36,8 +37,8 @@
     <elements>
         <element name="KindEntity" positionX="380.4793701171875" positionY="-96.94967651367188" width="128" height="119"/>
         <element name="ProgressEntity" positionX="-27.91339111328125" positionY="-259.4897918701172" width="128" height="118"/>
+        <element name="ProgressPoint" positionX="-252.1326293945312" positionY="-420.0052947998047" width="128" height="89"/>
         <element name="TimetableEntity" positionX="-38.53082275390625" positionY="-67.05123901367188" width="128" height="89"/>
         <element name="TodoListEntity" positionX="-40.0025634765625" positionY="89.8092041015625" width="128" height="104"/>
-        <element name="ProgressPoint" positionX="-252.1326293945312" positionY="-420.0052947998047" width="128" height="74"/>
     </elements>
 </model>
