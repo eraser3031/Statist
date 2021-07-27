@@ -112,7 +112,7 @@ class TimeTableViewModel: ObservableObject {
         
         for entity in entitys {
 //            print(entity)
-            let dateInfo = calendar.dateComponents([.hour, .minute], from: entity.date ?? Date().toDay())
+            let dateInfo = calendar.dateComponents([.hour, .minute], from: entity.date ?? Date().toDay)
             let hour = dateInfo.hour ?? 0
             let minute = dateInfo.minute ?? 0
 //            print("\(hour) // \(minute)")

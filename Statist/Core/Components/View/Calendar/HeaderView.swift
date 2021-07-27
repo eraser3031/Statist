@@ -11,7 +11,7 @@ struct HeaderView: View {
     
     @ObservedObject var environment: StatistViewModel
     @ObservedObject var vm: PlannerViewModel
-    @State var alterDate: Date = Date().toDay()
+    @State var alterDate: Date = Date().toDay
     
     init(environment: StatistViewModel, model: PlannerViewModel) {
         self.environment = environment
@@ -25,7 +25,7 @@ struct HeaderView: View {
                 .fontWeight(.heavy)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .onTapGesture {
-                    environment.date = Date().toDay()
+                    environment.date = Date().toDay
                 }
             
             Image(systemName: "calendar")

@@ -9,6 +9,6 @@ import Foundation
 
 class StatistViewModel: ObservableObject {
     
-    @Published var date = Date().toDay()
+    @Published var date = Date().toDay
     
 }

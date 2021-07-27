@@ -30,8 +30,8 @@ struct Graph: View {
                 break
             }
             
-            let now = points[index].date ?? Date().toDay()
-            let next = points[index+1].date ?? Date().toDay()
+            let now = points[index].date ?? Date().toDay
+            let next = points[index+1].date ?? Date().toDay
             let duration = calendar.dateComponents([.day], from: now, to: next).day ?? 0
             
             for _ in 0...duration {

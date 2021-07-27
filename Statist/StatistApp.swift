@@ -25,7 +25,19 @@ struct StatistApp: App {
     
     var body: some Scene {
         WindowGroup {
-            PlannerView()
+            TabView {
+                PlannerView()
+                    .tabItem {
+                        Image(systemName: "2.square.fill")
+                        Text("Second")
+                    }
+                StatView()
+                    .tabItem {
+                        Image(systemName: "3.square.fill")
+                        Text("Third")
+                    }
+            }
+            .font(.headline)
         }
     }
 }

@@ -50,11 +50,11 @@ class ProgressViewModel: ObservableObject {
     
     func addProgressPoint(_ entity: ProgressEntity) {
         if entity.isNotFinish {
-            if let point = entity.findPoint(Date().toDay()) {
+            if let point = entity.findPoint(Date().toDay) {
                 point.count += 1
             } else {
                 let newPoint = ProgressPoint(context: manager.context)
-                newPoint.date = Date().toDay()
+                newPoint.date = Date().toDay
                 newPoint.id = UUID().uuidString
                 newPoint.progressEntity = entity
             }

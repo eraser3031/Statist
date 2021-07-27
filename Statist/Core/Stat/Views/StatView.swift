@@ -8,8 +8,34 @@
 import SwiftUI
 
 struct StatView: View {
+    @StateObject var vm = StatViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading){
+            Text("Stat")
+                .font(.largeTitle)
+                .fontWeight(.heavy)
+            
+            ScrollView(.vertical, showsIndicators: false) {
+                LineChart(datas: vm.timetableEntityGroups)
+                    .frame(height: 300)
+                
+                VStack{
+                    ForEach(vm.result) { entity in
+                        Text(entity.date ?? Date().toDay, style: .date)
+                    }
+                }
+                
+                AchievementView()
+                
+                PeriodView()
+                
+                PercentageView()
+                
+                ProgressGraphView()
+            }
+        }
+        .padding(.horizontal, 20)
     }
 }
 
