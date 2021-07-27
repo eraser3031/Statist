@@ -23,6 +23,8 @@
     </entity>
     <entity name="TimetableEntity" representedClassName="TimetableEntity" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="duration" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="hour" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="minute" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="kindEntity" maxCount="1" deletionRule="Nullify" destinationEntity="KindEntity" inverseName="timetableEntitys" inverseEntity="KindEntity"/>
@@ -38,7 +40,7 @@
         <element name="KindEntity" positionX="380.4793701171875" positionY="-96.94967651367188" width="128" height="119"/>
         <element name="ProgressEntity" positionX="-27.91339111328125" positionY="-259.4897918701172" width="128" height="118"/>
         <element name="ProgressPoint" positionX="-252.1326293945312" positionY="-420.0052947998047" width="128" height="89"/>
-        <element name="TimetableEntity" positionX="-38.53082275390625" positionY="-67.05123901367188" width="128" height="89"/>
+        <element name="TimetableEntity" positionX="-38.53082275390625" positionY="-67.05123901367188" width="128" height="119"/>
         <element name="TodoListEntity" positionX="-40.0025634765625" positionY="89.8092041015625" width="128" height="104"/>
     </elements>
 </model>

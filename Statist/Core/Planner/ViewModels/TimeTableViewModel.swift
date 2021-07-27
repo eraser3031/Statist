@@ -45,8 +45,6 @@ class TimeTableViewModel: ObservableObject {
     
     private func encodeToTimetableEntitys(items: [[KindEntity?]]) -> [TimetableEntity] {
         
-        let calendar = Calendar.current
-        
         var entitys: [TimetableEntity] = []
         let flattenItems = items.flatMap{ $0 }
         
@@ -54,8 +52,10 @@ class TimeTableViewModel: ObservableObject {
             let newEntity = TimetableEntity(context: manager.context)
             newEntity.kindEntity = flattenItems[i]
             newEntity.id = UUID().uuidString
-            newEntity.date = calendar.date(bySettingHour: i/6, minute: ((i)%6)*10, second: 0, of: date)
-            newEntity.minute = 10
+            newEntity.date = date
+            newEntity.hour = Int16(i / 6)
+            newEntity.minute = Int16( (i % 6) * 10 )
+            newEntity.duration = 10
             entitys.append(newEntity)
         }
         
@@ -68,7 +68,7 @@ class TimeTableViewModel: ObservableObject {
             
             if flattenItems[i] == flattenItems[i+1] {
                 if flattenItems[i+1] != nil {
-                    entitys[entitys.endIndex - 1].minute += 10
+                    entitys[entitys.endIndex - 1].duration += 10
                 }
             } else {
                 if flattenItems[i+1] != nil {
@@ -93,7 +93,7 @@ class TimeTableViewModel: ObservableObject {
     func getTimeTableEntitys(date: Date) {
         self.date = date
         let request = NSFetchRequest<TimetableEntity>(entityName: "TimetableEntity")
-        let filter = NSPredicate(format: "date >= %@ AND date <= %@", date as NSDate, date.nextDay() as NSDate)
+        let filter = NSPredicate(format: "date == %@", date as NSDate)
         request.predicate = filter
         
         do {
@@ -108,15 +108,12 @@ class TimeTableViewModel: ObservableObject {
         
         var items = [[KindEntity?]](repeating: [KindEntity?](repeating: nil, count: 6), count: 24)
         
-        let calendar = Calendar.current
-        
         for entity in entitys {
-//            print(entity)
-            let dateInfo = calendar.dateComponents([.hour, .minute], from: entity.date ?? Date().toDay)
-            let hour = dateInfo.hour ?? 0
-            let minute = dateInfo.minute ?? 0
-//            print("\(hour) // \(minute)")
-            for i in 0..<(entity.minute/10) {
+
+            let hour = Int(entity.hour)
+            let minute = Int(entity.minute)
+            
+            for i in 0..<(entity.duration/10) {
                 items[hour + Int(i)/6][(minute/10 + Int(i))%6] = entity.kindEntity
             }
         }

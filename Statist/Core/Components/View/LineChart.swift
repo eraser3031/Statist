@@ -32,7 +32,7 @@ extension LineChart {
                             Rectangle()
                                 .fill(data.kindEntity?.color.toPrimary() ?? Color.primary)
                                 .frame(width: 8,
-                                       height: geo.size.height / calTotalMin(datas[index]) * CGFloat(data.minute ) )
+                                       height: geo.size.height * CGFloat(data.duration ) / calTotalMin(datas[index]) )
                         }
                     }
                     .clipShape(
@@ -65,13 +65,12 @@ extension LineChart {
     
     private func calTotalMin(_ entitys: [TimetableEntity]) -> CGFloat {
         return entitys.reduce(0) { result, entity in
-            return result + CGFloat(entity.minute)
+            return result + CGFloat(entity.duration)
         }
     }
 }
 
 //struct LineChart_Previews: PreviewProvider {
-//    static var previews: some View {
+//    static *ar previews: some View {
 //        LineChart()
 //    }
-//}
