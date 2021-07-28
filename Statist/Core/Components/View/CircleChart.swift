@@ -9,11 +9,11 @@ import SwiftUI
 
 struct CircleChart: View {
     
-    var percent: Int
+    var percent: Double
     var colors: [Color]
     var trim: CGFloat
     
-    init(percent: Int, colors: [Color]) {
+    init(percent: Double, colors: [Color]) {
         self.percent = percent
         self.colors = colors
         self.trim = CGFloat(percent)/100

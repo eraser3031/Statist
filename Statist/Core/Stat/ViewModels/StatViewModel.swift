@@ -6,20 +6,22 @@
 //
 
 import SwiftUI
+import Combine
 import CoreData
 
 class StatViewModel: ObservableObject {
     @Published var todoEntitys: [TodoListEntity] = []
-    var percent: Int {
-        let value: Double = todoEntitys.reduce(0) { result, entity in
-            if entity.isDone {
-                return result + 1
-            } else {
-                return result
-            }
-        }
-        let percent = value / Double(todoEntitys.count) * 100
-        return Int(percent)
+    @Published var prevWeekTodoEntitys: [TodoListEntity] = []
+    var percent: Double {
+        calPercent(todoEntitys)
+    }
+    
+    var percentGap: Double {
+        calPercent(todoEntitys) - calPercent(prevWeekTodoEntitys)
+    }
+    
+    var countGap: Int {
+        calCount(todoEntitys) - calCount(prevWeekTodoEntitys)
     }
     
     @Published var timetableEntityGroups: [[TimetableEntity]] = []
@@ -30,6 +32,7 @@ class StatViewModel: ObservableObject {
     
     init() {
         getTodoListEntitys(start: Date().prevWeek().toDay, end: Date().nextDay())
+        getPrevTodoListEntitys(today: Date().toDay)
         getTimetableEntityGroups(start: Date().prevWeek().toDay, end: Date().nextDay())
         getProgressEntitys()
     }
@@ -42,11 +45,23 @@ class StatViewModel: ObservableObject {
         do {
             todoEntitys = try manager.context.fetch(request)
         } catch let error {
-            print("Error Fetching TodoListEntitys(by StatViewModel) \(error)")
+            print("Error Fetching TodoListEntitys(by StatViewModel \(error)")
         }
     }
     
-    
+    private func getPrevTodoListEntitys(today: Date) {
+        let request = NSFetchRequest<TodoListEntity>(entityName: "TodoListEntity")
+        let filter = NSPredicate(format: "date <= %@ AND date >= %@",
+                                 today.prevWeek() as NSDate, today.prevWeek().prevWeek() as NSDate)
+        
+        request.predicate = filter
+        
+        do {
+            prevWeekTodoEntitys = try manager.context.fetch(request)
+        } catch let error {
+            print("Error Fetching PrevWeekTodoEntitys(by StatViewModel \(error)")
+        }
+    }
     
     private func getTimetableEntityGroups(start: Date, end: Date) {
         let request = NSFetchRequest<TimetableEntity>(entityName: "TimetableEntity")
@@ -82,3 +97,28 @@ class StatViewModel: ObservableObject {
     }
 }
  
+// For Extra Method
+extension StatViewModel {
+    private func calPercent(_ entity: [TodoListEntity]) -> Double {
+        let value: Double = entity.reduce(0) { result, entity in
+            if entity.isDone {
+                return result + 1
+            } else {
+                return result
+            }
+        }
+        let percent = value / Double(todoEntitys.count) * 100
+        return percent
+    }
+    
+    private func calCount(_ entity: [TodoListEntity]) -> Int {
+        let count: Int = entity.reduce(0) { result, entity in
+            if entity.isDone {
+                return result + 1
+            } else {
+                return result
+            }
+        }
+        return count
+    }
+}
