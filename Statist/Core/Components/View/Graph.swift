@@ -63,6 +63,7 @@ struct Graph: View {
         }
     }
 }
+ 
 
 extension Graph {
     private var chartView: some View {
