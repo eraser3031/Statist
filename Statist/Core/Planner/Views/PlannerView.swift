@@ -55,8 +55,8 @@ struct PlannerView: View {
         let minus: CGFloat = vm.pickedItem == .Progress ? 0 : vm.calendarScope ? 300 : 80
         return geo.size.height - minus
     }
-} 
-
+}
+ 
 extension PlannerView {
     private func mainView(geo: GeometryProxy) -> some View {
         Rectangle()
