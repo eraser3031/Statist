@@ -89,8 +89,8 @@ extension PlannerView {
                 }
             )
     }
-} 
-
+}
+ 
 struct PlannerView_Previews: PreviewProvider {
     static var previews: some View {
         PlannerView()
