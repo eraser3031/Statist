@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		212777C926BAD1B2009C2349 /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212777C826BAD1B2009C2349 /* VisualEffectBlur.swift */; };
 		2134DA05269FCBC300ED4544 /* EditTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2134DA04269FCBC300ED4544 /* EditTodoView.swift */; };
 		2134DA07269FD13700ED4544 /* EditTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2134DA06269FD13700ED4544 /* EditTodoViewModel.swift */; };
 		213EB5F3269EB05500059680 /* AddTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5F2269EB05500059680 /* AddTodoView.swift */; };
@@ -73,6 +74,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		212777C826BAD1B2009C2349 /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		2134DA04269FCBC300ED4544 /* EditTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoView.swift; sourceTree = "<group>"; };
 		2134DA06269FD13700ED4544 /* EditTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewModel.swift; sourceTree = "<group>"; };
 		213EB5F2269EB05500059680 /* AddTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoView.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				21565E07269B144F00E28748 /* RotationModifier.swift */,
+				212777C826BAD1B2009C2349 /* VisualEffectBlur.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				21D1F51126987FE500E57727 /* ProgressViewModel.swift in Sources */,
 				21BE069C269C90AB00C7B06F /* CalendarView.swift in Sources */,
 				21D1F4E62694949600E57727 /* TimeTableRow.swift in Sources */,
+				212777C926BAD1B2009C2349 /* VisualEffectBlur.swift in Sources */,
 				2134DA07269FD13700ED4544 /* EditTodoViewModel.swift in Sources */,
 				215760FB26AD9F63009F617B /* ProgressGraphView.swift in Sources */,
 				216955A8269AA816007DF171 /* RandomAcessCollection.swift in Sources */,
