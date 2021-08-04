@@ -17,4 +17,4 @@ struct VisualEffectView: UIViewRepresentable {
         uiView.effect = UIBlurEffect(style: style)
     }
 }
-  
+
