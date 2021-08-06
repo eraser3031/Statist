@@ -29,9 +29,9 @@ struct CalendarView: UIViewRepresentable {
             calendar.appearance.selectionColor = .black
             calendar.appearance.titleTodayColor = .black
             calendar.appearance.weekdayTextColor = .black
+            calendar.appearance.caseOptions = FSCalendarCaseOptions.weekdayUsesSingleUpperCase
             calendar.appearance.todayColor = .systemGray5
             calendar.headerHeight = 0
-            calendar.appearance.caseOptions = FSCalendarCaseOptions.weekdayUsesSingleUpperCase
             calendar.appearance.weekdayFont = UIFont(name: "Gilroy-ExtraBold", size: 10)
             calendar.appearance.titleFont = UIFont(name: "Gilroy-ExtraBold", size: 12)
             calendar.scope = vm.calendarScope ? .month : .week

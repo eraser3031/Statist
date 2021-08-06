@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		211D35DE26BD4CFF007EC9FF /* NewCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211D35DD26BD4CFF007EC9FF /* NewCalendarView.swift */; };
+		211D35E026BD4FD0007EC9FF /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211D35DF26BD4FD0007EC9FF /* TodoView.swift */; };
+		211D35E226BD52F1007EC9FF /* GroupedCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211D35E126BD52F1007EC9FF /* GroupedCalendarView.swift */; };
+		211D35E426BD5B55007EC9FF /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211D35E326BD5B55007EC9FF /* TodoViewModel.swift */; };
 		212777C926BAD1B2009C2349 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212777C826BAD1B2009C2349 /* VisualEffectView.swift */; };
 		2134DA05269FCBC300ED4544 /* EditTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2134DA04269FCBC300ED4544 /* EditTodoView.swift */; };
 		2134DA07269FD13700ED4544 /* EditTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2134DA06269FD13700ED4544 /* EditTodoViewModel.swift */; };
@@ -74,6 +78,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		211D35DD26BD4CFF007EC9FF /* NewCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCalendarView.swift; sourceTree = "<group>"; };
+		211D35DF26BD4FD0007EC9FF /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
+		211D35E126BD52F1007EC9FF /* GroupedCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedCalendarView.swift; sourceTree = "<group>"; };
+		211D35E326BD5B55007EC9FF /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		212777C826BAD1B2009C2349 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		2134DA04269FCBC300ED4544 /* EditTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoView.swift; sourceTree = "<group>"; };
 		2134DA06269FD13700ED4544 /* EditTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewModel.swift; sourceTree = "<group>"; };
@@ -332,6 +340,8 @@
 			children = (
 				21D045D12691F82E0048685A /* HeaderView.swift */,
 				21BE069B269C90AB00C7B06F /* CalendarView.swift */,
+				211D35DD26BD4CFF007EC9FF /* NewCalendarView.swift */,
+				211D35E126BD52F1007EC9FF /* GroupedCalendarView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -416,6 +426,7 @@
 				21D1F503269623A200E57727 /* TimetableView.swift */,
 				21D1F505269623B400E57727 /* ProgressView.swift */,
 				21D1F507269623C300E57727 /* TodoListView.swift */,
+				211D35DF26BD4FD0007EC9FF /* TodoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -428,6 +439,7 @@
 				21D1F50E26987FD700E57727 /* TimeTableViewModel.swift */,
 				21D1F51026987FE500E57727 /* ProgressViewModel.swift */,
 				21D1F51226987FF100E57727 /* TodoListViewModel.swift */,
+				211D35E326BD5B55007EC9FF /* TodoViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -542,6 +554,7 @@
 				21C51E7326A2B58F007EEBCB /* PlannerView.swift in Sources */,
 				21D1F50F26987FD700E57727 /* TimeTableViewModel.swift in Sources */,
 				21D1F51B2699E27F00E57727 /* CoreDataManager.swift in Sources */,
+				211D35E226BD52F1007EC9FF /* GroupedCalendarView.swift in Sources */,
 				21D045D22691F82E0048685A /* HeaderView.swift in Sources */,
 				21D045BC2691F5D90048685A /* StatistApp.swift in Sources */,
 				21897C9B26A1C023003C12C5 /* StatistViewModel.swift in Sources */,
@@ -562,11 +575,14 @@
 				213EB5F5269EB6F500059680 /* AddTodoViewModel.swift in Sources */,
 				215760F926AD9F55009F617B /* StatView.swift in Sources */,
 				213EB600269ED8A900059680 /* CustomColorPicker.swift in Sources */,
+				211D35E426BD5B55007EC9FF /* TodoViewModel.swift in Sources */,
 				21D1F4FB2696032800E57727 /* TimeTableHeader.swift in Sources */,
 				21D045DE26921BDA0048685A /* CalendarViewModel.swift in Sources */,
+				211D35DE26BD4CFF007EC9FF /* NewCalendarView.swift in Sources */,
 				213EB5FC269EBAFD00059680 /* AddKindViewModel.swift in Sources */,
 				215760F526AD9F3E009F617B /* PeriodView.swift in Sources */,
 				21D1F4E82694954700E57727 /* KindEntity.swift in Sources */,
+				211D35E026BD4FD0007EC9FF /* TodoView.swift in Sources */,
 				21D1F506269623B400E57727 /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

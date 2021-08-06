@@ -26,7 +26,7 @@ struct StatView: View {
                     }
                 }
                 
-                AchievementView()
+//                AchievementView()
                 
                 PeriodView()
                 
