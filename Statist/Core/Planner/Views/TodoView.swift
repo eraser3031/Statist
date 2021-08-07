@@ -32,12 +32,29 @@ struct TodoView: View {
                     } else {
                         todoList
                     }
+                    
+                    Label("Add new Todo", systemImage: "plus")
+                        .font(Font.system(.subheadline, design: .default).weight(.semibold))
+                        .padding(16)
+                        .frame(maxWidth: 400, alignment: .leading)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .fill(Color(.systemBackground))
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .stroke(Color.theme.dividerColor)
+                        )
+                        .shadow(color: Color.theme.shadowColor.opacity(0.14), radius: 14, x: 0.0, y: 8)
+                        .padding(.vertical, !vm.entitysGroupedByKind.isEmpty ? 24 : 4)
                 }
                 .padding(.horizontal, 16)
             }
         }
         .onChange(of: vm.calendarInfo.date) { _ in
-            vm.entitys()
+            withAnimation(.spring()){
+                vm.entitys()
+            }
         }
     }
     
@@ -86,13 +103,24 @@ struct TodoView: View {
     }
     
     private var empty: some View {
-        Rectangle()
-            .fill(Color(.systemBackground))
+        RoundedRectangle(cornerRadius: 12, style: .continuous)
+            .fill(Color.theme.subBackgroundColor)
             .frame(height: 300)
             .overlay(
-                Text("Empty")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(Color.theme.dividerColor,
+                            style: StrokeStyle(lineWidth: 2, lineCap: .round, dash: [8]))
+                    .padding(1)
+            )
+            .overlay(
+                VStack(spacing: 4) {
+                    Image(systemName: "moon.zzz.fill")
+                        .font(.title2)
+                    
+                    Text("Todo is empty")
+                        .font(.footnote)
+                }
+                .foregroundColor(.secondary)
             )
     }
     
