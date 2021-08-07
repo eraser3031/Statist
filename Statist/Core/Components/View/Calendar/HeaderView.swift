@@ -43,17 +43,18 @@ struct HeaderView: View {
 
 struct NewHeaderView: View {
     
-    @ObservedObject var vm: CalendarViewModel
+    @Binding var info: CalendarInfo
+    @State var alterDate: Date = Date().toDay
     
     var body: some View {
         HStack(spacing: 0) {
             HStack(spacing: 8) {
                 Image(systemName: "calendar")
                     .font(Font.system(.subheadline, design: .default).weight(.medium))
-                Text(vm.date.titleString())
+                Text(info.date.titleString())
                     .font(Font.system(.subheadline, design: .default).weight(.heavy))
                     .onTapGesture {
-                        vm.date = Date().toDay
+                        info.date = Date().toDay
                     }
             }
             
@@ -61,10 +62,10 @@ struct NewHeaderView: View {
             
             Button(action: {
                 withAnimation(.spring()) {
-                    vm.scope.toggle()
+                    info.scope.toggle()
                 }
             }) {
-                Label(vm.scope ? "CLOSE" : "OPEN", systemImage: "scroll")
+                Label(info.scope ? "CLOSE" : "OPEN", systemImage: "scroll")
                     .font(.caption2)
                     .foregroundColor(Color(.systemGray))
                     .padding(.horizontal, 10)

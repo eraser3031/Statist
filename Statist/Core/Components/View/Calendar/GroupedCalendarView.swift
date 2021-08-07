@@ -9,19 +9,19 @@ import SwiftUI
 
 struct GroupedCalendarView: View {
     
+    @Binding var info: CalendarInfo
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var vm: CalendarViewModel
     
     var body: some View {
         VStack(spacing: 10) {
-            NewHeaderView(vm: vm)
+            NewHeaderView(info: $info)
             
             Divider()
             
             GeometryReader { geo in
-                NewCalendarView(vm: vm, geo: geo, colorScheme: colorScheme)
+                NewCalendarView(info: $info, geo: geo, colorScheme: colorScheme)
                     .id(self.colorScheme)
-            }.frame(height: vm.scope ? 300 : 80)
+            }.frame(height: info.scope ? 300 : 80)
         }
         .padding(14)
         .background(Color(.systemBackground))

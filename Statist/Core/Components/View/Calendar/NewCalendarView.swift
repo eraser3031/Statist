@@ -11,7 +11,7 @@ import Combine
 
 struct NewCalendarView: UIViewRepresentable {
 
-    @ObservedObject var vm: CalendarViewModel
+    @Binding var info: CalendarInfo
     var geo: GeometryProxy
     var colorScheme: ColorScheme
     
@@ -33,7 +33,7 @@ struct NewCalendarView: UIViewRepresentable {
         calendar.appearance.caseOptions = FSCalendarCaseOptions.weekdayUsesSingleUpperCase
         calendar.appearance.weekdayFont = UIFont(name: "Gilroy-ExtraBold", size: 10)
         calendar.appearance.titleFont = UIFont.systemFont(ofSize: 12, weight: .semibold)
-        calendar.scope = vm.scope ? .month : .week
+        calendar.scope = info.scope ? .month : .week
     }
     
     func makeUIView(context: UIViewRepresentableContext<NewCalendarView>) -> UIView {
@@ -42,43 +42,25 @@ struct NewCalendarView: UIViewRepresentable {
         
         setCalendar(calendar, context: context)
         
-        view.addSubview(calendar)
+        calendar.select(info.date) //
         
+        view.addSubview(calendar)
+
         let newRect = CGRect(x: 0, y: 0, width: geo.size.width, height: 300)
         calendar.frame = newRect
-        
-        func addSubscriber() {
-            vm.$scope
-                .sink { isOpen in
-                    for subview in view.subviews {
-                        if let calendar = subview as? FSCalendar {
-                            calendar.setScope(isOpen ? .month : .week, animated: true)
-                            print(isOpen ? "true" : "false")
-                        }
-                    }
-                    
-                }
-                .store(in: &vm.cancellables)
-            
-            vm.$date
-                .sink { date in
-                    for subview in view.subviews {
-                        if let calendar = subview as? FSCalendar {
-                            calendar.select(date)
-                        }
-                    }
-                }
-                .store(in: &vm.cancellables)
-            
-        }
-        
-        addSubscriber()
         
         return view
     }
     
     func updateUIView(_ view: UIView, context: UIViewRepresentableContext<NewCalendarView>) {
+        
         for calendar in view.subviews {
+            
+            if let calendar = calendar as? FSCalendar {
+                calendar.select(info.date)
+                calendar.setScope(info.scope ? .month : .week, animated: true)
+            }
+            
             if (geo.size.width) != calendar.frame.width {
                 calendar.removeFromSuperview()
                 let newRect = CGRect(x: 0, y: 0, width: geo.size.width, height: 300)
@@ -87,38 +69,29 @@ struct NewCalendarView: UIViewRepresentable {
                 setCalendar(calendar, context: context)
                 
                 view.addSubview(calendar)
-                
-//                print(rect)
             }
         }
     }
     
     class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource {
         
-        @ObservedObject var vm: CalendarViewModel
+        @Binding var info: CalendarInfo
         
-        init(vm: CalendarViewModel) {
-            self.vm = vm
+        init(info: Binding<CalendarInfo>){
+            self._info = info
         }
         
         func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
             calendar.frame = bounds
         }
         
-//        func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-//            print("didSelect: \(date.description)")
-//            environment.date = date
-//            print("didSelect/environment: \(environment.date.description)")
-//            return true
-//        }
-        
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-            vm.date = date
+            info.date = date
         }
     }
     
     func makeCoordinator() -> NewCalendarView.Coordinator {
-        return Coordinator(vm: vm)
+        return Coordinator(info: $info)
     }
 }
 

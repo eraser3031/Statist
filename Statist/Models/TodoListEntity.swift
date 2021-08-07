@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-extension TodoListEntity {
-    func toggle() {
-        self.isDone.toggle()
+extension TodoListEntity: Comparable {
+    public static func < (lhs: TodoListEntity, rhs: TodoListEntity) -> Bool {
+        (lhs.name ?? "") > (rhs.name ?? "")
     }
 }

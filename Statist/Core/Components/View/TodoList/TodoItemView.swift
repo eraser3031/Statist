@@ -68,18 +68,75 @@ struct TodoItemView: View {
 struct NewTodoItemView: View {
     
     let model: TodoListEntity
-    @Binding var editModel: TodoListEntity?
-    let toggle: () -> Void
+    @ObservedObject var vm: TodoViewModel
+    
+    let primaryColor: Color
+    
+    init(_ model: TodoListEntity, vm: TodoViewModel) {
+        self.model = model
+        self.vm = vm
+        self.primaryColor = model.kindEntity?.color.toPrimary() ?? .primary
+    }
     
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: model.isDone ? "checkmark.circle.fill" : "circle")
-                .font(.callout)
-            Text(model.name ?? "")
-                .font(.footnote)
-            Spacer()
+            HStack(spacing: 12) {
+                Image(systemName: model.isDone ? "checkmark.circle.fill" : "circle")
+                    .font(.callout)
+                Text(model.name ?? "")
+                    .font(.footnote)
+                
+                Spacer()
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                withAnimation(.spring()) {
+                    vm.toggle(model)
+                }
+            } 
+
+            Menu {
+                Button(action: { vm.edit(model) }) {
+                    Label("Edit", systemImage: "pencil")
+                }
+                
+                Button(action: { vm.moveBackDate(model) }) {
+                    Label("Move back the date", systemImage: "calendar.badge.clock")
+                }
+                
+                Divider()
+                
+                Button(action: { vm.deleteEntityAsync(model) }) {
+                    Label("Delete", systemImage: "trash")
+                }
+            } label: {
+                Image(systemName: "ellipsis")
+                    .font(.headline)
+                    .foregroundColor(Color(.systemGray))
+                    .padding(5).padding(.horizontal, 2)
+                    .background(
+                        Capsule(style: .continuous)
+                            .fill(Color.theme.itemBackgroundColor)
+                    )
+                    .padding(2)
+            }
         }
+        .foregroundColor(model.isDone ? primaryColor : .primary )
+        .padding(13)
+        .padding(.vertical, model.isDone ? 0 : 4)
         .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .overlay(
+            ZStack(alignment: .leading){
+                Color.theme.dividerColor
+                    .frame(height: 2)
+                    .padding(.horizontal, 14)
+            
+                primaryColor
+                    .frame(maxWidth: model.isDone ? .infinity : 0)
+                    .frame(height: 2)
+                    .padding(.horizontal, 14)
+            }
+            ,alignment: .bottom
+        )
     }
 }

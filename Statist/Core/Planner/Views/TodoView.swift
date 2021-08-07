@@ -10,10 +10,9 @@ import SwiftUI
 struct TodoView: View {
     
     @StateObject var vm: TodoViewModel
-    @StateObject var calendarVM = CalendarViewModel()
     
     init(date: Date){
-        self._vm = StateObject(wrappedValue: TodoViewModel(date: date))
+        self._vm = StateObject(wrappedValue: TodoViewModel())
     }
     
     var body: some View {
@@ -21,59 +20,56 @@ struct TodoView: View {
             header
                 .padding(.vertical, 20)
             
-            GroupedCalendarView(vm: calendarVM)
-                .shadow(color: Color(#colorLiteral(red: 0.1333333, green: 0.3098039, blue: 0.662745, alpha: 0.14)), radius: 14, x: 0.0, y: 8)
+            GroupedCalendarView(info: $vm.calendarInfo)
+                .shadow(color: Color.theme.shadowColor.opacity(0.14), radius: 14, x: 0.0, y: 8)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 30)
             
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 10){
-                    if vm.todoListEntitys.isEmpty {
+                VStack(spacing: 24){
+                    if vm.entitysGroupedByKind.isEmpty {
                         empty
                     } else {
                         todoList
                     }
                 }
+                .padding(.horizontal, 16)
             }
         }
-        .onReceive(calendarVM.$date) { date in
-            withAnimation(.spring()) {
-                vm.getTodoListEntitys(date: date)
-            }
+        .onChange(of: vm.calendarInfo.date) { _ in
+            vm.entitys()
         }
     }
     
     //  MARK: - Components
     
     private var todoList: some View {
-//        ForEach(vm.todoListEntitys.indexed(), id: \.element.id) { (index, model) in
-//            if vm.sectionIndexes.contains(index) {
-//                Text(model.kindEntity?.name ?? "")
-//                    .font(Font.system(.headline, design: .default).weight(.bold))
-//                    .foregroundColor(model.kindEntity?.color.toPrimary() ?? Color.primary)
-//                    .padding(.top, 10)
-//                    .id(model.kindEntity?.name ?? "")
-//            }
-//
-//            NewTodoItemView(model: model, editModel: vm.$editingEntity, toggle: model.toggle)
-//            .contextMenu {
-//                Button(action: { edit(model) }) {
-//                    Label("Edit", systemImage: "pencil")
-//                }
-//
-//                Button(action: { moveBackDate(model) }) {
-//                    Label("Move back the date", systemImage: "calendar.badge.clock")
-//                }
-//
-//                Divider()
-//
-//                Button(action: { delete(model) }) {
-//                    Label("Delete", systemImage: "trash")
-//                }
-//            }
-//            .transition(.opacity)
-//        }
-        EmptyView()
+        ForEach(vm.entitysGroupedByKind, id: \.id) { groupedByKind in
+            
+            let entitys = groupedByKind.entitys
+            let kind = groupedByKind.kindEntity
+            let name = kind.name ?? ""
+            let primaryColor = kind.color.toPrimary()
+            
+            VStack(alignment: .leading, spacing: 10){
+                HStack(spacing: 8) {
+                    Circle()
+                        .fill(primaryColor)
+                        .frame(width: 12, height: 12)
+                    
+                    Text(name)
+                        .font(Font.system(.subheadline, design: .default).weight(.semibold))
+                }
+                .padding(.vertical, 10)
+                
+                VStack(spacing: 12) {
+                    ForEach(entitys) { entity in
+                        NewTodoItemView(entity, vm: vm)
+                    }
+                }
+            }
+            
+        }
     }
     
     private var header: some View {
@@ -102,36 +98,10 @@ struct TodoView: View {
     
     //  MARK: - Function
     
-    private func binding(for item: TodoListEntity) -> Binding<TodoListEntity> {
-        guard let index = vm.todoListEntitys.firstIndex(where: { $0.id == item.id }) else {
-            fatalError("Can't find scrum in array")
-        }
-        return $vm.todoListEntitys[index]
-    }
-    
-    private func edit(_ model: TodoListEntity) {
-        withAnimation(.spring()) {
-            vm.editingEntity = model
-        }
-        vm.showEditTodoView = true
-    }
-    
-    private func moveBackDate(_ model: TodoListEntity) {
-        let newDate = Calendar.current.date(byAdding: .day, value: 1, to: model.date ?? Date())
-        model.date = newDate
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            withAnimation(.spring()) {
-                vm.save(date: calendarVM.date)
-            }
-        }
-    }
-    
-    private func delete(_ model: TodoListEntity) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            withAnimation(.spring()) {
-                vm.deleteTodoListEntity(entity: model, date: calendarVM.date)
-            }
-        }
-    }
-    
+//    private func binding(for item: TodoListEntity) -> Binding<TodoListEntity> {
+//        guard let index = vm.todoListEntitys.firstIndex(where: { $0.id == item.id }) else {
+//            fatalError("Can't find scrum in array")
+//        }
+//        return $vm.todoListEntitys[index]
+//    }
 }
