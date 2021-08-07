@@ -10,24 +10,29 @@ import FSCalendar
 import Combine
 
 struct NewCalendarView: UIViewRepresentable {
-    
+
     @ObservedObject var vm: CalendarViewModel
+    var geo: GeometryProxy
+    var colorScheme: ColorScheme
     
     func setCalendar(_ calendar: FSCalendar, context: UIViewRepresentableContext<NewCalendarView>) {
         calendar.delegate = context.coordinator
         calendar.dataSource = context.coordinator
-        calendar.appearance.eventDefaultColor = .black
+        calendar.appearance.eventDefaultColor = colorScheme == .dark ? .white : .black
         calendar.appearance.borderRadius = 2
         calendar.appearance.headerMinimumDissolvedAlpha = 0
-        calendar.appearance.eventSelectionColor = .black
-        calendar.appearance.selectionColor = .black
-        calendar.appearance.titleTodayColor = .black
-        calendar.appearance.weekdayTextColor = .black
+        calendar.appearance.eventSelectionColor = colorScheme == .dark ? .white : .black
+        calendar.appearance.selectionColor = colorScheme == .dark ? .white : .black
+        calendar.appearance.titleTodayColor = colorScheme == .dark ? .white : .black
+        calendar.appearance.weekdayTextColor = colorScheme == .dark ? .white : .black
         calendar.appearance.todayColor = .systemGray5
         calendar.headerHeight = 0
+        calendar.appearance.titleSelectionColor = colorScheme == .dark ? .black : .white
+        calendar.appearance.titleDefaultColor = colorScheme == .dark ? .white : .black
+        calendar.appearance.subtitleDefaultColor = colorScheme == .dark ? .white : .black
         calendar.appearance.caseOptions = FSCalendarCaseOptions.weekdayUsesSingleUpperCase
         calendar.appearance.weekdayFont = UIFont(name: "Gilroy-ExtraBold", size: 10)
-        calendar.appearance.titleFont = UIFont(name: "Gilroy-ExtraBold", size: 12)
+        calendar.appearance.titleFont = UIFont.systemFont(ofSize: 12, weight: .semibold)
         calendar.scope = vm.scope ? .month : .week
     }
     
@@ -39,7 +44,7 @@ struct NewCalendarView: UIViewRepresentable {
         
         view.addSubview(calendar)
         
-        let newRect = CGRect(x: 0, y: 0, width: vm.rect.width - 60, height: 300)
+        let newRect = CGRect(x: 0, y: 0, width: geo.size.width, height: 300)
         calendar.frame = newRect
         
         func addSubscriber() {
@@ -74,9 +79,9 @@ struct NewCalendarView: UIViewRepresentable {
     
     func updateUIView(_ view: UIView, context: UIViewRepresentableContext<NewCalendarView>) {
         for calendar in view.subviews {
-            if (vm.rect.width - 60) != calendar.frame.width {
+            if (geo.size.width) != calendar.frame.width {
                 calendar.removeFromSuperview()
-                let newRect = CGRect(x: 0, y: 0, width: vm.rect.width - 60, height: 300)
+                let newRect = CGRect(x: 0, y: 0, width: geo.size.width, height: 300)
                 let calendar = FSCalendar(frame: newRect)
                 
                 setCalendar(calendar, context: context)

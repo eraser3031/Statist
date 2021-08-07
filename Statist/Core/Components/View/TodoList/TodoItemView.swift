@@ -64,3 +64,22 @@ struct TodoItemView: View {
         )
     }
 }
+
+struct NewTodoItemView: View {
+    
+    let model: TodoListEntity
+    @Binding var editModel: TodoListEntity?
+    let toggle: () -> Void
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: model.isDone ? "checkmark.circle.fill" : "circle")
+                .font(.callout)
+            Text(model.name ?? "")
+                .font(.footnote)
+            Spacer()
+        }
+        .background(Color(.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+    }
+}

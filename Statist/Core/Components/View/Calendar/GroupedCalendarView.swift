@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GroupedCalendarView: View {
     
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var vm: CalendarViewModel
     
     var body: some View {
@@ -17,13 +18,19 @@ struct GroupedCalendarView: View {
             
             Divider()
             
-            NewCalendarView(vm: vm)
-                .frame(height: vm.scope ? 300 : 80)
+            GeometryReader { geo in
+                NewCalendarView(vm: vm, geo: geo, colorScheme: colorScheme)
+                    .id(self.colorScheme)
+            }.frame(height: vm.scope ? 300 : 80)
         }
         .padding(14)
         .background(Color(.systemBackground))
+        .overlay(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .stroke(Color.theme.dividerColor)
+                .padding(0.5)
+        )
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-        .shadow(color: Color(#colorLiteral(red: 0.1333333, green: 0.3098039, blue: 0.662745, alpha: 0.2)), radius: 40, x: 0.0, y: 20)
     }
 }
 

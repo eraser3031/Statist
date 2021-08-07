@@ -52,6 +52,9 @@ struct NewHeaderView: View {
                     .font(Font.system(.subheadline, design: .default).weight(.medium))
                 Text(vm.date.titleString())
                     .font(Font.system(.subheadline, design: .default).weight(.heavy))
+                    .onTapGesture {
+                        vm.date = Date().toDay
+                    }
             }
             
             Spacer()
@@ -61,14 +64,14 @@ struct NewHeaderView: View {
                     vm.scope.toggle()
                 }
             }) {
-                Label("Open", systemImage: "scroll")
+                Label(vm.scope ? "CLOSE" : "OPEN", systemImage: "scroll")
                     .font(.caption2)
                     .foregroundColor(Color(.systemGray))
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)
                     .background(
                         Capsule(style: .continuous)
-                            .fill(Color(.quaternaryLabel))
+                            .fill(Color.theme.itemBackgroundColor)
                     )
             }
         }
