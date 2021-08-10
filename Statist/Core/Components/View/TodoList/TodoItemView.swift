@@ -93,7 +93,7 @@ struct NewTodoItemView: View {
                 withAnimation(.spring()) {
                     vm.toggle(model)
                 }
-            } 
+            }
 
             Menu {
                 Button(action: { vm.edit(model) }) {
@@ -122,8 +122,8 @@ struct NewTodoItemView: View {
             }
         }
         .foregroundColor(model.isDone ? primaryColor : .primary )
-        .padding(13)
-        .padding(.vertical, model.isDone ? 0 : 4)
+        .padding(12)
+        .padding(.vertical, model.isDone ? 0 : 3)
         .background(Color(.systemBackground))
         .overlay(
             ZStack(alignment: .leading){

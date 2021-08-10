@@ -20,16 +20,16 @@ struct TimetableView: View {
         GeometryReader { geo in
             VStack(spacing: 10){
             
-                KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
-                    .sheet(isPresented: $vm.showAddKindView,
-                           onDismiss: {
-                            withAnimation(.spring()){
-                                vm.getKindEntitys()
-                            }
-                        }) {
-                            AddKindView()
-                    }
-            
+//                KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
+//                    .sheet(isPresented: $vm.showAddKindView,
+//                           onDismiss: {
+//                            withAnimation(.spring()){
+//                                vm.getKindEntitys()
+//                            }
+//                        }) {
+//                            AddKindView()
+//                    }
+//            
             
                 TimeTable(models: vm.items, tapColumn: vm.tapColumn) { item, outIndex, inIndex in
                     Rectangle()

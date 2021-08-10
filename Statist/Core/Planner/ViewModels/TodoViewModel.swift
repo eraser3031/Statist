@@ -14,9 +14,17 @@ class TodoViewModel: ObservableObject {
     @Published var entitysGroupedByKind: [EntityGroupedByKind] = []
     @Published var calendarInfo = CalendarInfo()
     
-    @Published var showAddTodoView = false
-    @Published var showEditTodoView = false
+    @Published var kinds: [KindEntity] = []
+    
+    @Published var taskCase: TaskCase = .none
+    @Published var showKindView = false
     @Published var editingEntity: TodoListEntity?
+    
+    @Published var text: String = ""
+    @Published var kind: KindEntity?
+    var canTask: Bool {
+        !text.isEmpty && kind != nil
+    }
     
     let manager = CoreDataManager.instance
     
@@ -24,6 +32,8 @@ class TodoViewModel: ObservableObject {
     
     init(){
         entitys()
+        kindEntitys()
+        
     }
     
     func entitys() {
@@ -51,18 +61,38 @@ class TodoViewModel: ObservableObject {
         }
     }
     
-    func getKindEntity(name: String) -> KindEntity? {
+    func kindEntitys() {
         let request = NSFetchRequest<KindEntity>(entityName: "KindEntity")
-        let filter = NSPredicate(format: "name = %@", name)
-        request.predicate = filter
-        
+        let sort = NSSortDescriptor(keyPath: \KindEntity.name, ascending: true)
+        request.sortDescriptors = [sort]
         do {
-            return try manager.context.fetch(request).first
+            kinds = try manager.context.fetch(request)
         } catch let error {
             print("Error Fetching Kind Entity: \(error)")
         }
         
-        return nil
+    }
+    
+    func addTodoEntity() {
+        let newEntity = TodoListEntity(context: manager.context)
+        newEntity.id = UUID().uuidString
+        newEntity.name = text
+        newEntity.date = calendarInfo.date
+        newEntity.kindEntity = kind
+        newEntity.isDone = false
+        withAnimation(.spring()) {
+            save()
+        }
+    }
+    
+    func editTodoEntity() {
+        if let entity = editingEntity {
+            entity.name = text
+            entity.kindEntity = kind
+        }
+        withAnimation(.spring()) {
+            save()
+        }
     }
     
     func toggle(_ entity: TodoListEntity) {
@@ -97,8 +127,11 @@ class TodoViewModel: ObservableObject {
     func edit(_ model: TodoListEntity) {
         withAnimation(.spring()) {
             editingEntity = model
+            taskCase = .edit
+            text = model.name ?? ""
+            kind = model.kindEntity
         }
-        showEditTodoView = true
+        
     }
     
     func moveBackDate(_ model: TodoListEntity) {
@@ -109,6 +142,14 @@ class TodoViewModel: ObservableObject {
                 self.save()
             }
         }
+    }
+    
+    func clearTask() {
+        text = ""
+        kind = nil
+        editingEntity = nil
+        taskCase = .none
+        UIApplication.shared.endEditing()
     }
     
     func deleteEntityAsync(_ model: TodoListEntity) {
@@ -141,3 +182,8 @@ struct EntityGroupedByKind: Identifiable, Comparable {
     }
 }
 
+enum TaskCase: String {
+    case edit
+    case add
+    case none
+}

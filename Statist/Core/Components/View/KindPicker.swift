@@ -11,12 +11,12 @@ import CoreData
 struct KindPicker: View {
 
     @Binding var selectedKind: KindEntity?
-    @Binding var showAddKindView: Bool
+    @Binding var showKindView: Bool
     let kinds: [KindEntity]
     
-    init(_ selectedKind: Binding<KindEntity?>, showAddKindView: Binding<Bool>, kinds: [KindEntity]) {
+    init(_ selectedKind: Binding<KindEntity?>, showKindView: Binding<Bool>, kinds: [KindEntity]) {
         self._selectedKind = selectedKind
-        self._showAddKindView = showAddKindView
+        self._showKindView = showKindView
         self.kinds = kinds
     }
     
@@ -45,6 +45,7 @@ struct KindPicker: View {
                                     lineWidth:isSelected(kind: kind) ? 3 : 1)
                             .padding(isSelected(kind: kind) ? 1.5 : 0.5)
                     )
+                    .contentShape(Rectangle())
                     .onTapGesture{
                         selectedKind = kind
                     }
@@ -64,7 +65,7 @@ struct KindPicker: View {
                     )
                     .onTapGesture {
                         withAnimation(.spring()) {
-                            showAddKindView = true
+                            showKindView = true
                         }
                     }
                 Spacer()

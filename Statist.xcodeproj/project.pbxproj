@@ -76,6 +76,9 @@
 		21D1F51326987FF100E57727 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F51226987FF100E57727 /* TodoListViewModel.swift */; };
 		21D1F5192699B62300E57727 /* UserDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F5172699B62300E57727 /* UserDataContainer.xcdatamodeld */; };
 		21D1F51B2699E27F00E57727 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F51A2699E27F00E57727 /* CoreDataManager.swift */; };
+		21E9ED7926BEEA8E00A66E64 /* GroupShapeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E9ED7826BEEA8E00A66E64 /* GroupShapeModifier.swift */; };
+		21E9ED7E26C0B78200A66E64 /* TextFieldFocusableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E9ED7D26C0B78200A66E64 /* TextFieldFocusableArea.swift */; };
+		21E9ED8126C0B7A400A66E64 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 21E9ED8026C0B7A400A66E64 /* Introspect */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -149,6 +152,8 @@
 		21D1F51226987FF100E57727 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
 		21D1F5182699B62300E57727 /* UserDataContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserDataContainer.xcdatamodel; sourceTree = "<group>"; };
 		21D1F51A2699E27F00E57727 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		21E9ED7826BEEA8E00A66E64 /* GroupShapeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupShapeModifier.swift; sourceTree = "<group>"; };
+		21E9ED7D26C0B78200A66E64 /* TextFieldFocusableArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldFocusableArea.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				218A100F2692B31800579B1E /* FSCalendar in Frameworks */,
+				21E9ED8126C0B7A400A66E64 /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +300,8 @@
 			children = (
 				21565E07269B144F00E28748 /* RotationModifier.swift */,
 				212777C826BAD1B2009C2349 /* VisualEffectView.swift */,
+				21E9ED7826BEEA8E00A66E64 /* GroupShapeModifier.swift */,
+				21E9ED7D26C0B78200A66E64 /* TextFieldFocusableArea.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -465,6 +473,7 @@
 			name = Statist;
 			packageProductDependencies = (
 				218A100E2692B31800579B1E /* FSCalendar */,
+				21E9ED8026C0B7A400A66E64 /* Introspect */,
 			);
 			productName = Statist;
 			productReference = 21D045B82691F5D90048685A /* Statist.app */;
@@ -495,6 +504,7 @@
 			mainGroup = 21D045AF2691F5D90048685A;
 			packageReferences = (
 				218A100D2692B31700579B1E /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				21E9ED7F26C0B7A400A66E64 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 21D045B92691F5D90048685A /* Products */;
 			projectDirPath = "";
@@ -553,11 +563,13 @@
 				2152D28C26A7FA77000B0B19 /* EditProgressView.swift in Sources */,
 				21615024269DB62F00401572 /* CustomButton.swift in Sources */,
 				215760FE26AD9F93009F617B /* StatViewModel.swift in Sources */,
+				21E9ED7E26C0B78200A66E64 /* TextFieldFocusableArea.swift in Sources */,
 				2134DA05269FCBC300ED4544 /* EditTodoView.swift in Sources */,
 				211D35E626BDA274007EC9FF /* TodoListEntity.swift in Sources */,
 				21C51E7326A2B58F007EEBCB /* PlannerView.swift in Sources */,
 				21D1F50F26987FD700E57727 /* TimeTableViewModel.swift in Sources */,
 				21D1F51B2699E27F00E57727 /* CoreDataManager.swift in Sources */,
+				21E9ED7926BEEA8E00A66E64 /* GroupShapeModifier.swift in Sources */,
 				211D35E226BD52F1007EC9FF /* GroupedCalendarView.swift in Sources */,
 				21D045D22691F82E0048685A /* HeaderView.swift in Sources */,
 				21D045BC2691F5D90048685A /* StatistApp.swift in Sources */,
@@ -786,6 +798,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		21E9ED7F26C0B7A400A66E64 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -793,6 +813,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 218A100D2692B31700579B1E /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		21E9ED8026C0B7A400A66E64 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21E9ED7F26C0B7A400A66E64 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
 		};
 /* End XCSwiftPackageProductDependency section */
 

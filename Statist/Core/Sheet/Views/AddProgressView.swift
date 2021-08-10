@@ -78,17 +78,17 @@ extension AddProgressView {
             Text("Kind")
                 .font(Font.system(.subheadline, design: .default).weight(.bold))
             
-            KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
-                .sheet(isPresented: $vm.showAddKindView,
-                       onDismiss: {
-                        withAnimation(.spring()){
-                            vm.getKindEntitys()
-                        }
-                    }) {
-                        AddKindView()
-                }
-                .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 1)
-                .shadow(color: .theme.shadowColor.opacity(0.3), radius: 30, x: 0, y: 40)
+//            KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
+//                .sheet(isPresented: $vm.showAddKindView,
+//                       onDismiss: {
+//                        withAnimation(.spring()){
+//                            vm.getKindEntitys()
+//                        }
+//                    }) {
+//                        AddKindView()
+//                }
+//                .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 1)
+//                .shadow(color: .theme.shadowColor.opacity(0.3), radius: 30, x: 0, y: 40)
         }
     }
     

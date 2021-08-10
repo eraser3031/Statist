@@ -34,6 +34,7 @@ struct NewCalendarView: UIViewRepresentable {
         calendar.appearance.weekdayFont = UIFont(name: "Gilroy-ExtraBold", size: 10)
         calendar.appearance.titleFont = UIFont.systemFont(ofSize: 12, weight: .semibold)
         calendar.scope = info.scope ? .month : .week
+//        calendar.select(info.date)
     }
     
     func makeUIView(context: UIViewRepresentableContext<NewCalendarView>) -> UIView {
@@ -41,8 +42,6 @@ struct NewCalendarView: UIViewRepresentable {
         let calendar = FSCalendar()
         
         setCalendar(calendar, context: context)
-        
-        calendar.select(info.date) //
         
         view.addSubview(calendar)
 
