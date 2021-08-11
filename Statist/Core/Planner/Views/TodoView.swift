@@ -22,24 +22,33 @@ struct TodoView: View {
             header
                 .padding(.vertical, 20)
             
-            GroupedCalendarView(info: $vm.calendarInfo)
+            GroupedCalendarView(info: $vm.calendarInfo, dates: vm.todoEvents?.dates ?? [])
                 .shadow(color: Color.theme.shadowColor.opacity(0.14), radius: 14, x: 0.0, y: 8)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 30)
             
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 24){
-                    if vm.entitysGroupedByKind.isEmpty {
-                        empty
-                    } else {
+            if vm.entitysGroupedByKind.isEmpty {
+                VStack(spacing: 24) {
+                    empty
+                    
+                    Text("") // For Offset ( TodoItemTask
+                        .font(Font.system(.subheadline, design: .default).weight(.semibold))
+                        .padding(16 + 14)
+                }
+                .padding(.horizontal, 16)
+                .ignoresSafeArea(.keyboard)
+                .transition(AnyTransition.asymmetric(insertion: .slide, removal: .opacity.animation(.easeInOut(duration: 0.1))))
+            } else {
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 24){
                         todoList
                         
                         Text("") // For Offset ( TodoItemTask
                             .font(Font.system(.subheadline, design: .default).weight(.semibold))
                             .padding(16 + 20)
                     }
+                    .padding(.horizontal, 16)
                 }
-                .padding(.horizontal, 16)
             }
         }
         .overlay(curtain.ignoresSafeArea(.keyboard, edges: .bottom))
@@ -68,7 +77,7 @@ struct TodoView: View {
                 HStack(spacing: 8) {
                     Circle()
                         .fill(primaryColor)
-                        .frame(width: 12, height: 12)
+                        .frame(width: 10, height: 10)
                     
                     Text(name)
                         .font(Font.system(.subheadline, design: .default).weight(.semibold))
@@ -101,7 +110,7 @@ struct TodoView: View {
     private var empty: some View {
         RoundedRectangle(cornerRadius: 12, style: .continuous)
             .fill(Color.theme.subBackgroundColor)
-            .frame(height: 300)
+//            .frame(height: 300)
             .overlay(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .stroke(Color.theme.dividerColor,
@@ -129,7 +138,7 @@ struct TodoView: View {
                     .transition(
                         AnyTransition.asymmetric(
                             insertion: .opacity.combined(with: .move(edge: .bottom)),
-                            removal: .opacity.animation(.easeIn(duration: 0.05))
+                            removal: .opacity.animation(.easeIn(duration: 0.1))
                         )
                     )
                     .padding(.vertical, 20)
@@ -142,7 +151,10 @@ struct TodoView: View {
                 
                 if vm.canTask {
                     submitTaskButton
-                        .transition(.scale.animation(.easeIn(duration: 0.2)))
+                        .transition(
+                            AnyTransition.asymmetric(insertion: .scale.animation(.spring()),
+                                                     removal: .opacity.animation(.easeIn(duration: 0.1)))
+                        )
                 }
                 
             }
@@ -150,7 +162,7 @@ struct TodoView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 20)
         }
-        .background(Color.primary.opacity(0.01))
+        .background(Color(.systemBackground).opacity(0.01))
     }
     
     private var curtain: some View {

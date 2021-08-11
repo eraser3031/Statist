@@ -106,7 +106,7 @@ struct NewTodoItemView: View {
                 
                 Divider()
                 
-                Button(action: { vm.deleteEntityAsync(model) }) {
+                Button(action: { vm.deleteEntity(entity: model) }) {
                     Label("Delete", systemImage: "trash")
                 }
             } label: {

@@ -10,6 +10,7 @@ import SwiftUI
 struct GroupedCalendarView: View {
     
     @Binding var info: CalendarInfo
+    let dates: [Date]
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -19,8 +20,9 @@ struct GroupedCalendarView: View {
             Divider()
             
             GeometryReader { geo in
-                NewCalendarView(info: $info, geo: geo, colorScheme: colorScheme)
+                NewCalendarView(info: $info, geo: geo, dates: dates, colorScheme: colorScheme)
                     .id(self.colorScheme)
+                    .id(dates)
             }.frame(height: info.scope ? 300 : 80)
         }
         .padding(14)

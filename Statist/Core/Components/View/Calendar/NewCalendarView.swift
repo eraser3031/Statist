@@ -13,6 +13,7 @@ struct NewCalendarView: UIViewRepresentable {
 
     @Binding var info: CalendarInfo
     var geo: GeometryProxy
+    let dates: [Date]
     var colorScheme: ColorScheme
     
     func setCalendar(_ calendar: FSCalendar, context: UIViewRepresentableContext<NewCalendarView>) {
@@ -72,12 +73,14 @@ struct NewCalendarView: UIViewRepresentable {
         }
     }
     
-    class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDataSource {
+    class Coordinator: NSObject, FSCalendarDelegateAppearance, FSCalendarDelegate, FSCalendarDataSource {
         
         @Binding var info: CalendarInfo
+        let dates: [Date]
         
-        init(info: Binding<CalendarInfo>){
+        init(info: Binding<CalendarInfo>, dates: [Date]){
             self._info = info
+            self.dates = dates
         }
         
         func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -87,10 +90,26 @@ struct NewCalendarView: UIViewRepresentable {
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
             info.date = date
         }
+        
+        func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderRadiusFor date: Date) -> CGFloat {
+            return 1
+        }
+        
+        func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderDefaultColorFor date: Date) -> UIColor? {
+            if dates.contains(date) {
+                return UIColor(named: "DividerColor")
+            } else {
+                return UIColor.systemBackground
+            }
+        }
+        
+//        func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+//            return 1
+//        }
     }
     
     func makeCoordinator() -> NewCalendarView.Coordinator {
-        return Coordinator(info: $info)
+        return Coordinator(info: $info, dates: dates)
     }
 }
 

@@ -9,6 +9,6 @@ import SwiftUI
 import Combine
 
 struct CalendarInfo {
-    var date: Date = Date().toDay.prevWeek().prevWeek().nextDay().nextDay().nextDay().nextDay().nextDay()
+    var date: Date = Date().toDay
     var scope: Bool = false
 }

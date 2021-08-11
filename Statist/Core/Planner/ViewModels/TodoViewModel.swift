@@ -15,6 +15,7 @@ class TodoViewModel: ObservableObject {
     @Published var calendarInfo = CalendarInfo()
     
     @Published var kinds: [KindEntity] = []
+    @Published var todoEvents: TodoEvents?
     
     @Published var taskCase: TaskCase = .none
     @Published var showKindView = false
@@ -33,7 +34,7 @@ class TodoViewModel: ObservableObject {
     init(){
         entitys()
         kindEntitys()
-        
+        self.todoEvents = self.getTodoEvents()
     }
     
     func entitys() {
@@ -67,10 +68,66 @@ class TodoViewModel: ObservableObject {
         request.sortDescriptors = [sort]
         do {
             kinds = try manager.context.fetch(request)
+            if kinds.isEmpty {
+                let sample = KindEntity(context: manager.context)
+                sample.name = "Study"
+                sample.id = UUID().uuidString
+                sample.colorKindID = "blue"
+                sample.progressEntitys = []
+                sample.timetableEntitys = []
+                sample.todolistEntitys = []
+                kinds = [sample]
+            }
         } catch let error {
             print("Error Fetching Kind Entity: \(error)")
         }
         
+    }
+    
+    func getTodoEvents() -> TodoEvents? {
+        let request = NSFetchRequest<TodoEvents>(entityName: "TodoEvents")
+        do {
+            let result = try manager.context.fetch(request)
+            
+            if result.first == nil {
+                let newTodoEvents = TodoEvents(context: manager.context)
+                newTodoEvents.dates = []
+                manager.save()
+                return newTodoEvents
+            }
+            
+            return result.first
+            
+        } catch let error {
+            print("Error Fetching Todo Event Entity: \(error)")
+        }
+        return nil
+    }
+    
+    func checkEvent() {
+        if entitysGroupedByKind.isEmpty {
+            deleteEvent()
+        } else {
+            addEvent(calendarInfo.date)
+        }
+    }
+    
+    func addEvent(_ date: Date) {
+        let result = todoEvents?.dates?.first { $0 == date}
+        if result == nil {
+            var newDates = todoEvents?.dates ?? []
+            newDates.append(date)
+            todoEvents?.dates = newDates
+        }
+    }
+    
+    func deleteEvent() {
+        let index = todoEvents?.dates?.firstIndex { $0 == calendarInfo.date}
+        if let index = index {
+            var newDates = todoEvents?.dates ?? []
+            newDates.remove(at: index) //
+            todoEvents?.dates = newDates
+        }
     }
     
     func addTodoEntity() {
@@ -100,13 +157,15 @@ class TodoViewModel: ObservableObject {
         save()
     }
     
-    private func deleteEntity(entity: TodoListEntity) {
+    func deleteEntity(entity: TodoListEntity) {
         let entitys = entitysGroupedByKind.map({$0.entitys}).flatMap({$0})
         let model = entitys.first { $0.id == entity.id }
         
         if let model = model {
             manager.context.delete(model)
-            save()
+            withAnimation(.spring()){
+                save()
+            }
         } else {
             print("Error Deleting TodoListEntity")
         }
@@ -137,10 +196,9 @@ class TodoViewModel: ObservableObject {
     func moveBackDate(_ model: TodoListEntity) {
         let newDate = Calendar.current.date(byAdding: .day, value: 1, to: model.date ?? Date())
         model.date = newDate
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            withAnimation(.spring()) {
-                self.save()
-            }
+        withAnimation(.spring()) {
+            addEvent(newDate ?? Date().toDay)
+            self.save()
         }
     }
     
@@ -152,17 +210,13 @@ class TodoViewModel: ObservableObject {
         UIApplication.shared.endEditing()
     }
     
-    func deleteEntityAsync(_ model: TodoListEntity) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            withAnimation(.spring()) {
-                self.deleteEntity(entity: model)
-            }
-        }
-    }
-    
     func save() {
         manager.save()
         entitys()
+        
+        checkEvent()
+        manager.save()
+        todoEvents = getTodoEvents()
     }
 }
 
