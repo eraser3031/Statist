@@ -25,7 +25,7 @@ struct StatistApp: App {
     
     var body: some Scene {
         WindowGroup {
-            TodoView(date: Date().toDay)
+            TodoView()
         }
     }
 }

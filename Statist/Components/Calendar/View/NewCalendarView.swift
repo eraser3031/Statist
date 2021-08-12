@@ -9,14 +9,14 @@ import SwiftUI
 import FSCalendar
 import Combine
 
-struct NewCalendarView: UIViewRepresentable {
+struct CalendarView: UIViewRepresentable {
 
     @Binding var info: CalendarInfo
     var geo: GeometryProxy
     let dates: [Date]
     var colorScheme: ColorScheme
     
-    func setCalendar(_ calendar: FSCalendar, context: UIViewRepresentableContext<NewCalendarView>) {
+    func setCalendar(_ calendar: FSCalendar, context: UIViewRepresentableContext<CalendarView>) {
         calendar.delegate = context.coordinator
         calendar.dataSource = context.coordinator
         calendar.appearance.eventDefaultColor = colorScheme == .dark ? .white : .black
@@ -38,7 +38,7 @@ struct NewCalendarView: UIViewRepresentable {
 //        calendar.select(info.date)
     }
     
-    func makeUIView(context: UIViewRepresentableContext<NewCalendarView>) -> UIView {
+    func makeUIView(context: UIViewRepresentableContext<CalendarView>) -> UIView {
         let view = UIView(frame: .zero)
         let calendar = FSCalendar()
         
@@ -52,7 +52,7 @@ struct NewCalendarView: UIViewRepresentable {
         return view
     }
     
-    func updateUIView(_ view: UIView, context: UIViewRepresentableContext<NewCalendarView>) {
+    func updateUIView(_ view: UIView, context: UIViewRepresentableContext<CalendarView>) {
         
         for calendar in view.subviews {
             
@@ -108,7 +108,7 @@ struct NewCalendarView: UIViewRepresentable {
 //        }
     }
     
-    func makeCoordinator() -> NewCalendarView.Coordinator {
+    func makeCoordinator() -> CalendarView.Coordinator {
         return Coordinator(info: $info, dates: dates)
     }
 }

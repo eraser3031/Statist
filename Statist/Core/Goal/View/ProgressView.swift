@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProgressView: View {
     
-    @EnvironmentObject var environment: StatistViewModel
     @StateObject var vm: ProgressViewModel
     
     init(){

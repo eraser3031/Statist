@@ -13,50 +13,33 @@ struct AddKindView: View {
     @StateObject var vm = AddKindViewModel()
     
     var body: some View {
-        VStack(spacing: 32) {
-            
-            header
-            
-            name
-            
-            color
-                        
-            Spacer()
-            
-            if vm.isOverlap {
-                Text("kind's name shouldn't ovelap other kinds")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
+            VStack(spacing: 30) {
+                
+                Spacer().frame(height: 0)
+                
+                name
+                
+                color
+                
+                Color(.systemBackground)
+                    .onTapGesture {
+                        UIApplication.shared.endEditing()
+                    }
+                
+                if vm.isOverlap {
+                    Text("kind's name shouldn't ovelap other kinds")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }
+                
+                button
+                    .padding(.bottom, 20)
             }
-            
-            button
-            
-        }
-        .padding(.horizontal, 20)
-        .padding(.top, 30)
-        .padding(.bottom, 20)
+            .navigationBarTitle("Add Kind", displayMode: .inline)
     }
 }
 
 extension AddKindView {
-    private var header: some View {
-        VStack(spacing: 20) {
-            HStack {
-                Text("New Kind")
-                Spacer()
-                Image(systemName: "xmark.circle.fill")
-                    .onTapGesture {
-                        withAnimation(.spring()) {
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    }
-            }
-            .font(Font.system(.title3, design: .default).weight(.heavy))
-            
-            Divider()
-                .foregroundColor(.theme.dividerColor)
-        }
-    }
     
     private var name: some View {
         VStack(alignment: .leading, spacing: 10){
@@ -65,12 +48,14 @@ extension AddKindView {
             
             CustomTextField("Write New Todo", text: $vm.name)
         }
+        .padding(.horizontal, 20)
     }
     
     private var color: some View {
         VStack(alignment: .leading, spacing: 10){
             Text("Color")
                 .font(Font.system(.subheadline, design: .default).weight(.bold))
+                .padding(.horizontal, 20)
             
             CustomColorPicker($vm.colorKind)
         }

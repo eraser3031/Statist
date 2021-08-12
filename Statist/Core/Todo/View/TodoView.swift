@@ -10,12 +10,8 @@ import Introspect
 
 struct TodoView: View {
     
-    @StateObject var vm: TodoViewModel
+    @StateObject var vm = TodoViewModel()
     @Namespace private var namespace
-    
-    init(date: Date){
-        self._vm = StateObject(wrappedValue: TodoViewModel())
-    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -36,8 +32,7 @@ struct TodoView: View {
                         .padding(16 + 14)
                 }
                 .padding(.horizontal, 16)
-                .ignoresSafeArea(.keyboard)
-                .transition(AnyTransition.asymmetric(insertion: .slide, removal: .opacity.animation(.easeInOut(duration: 0.1))))
+                .transition(AnyTransition.asymmetric(insertion: .move(edge: .bottom), removal: .opacity.animation(.easeInOut(duration: 0.1))))
             } else {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 24){
@@ -51,7 +46,9 @@ struct TodoView: View {
                 }
             }
         }
-        .overlay(curtain.ignoresSafeArea(.keyboard, edges: .bottom))
+        .scaleEffect(vm.taskCase == .none ? 1 : 0.96)
+        .overlay(curtain)
+        .ignoresSafeArea(.keyboard)
         .overlay(
             todoItemTask
             ,alignment: .bottom
@@ -142,12 +139,22 @@ struct TodoView: View {
                         )
                     )
                     .padding(.vertical, 20)
+                    .sheet(isPresented: $vm.showKindView, onDismiss: {
+                        withAnimation(.spring()) {
+                            vm.entitys()
+                            vm.kindEntitys()
+                        }
+                    }) {
+                        KindView()
+                    }
             }
             
             
             HStack(spacing: 8) {
                 customTextField
                     .animation(.spring())
+                    .compositingGroup()
+                    .shadow(color: Color.theme.shadowColor.opacity(0.2), radius: 20, x: 0.0, y: 10)
                 
                 if vm.canTask {
                     submitTaskButton
@@ -170,7 +177,7 @@ struct TodoView: View {
             if vm.taskCase != .none {
                 ZStack {
                     Color.primary
-                        .opacity(0.1)
+                        .opacity(0.2)
                         .ignoresSafeArea()
                         .transition(.opacity)
                         .onTapGesture {
@@ -187,14 +194,22 @@ struct TodoView: View {
         Button(action: {
             switch vm.taskCase {
             case .add:
-                vm.addTodoEntity()
-                vm.clearTask()
+                withAnimation(.spring()) {
+                    vm.addTodoEntity()
+                    vm.clearTask()
+                }
+
             case .edit:
-                vm.editTodoEntity()
-                vm.clearTask()
+                withAnimation(.spring()) {
+                    vm.editTodoEntity()
+                    vm.clearTask()
+                }
+                
             case .none:
                 print("error: impossible state of taskCase in onCommit")
-                vm.clearTask()
+                withAnimation(.spring()) {
+                    vm.clearTask()
+                }
             }
         }) {
             Circle()
@@ -234,7 +249,7 @@ struct TodoView: View {
         }
         .introspectTextField(customize: { textField in
             //            textField.returnKeyType = .done
-            if vm.taskCase == .edit {
+            if vm.taskCase == .edit && vm.showKindView == false {
                 textField.becomeFirstResponder()
             }
         })

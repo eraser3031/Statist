@@ -26,21 +26,16 @@ struct KindPicker: View {
                 Spacer()
                     .frame(width: 4)
                 ForEach(kinds) { kind in
-                    HStack(spacing: 16) {
+                    HStack(spacing: 8) {
                         Circle()
                             .fill(kind.color.toPrimary())
-                            .frame(width: 12, height: 12)
+                            .frame(width: 10, height: 10)
                         Text(kind.name ?? "")
-                            .font(Font.system(.footnote, design: .default).weight(.bold))
+                            .font(Font.system(.caption, design: .default).weight(.bold))
                     }
-                    .padding(18)
-                    .padding(.horizontal, 4)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .fill(Color(.systemBackground))
-                    )
+                    .modifier(CapsuleItemModifier())
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        Capsule()
                             .stroke(isSelected(kind: kind) ? Color.primary : Color.theme.dividerColor,
                                     lineWidth:isSelected(kind: kind) ? 3 : 1)
                             .padding(isSelected(kind: kind) ? 1.5 : 0.5)
@@ -51,16 +46,12 @@ struct KindPicker: View {
                     }
                 }
 
-                Image(systemName: "plus")
-                    .font(Font.system(.subheadline, design: .default).weight(.bold))
-                    .padding(18)
-                    .padding(.horizontal, 22)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .fill(Color.theme.itemBackgroundColor)
-                    )
+                Image(systemName: "pencil")
+                    .font(Font.system(.caption, design: .default).weight(.bold))
+                    .padding(16)
+                    .background(Circle().fill(Color(.systemBackground)))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        Circle()
                             .stroke(Color.theme.dividerColor)
                     )
                     .onTapGesture {
@@ -88,3 +79,15 @@ struct KindPicker: View {
 //        KindPicker()
 //    }
 //}
+
+struct CapsuleItemModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(14)
+            .padding(.horizontal, 8)
+            .background(
+                Capsule()
+                    .fill(Color(.systemBackground))
+            )
+    }
+}

@@ -18,6 +18,10 @@ struct CustomColorPicker: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
+                
+                Spacer()
+                    .frame(width: 4)
+                
                 ForEach(ColorKind.allCases) { colorKind in
                     Circle()
                         .fill(colorKind.toPrimary())
@@ -38,6 +42,9 @@ struct CustomColorPicker: View {
                             selectedColorKind = colorKind
                         }
                 }
+                
+                Spacer()
+                    .frame(width: 4)
             }
         }
     }

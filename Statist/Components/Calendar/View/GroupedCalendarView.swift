@@ -15,12 +15,12 @@ struct GroupedCalendarView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            NewHeaderView(info: $info)
+            HeaderView(info: $info)
             
             Divider()
             
             GeometryReader { geo in
-                NewCalendarView(info: $info, geo: geo, dates: dates, colorScheme: colorScheme)
+                CalendarView(info: $info, geo: geo, dates: dates, colorScheme: colorScheme)
                     .id(self.colorScheme)
                     .id(dates)
             }.frame(height: info.scope ? 300 : 80)
