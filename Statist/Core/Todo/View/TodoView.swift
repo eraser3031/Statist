@@ -19,9 +19,9 @@ struct TodoView: View {
                 .padding(.vertical, 20)
             
             GroupedCalendarView(info: $vm.calendarInfo, dates: vm.todoEvents?.dates ?? [])
-                .shadow(color: Color.theme.shadowColor.opacity(0.14), radius: 14, x: 0.0, y: 8)
+                .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0.0, y: 5)
                 .padding(.horizontal, 16)
-                .padding(.bottom, 30)
+                .padding(.bottom, 20)
             
             if vm.entitysGroupedByKind.isEmpty {
                 VStack(spacing: 24) {
@@ -35,7 +35,7 @@ struct TodoView: View {
                 .transition(AnyTransition.asymmetric(insertion: .move(edge: .bottom), removal: .opacity.animation(.easeInOut(duration: 0.1))))
             } else {
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 24){
+                    VStack(spacing: 28){
                         todoList
                         
                         Text("") // For Offset ( TodoItemTask
@@ -70,7 +70,7 @@ struct TodoView: View {
             let name = kind.name ?? ""
             let primaryColor = kind.color.toPrimary()
             
-            VStack(alignment: .leading, spacing: 10){
+            VStack(alignment: .leading, spacing: 0){
                 HStack(spacing: 8) {
                     Circle()
                         .fill(primaryColor)
@@ -79,7 +79,7 @@ struct TodoView: View {
                     Text(name)
                         .font(Font.system(.subheadline, design: .default).weight(.semibold))
                 }
-                .padding(.vertical, 10)
+                .padding(.vertical, 12)
                 
                 VStack(spacing: 12) {
                     ForEach(entitys) { entity in
@@ -176,7 +176,7 @@ struct TodoView: View {
         Group {
             if vm.taskCase != .none {
                 ZStack {
-                    Color.primary
+                    Color.black
                         .opacity(0.2)
                         .ignoresSafeArea()
                         .transition(.opacity)
@@ -235,13 +235,17 @@ struct TodoView: View {
             switch vm.taskCase {
             case .add:
                 if vm.canTask {
-                    vm.addTodoEntity()
-                    vm.clearTask()
+                    withAnimation(.spring()){
+                        vm.addTodoEntity()
+                        vm.clearTask()
+                    }
                 }
             case .edit:
                 if vm.canTask {
-                    vm.editTodoEntity()
-                    vm.clearTask()
+                    withAnimation(.spring()){                    
+                        vm.editTodoEntity()
+                        vm.clearTask()
+                    }
                 }
             case .none:
                 print("error: impossible state of taskCase in onCommit")

@@ -35,7 +35,7 @@ struct TodoItemView: View {
             }
             .contentShape(Rectangle())
             .onTapGesture {
-                withAnimation(.spring()) {
+                withAnimation(.easeInOut) {
                     model.isDone.toggle()
                     save()
                 }
@@ -90,7 +90,7 @@ struct NewTodoItemView: View {
             }
             .contentShape(Rectangle())
             .onTapGesture {
-                withAnimation(.spring()) {
+                withAnimation(.openCard) {
                     vm.toggle(model)
                 }
             }
@@ -127,11 +127,13 @@ struct NewTodoItemView: View {
         .background(Color(.systemBackground))
         .overlay(
             ZStack(alignment: .leading){
-                Color.theme.dividerColor
+                Capsule()
+                    .fill(Color.theme.dividerColor)
                     .frame(height: 2)
                     .padding(.horizontal, 14)
             
-                primaryColor
+                Capsule()
+                    .fill(primaryColor)
                     .frame(maxWidth: model.isDone ? .infinity : 0)
                     .frame(height: 2)
                     .padding(.horizontal, 14)

@@ -203,11 +203,11 @@ class TodoViewModel: ObservableObject {
     }
     
     func clearTask() {
+        UIApplication.shared.endEditing()
         text = ""
         kind = nil
         editingEntity = nil
         taskCase = .none
-        UIApplication.shared.endEditing()
     }
     
     func save() {

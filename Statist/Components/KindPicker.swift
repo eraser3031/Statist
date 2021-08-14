@@ -32,14 +32,13 @@ struct KindPicker: View {
                             .frame(width: 10, height: 10)
                         Text(kind.name ?? "")
                             .font(Font.system(.caption, design: .default).weight(.bold))
+                            .foregroundColor(isSelected(kind: kind) ? Color(.systemBackground) : Color.primary)
                     }
                     .modifier(CapsuleItemModifier())
-                    .overlay(
-                        Capsule()
-                            .stroke(isSelected(kind: kind) ? Color.primary : Color.theme.dividerColor,
-                                    lineWidth:isSelected(kind: kind) ? 3 : 1)
-                            .padding(isSelected(kind: kind) ? 1.5 : 0.5)
+                    .background(
+                        isSelected(kind: kind) ? Color.primary : Color(.systemBackground)
                     )
+                    .clipShape(Capsule())
                     .contentShape(Rectangle())
                     .onTapGesture{
                         selectedKind = kind
@@ -85,9 +84,5 @@ struct CapsuleItemModifier: ViewModifier {
         content
             .padding(14)
             .padding(.horizontal, 8)
-            .background(
-                Capsule()
-                    .fill(Color(.systemBackground))
-            )
     }
 }
