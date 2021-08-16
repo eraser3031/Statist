@@ -124,7 +124,7 @@ struct NewTodoItemView: View {
         .foregroundColor(model.isDone ? primaryColor : .primary )
         .padding(12)
         .padding(.vertical, model.isDone ? 0 : 3)
-        .background(Color(.systemBackground))
+        .background(Color.theme.backgroundColor)
         .overlay(
             ZStack(alignment: .leading){
                 Capsule()

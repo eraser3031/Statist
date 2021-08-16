@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		210F75C426CA79A3004CA1C4 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210F75C326CA79A3004CA1C4 /* MenuView.swift */; };
+		210F75C826CAAAF2004CA1C4 /* GridPatternView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210F75C726CAAAF2004CA1C4 /* GridPatternView.swift */; };
 		211D35DE26BD4CFF007EC9FF /* NewCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211D35DD26BD4CFF007EC9FF /* NewCalendarView.swift */; };
 		211D35E026BD4FD0007EC9FF /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211D35DF26BD4FD0007EC9FF /* TodoView.swift */; };
 		211D35E226BD52F1007EC9FF /* GroupedCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211D35E126BD52F1007EC9FF /* GroupedCalendarView.swift */; };
@@ -75,6 +77,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		210F75C326CA79A3004CA1C4 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		210F75C726CAAAF2004CA1C4 /* GridPatternView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPatternView.swift; sourceTree = "<group>"; };
 		211D35DD26BD4CFF007EC9FF /* NewCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCalendarView.swift; sourceTree = "<group>"; };
 		211D35DF26BD4FD0007EC9FF /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		211D35E126BD52F1007EC9FF /* GroupedCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedCalendarView.swift; sourceTree = "<group>"; };
@@ -155,6 +159,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		210F75C226CA798F004CA1C4 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				210F75C326CA79A3004CA1C4 /* MenuView.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
 		213EB5F6269EB74F00059680 /* Sheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -426,6 +438,7 @@
 				21E9ED7826BEEA8E00A66E64 /* GroupShapeModifier.swift */,
 				21E9ED7D26C0B78200A66E64 /* TextFieldFocusableArea.swift */,
 				216E10AE26C4C1750054AB35 /* Style.swift */,
+				210F75C726CAAAF2004CA1C4 /* GridPatternView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -445,6 +458,7 @@
 		21D045CD2691F63B0048685A /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				210F75C226CA798F004CA1C4 /* Menu */,
 				216E10B326C51DFB0054AB35 /* Kind */,
 				216E10B026C51DBA0054AB35 /* Todo */,
 				216E10B626C51FF10054AB35 /* Timetable */,
@@ -610,6 +624,7 @@
 				21D098E726C3B7380085DB34 /* KindView.swift in Sources */,
 				21615022269DB50F00401572 /* CustomTextField.swift in Sources */,
 				21D1F4F72695F2D600E57727 /* TimeInterval.swift in Sources */,
+				210F75C826CAAAF2004CA1C4 /* GridPatternView.swift in Sources */,
 				21D1F51126987FE500E57727 /* ProgressViewModel.swift in Sources */,
 				21D1F4E62694949600E57727 /* TimeTableRow.swift in Sources */,
 				212777C926BAD1B2009C2349 /* VisualEffectView.swift in Sources */,
@@ -626,6 +641,7 @@
 				2152D28C26A7FA77000B0B19 /* EditProgressView.swift in Sources */,
 				21615024269DB62F00401572 /* CustomButton.swift in Sources */,
 				215760FE26AD9F93009F617B /* StatViewModel.swift in Sources */,
+				210F75C426CA79A3004CA1C4 /* MenuView.swift in Sources */,
 				21E9ED7E26C0B78200A66E64 /* TextFieldFocusableArea.swift in Sources */,
 				211D35E626BDA274007EC9FF /* TodoListEntity.swift in Sources */,
 				21D1F50F26987FD700E57727 /* TimeTableViewModel.swift in Sources */,

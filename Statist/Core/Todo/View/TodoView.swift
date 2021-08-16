@@ -12,6 +12,7 @@ struct TodoView: View {
     
     @StateObject var vm = TodoViewModel()
     @Namespace private var namespace
+    let show: () -> Void
     
     var body: some View {
         VStack(spacing: 0) {
@@ -94,7 +95,10 @@ struct TodoView: View {
     private var header: some View {
         HStack(spacing: 0){
             Text("Todo")
-                .font(.title2).bold()
+                .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 22)
+                .onTapGesture{
+                    show()
+                }
             
             Spacer()
             
@@ -274,7 +278,7 @@ struct TodoView: View {
         .frame(maxWidth: 400, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color(.systemBackground))
+                .fill(Color.theme.backgroundColor)
         )
         .overlay(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
