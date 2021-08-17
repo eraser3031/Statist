@@ -9,6 +9,117 @@ import SwiftUI
 import Combine
 import CoreData
 
+class NewTimetableViewModel: ObservableObject {
+    
+    @Published var calendarInfo = CalendarInfo()
+    
+    @Published var timetables: [TimetableEntity] = []
+    @Published var selectedKind: KindEntity?
+    @Published var items: [[KindEntity?]] = []
+    
+    @Published var kinds: [KindEntity] = []
+    @Published var showKindView = false
+    
+    @Published var events: TimetableEvents?
+    
+    let manager = CoreDataManager.instance
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(){
+        entitys()
+        kindEntitys()
+    }
+    
+    func entitys() {
+        let request = NSFetchRequest<TimetableEntity>(entityName: "TimetableEntity")
+        let filter = NSPredicate(format: "date == %@", calendarInfo.date as NSDate)
+        request.predicate = filter
+        
+        do {
+            timetables = try manager.context.fetch(request)
+            items = decodeToItems(entitys: timetables)
+        } catch let error {
+            print("Error Fetching TimetableEntity \(error)")
+        }
+    }
+    
+    func kindEntitys() {
+        let request = NSFetchRequest<KindEntity>(entityName: "KindEntity")
+        let sort = NSSortDescriptor(keyPath: \KindEntity.name, ascending: true)
+        request.sortDescriptors = [sort]
+        do {
+            kinds = try manager.context.fetch(request)
+        } catch let error {
+            print("Error Fetching Kind Entity: \(error)")
+        }
+    }
+    
+    private func encodeToTimetableEntitys(items: [[KindEntity?]]) -> [TimetableEntity] {
+        
+        var entitys: [TimetableEntity] = []
+        let flattenItems = items.flatMap{ $0 }
+        
+        func makeEntity(_ i: Int) {
+            let newEntity = TimetableEntity(context: manager.context)
+            newEntity.kindEntity = flattenItems[i]
+            newEntity.id = UUID().uuidString
+            newEntity.date = calendarInfo.date
+            newEntity.hour = Int16(i / 6)
+            newEntity.minute = Int16( (i % 6) * 10 )
+            newEntity.duration = 10
+            entitys.append(newEntity)
+        }
+        
+        for i in 0..<flattenItems.count-1 {
+            if i == 0 {
+                if flattenItems[i] != nil {
+                    makeEntity(i)
+                }
+            }
+            
+            if flattenItems[i] == flattenItems[i+1] {
+                if flattenItems[i+1] != nil {
+                    entitys[entitys.endIndex - 1].duration += 10
+                }
+            } else {
+                if flattenItems[i+1] != nil {
+                    makeEntity(i+1)
+                }
+            }
+        }
+        
+        return entitys
+    }
+    
+    private func decodeToItems(entitys: [TimetableEntity]) -> [[KindEntity?]] {
+        
+        var items = [[KindEntity?]](repeating: [KindEntity?](repeating: nil, count: 6), count: 24)
+        
+        for entity in entitys {
+
+            let hour = Int(entity.hour)
+            let minute = Int(entity.minute)
+            
+            for i in 0..<(entity.duration/10) {
+                items[hour + Int(i)/6][(minute/10 + Int(i))%6] = entity.kindEntity
+            }
+        }
+        
+        return items
+    }
+    
+    func changeItemsByHour(_ hour: Int) -> Void {
+        let oldItems = items[hour]
+        if oldItems.contains(where: { $0 == nil }) {
+            let newItems = oldItems.map{ _ in return selectedKind }
+            items[hour] = newItems
+        } else {
+            items[hour] = [KindEntity?](repeating: nil, count: 6)
+        }
+    }
+}
+
 class TimeTableViewModel: ObservableObject {
     
     @Published var timeTableEntitys: [TimetableEntity] = []

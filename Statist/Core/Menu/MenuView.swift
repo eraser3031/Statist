@@ -17,9 +17,11 @@ enum MenuCase: String {
 struct MenuView: View {
     @State var menuCase: MenuCase = .todo
     @State var showMenu = false
+    
     @Environment(\.horizontalSizeClass) var horizontalSize
     
     let menuAnimation = Animation.closeCard
+    let changeAnimation = Animation.spring(response: 0.5, dampingFraction: 0.95)
     
     private func show() {
         withAnimation(menuAnimation) {
@@ -28,9 +30,15 @@ struct MenuView: View {
     }
     
     private func changeMenu(_ menu: MenuCase) {
-        withAnimation(menuAnimation) {
-            showMenu = false
-            menuCase = menu
+        menuCase = menu
+//        withAnimation(.openCard) {
+//            menuCase = menu
+//        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+            withAnimation(.openCard) {
+                showMenu = false
+                
+            }
         }
     }
     
@@ -55,7 +63,9 @@ struct MenuView: View {
             
                 mainView(geo: geo)
                     .ignoresSafeArea(showMenu ? [] : .all, edges: .all)
+                    .padding(.vertical, showMenu ? 20 : 0)
                     .offset(x: showMenu ? calMainViewOffset(proxy: geo) : 0)
+
             }
         }
     }
@@ -65,7 +75,7 @@ struct MenuView: View {
             if menuCase == .todo {
                 TodoView(){ show() }
             } else if menuCase == .timeTable {
-                EmptyView()
+                TimetableView(){ show() }
             } else if menuCase == .goal {
                 EmptyView()
             } else if menuCase == .stat {
@@ -82,7 +92,7 @@ struct MenuView: View {
                 }
         )
         .background(
-            Color.theme.backgroundColor
+            Color.theme.groupBackgroundColor
         )
         .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
         .shadow(color: Color.theme.shadowColor.opacity(showMenu ? 0.4 : 0), radius: 40, x: 0.0, y: 20)
@@ -117,6 +127,33 @@ struct MenuView: View {
                 Spacer()
             }
         }
+    }
+}
+
+struct ContainerView<InnerView>: View where InnerView: View {
+    let content: () -> InnerView
+    @State var start = false
+    
+    init(@ViewBuilder content: @escaping () -> InnerView){
+        self.content = content
+    }
+    
+    var body: some View {
+        ZStack {
+            if start {
+                content()
+            } else {
+                Color.theme.groupBackgroundColor.opacity(0.01)
+            }
+        }
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    start = true
+                }
+            }
+        }
+        
     }
 }
 

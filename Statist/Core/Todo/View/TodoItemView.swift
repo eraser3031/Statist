@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TodoItemView: View {
-    
+    @Environment(\.colorScheme) var colorScheme
     let model: TodoListEntity
     @Binding var editingEntity: TodoListEntity?
     @Binding var showEditTodoView: Bool
@@ -66,7 +66,7 @@ struct TodoItemView: View {
 }
 
 struct NewTodoItemView: View {
-    
+    @Environment(\.colorScheme) var colorScheme
     let model: TodoListEntity
     @ObservedObject var vm: TodoViewModel
     
@@ -84,7 +84,7 @@ struct NewTodoItemView: View {
                 Image(systemName: model.isDone ? "checkmark.circle.fill" : "circle")
                     .font(.callout)
                 Text(model.name ?? "")
-                    .font(.footnote)
+                    .font(Font.system(.footnote, design: .default).weight(.medium))
                 
                 Spacer()
             }
@@ -96,7 +96,7 @@ struct NewTodoItemView: View {
             }
 
             Menu {
-                Button(action: { vm.edit(model) }) {
+                Button(action: { vm.changeTaskToEdit(model) }) {
                     Label("Edit", systemImage: "pencil")
                 }
                 
@@ -106,7 +106,7 @@ struct NewTodoItemView: View {
                 
                 Divider()
                 
-                Button(action: { vm.deleteEntity(entity: model) }) {
+                Button(action: { vm.deleteTodoEntity(entity: model) }) {
                     Label("Delete", systemImage: "trash")
                 }
             } label: {
@@ -124,21 +124,23 @@ struct NewTodoItemView: View {
         .foregroundColor(model.isDone ? primaryColor : .primary )
         .padding(12)
         .padding(.vertical, model.isDone ? 0 : 3)
-        .background(Color.theme.backgroundColor)
-        .overlay(
-            ZStack(alignment: .leading){
-                Capsule()
-                    .fill(Color.theme.dividerColor)
-                    .frame(height: 2)
-                    .padding(.horizontal, 14)
-            
-                Capsule()
-                    .fill(primaryColor)
-                    .frame(maxWidth: model.isDone ? .infinity : 0)
-                    .frame(height: 2)
-                    .padding(.horizontal, 14)
-            }
-            ,alignment: .bottom
-        )
+        .background(colorScheme == .dark ? Color.theme.itemBackgroundColor : Color.theme.backgroundColor)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .shadow(color: Color.theme.shadowColor.opacity(0.05), radius: 30, x: 0, y: 2)
+//        .overlay(
+//            ZStack(alignment: .leading){
+//                Capsule()
+//                    .fill(Color.theme.dividerColor)
+//                    .frame(height: 2)
+//                    .padding(.horizontal, 14)
+//
+//                Capsule()
+//                    .fill(primaryColor)
+//                    .frame(maxWidth: model.isDone ? .infinity : 0)
+//                    .frame(height: 2)
+//                    .padding(.horizontal, 14)
+//            }
+//            ,alignment: .bottom
+//        )
     }
 }

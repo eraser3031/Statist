@@ -19,7 +19,7 @@ struct TodoView: View {
             header
                 .padding(.vertical, 20)
             
-            GroupedCalendarView(info: $vm.calendarInfo, dates: vm.todoEvents?.dates ?? [])
+            GroupedCalendarView(info: $vm.calendarInfo, dates: vm.events?.dates ?? [])
                 .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0.0, y: 5)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 20)
@@ -94,8 +94,10 @@ struct TodoView: View {
     
     private var header: some View {
         HStack(spacing: 0){
-            Text("Todo")
+            Label("Todo", systemImage: "line.3.horizontal.circle.fill")
                 .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 22)
+                .padding(.vertical, 2)
+                .contentShape(Rectangle())
                 .onTapGesture{
                     show()
                 }
@@ -156,14 +158,13 @@ struct TodoView: View {
             
             HStack(spacing: 8) {
                 customTextField
-                    .animation(.spring())
                     .compositingGroup()
                     .shadow(color: Color.theme.shadowColor.opacity(0.2), radius: 20, x: 0.0, y: 10)
                 
                 if vm.canTask {
                     submitTaskButton
                         .transition(
-                            AnyTransition.asymmetric(insertion: .scale.animation(.spring()),
+                            AnyTransition.asymmetric(insertion: .scale.animation(.closeCard),
                                                      removal: .opacity.animation(.easeIn(duration: 0.1)))
                         )
                 }
@@ -198,20 +199,20 @@ struct TodoView: View {
         Button(action: {
             switch vm.taskCase {
             case .add:
-                withAnimation(.spring()) {
+                withAnimation(.closeCard) {
                     vm.addTodoEntity()
                     vm.clearTask()
                 }
 
             case .edit:
-                withAnimation(.spring()) {
+                withAnimation(.closeCard) {
                     vm.editTodoEntity()
                     vm.clearTask()
                 }
                 
             case .none:
                 print("error: impossible state of taskCase in onCommit")
-                withAnimation(.spring()) {
+                withAnimation(.closeCard) {
                     vm.clearTask()
                 }
             }
@@ -231,7 +232,7 @@ struct TodoView: View {
     private var customTextField: some View {
         TextField("Add new Todo", text: $vm.text) { isEdit in
             if isEdit && vm.taskCase == .none {
-                withAnimation(.easeInOut) {
+                withAnimation(.closeCard) {
                     vm.taskCase = .add
                 }
             }
@@ -239,14 +240,14 @@ struct TodoView: View {
             switch vm.taskCase {
             case .add:
                 if vm.canTask {
-                    withAnimation(.spring()){
+                    withAnimation(.closeCard){
                         vm.addTodoEntity()
                         vm.clearTask()
                     }
                 }
             case .edit:
                 if vm.canTask {
-                    withAnimation(.spring()){                    
+                    withAnimation(.closeCard){
                         vm.editTodoEntity()
                         vm.clearTask()
                     }
@@ -273,15 +274,15 @@ struct TodoView: View {
         }
             , alignment: .trailing
         )
-        .font(Font.system(.subheadline, design: .default).weight(.semibold))
+        .font(Font.system(.headline, design: .default).weight(.semibold))
         .padding(16)
         .frame(maxWidth: 400, alignment: .leading)
         .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
                 .fill(Color.theme.backgroundColor)
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
                 .stroke(Color.theme.dividerColor)
         )
     }

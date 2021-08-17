@@ -15,7 +15,7 @@ class TodoViewModel: ObservableObject {
     @Published var calendarInfo = CalendarInfo()
     
     @Published var kinds: [KindEntity] = []
-    @Published var todoEvents: TodoEvents?
+    @Published var events: TodoEvents?
     
     @Published var taskCase: TaskCase = .none
     @Published var showKindView = false
@@ -34,7 +34,7 @@ class TodoViewModel: ObservableObject {
     init(){
         entitys()
         kindEntitys()
-        self.todoEvents = self.getTodoEvents()
+        self.events = self.todoEvents()
     }
     
     func entitys() {
@@ -44,19 +44,44 @@ class TodoViewModel: ObservableObject {
         let filter = NSPredicate(format: "date = %@", calendarInfo.date as NSDate)
         request.predicate = filter
         
+//        let asyncFetch = NSAsynchronousFetchRequest(fetchRequest: request) { [weak self] result in
+//            guard let self = self, let todoes = result.finalResult else {
+//                return
+//            }
+//            
+//            let entitys = todoes.filter { $0.kindEntity != nil }
+//            let dict = Dictionary(grouping: entitys, by: { $0.kindEntity! })
+//            
+//            var temp: [EntityGroupedByKind] = []
+//            for key in dict.keys {
+//                temp.append(EntityGroupedByKind(kind: key, entitys: dict[key]?.sorted() ?? []))
+//            }
+//            
+//            DispatchQueue.main.async {
+//                self.entitysGroupedByKind = temp.sorted()
+//            }
+//        }
+//        
+//        do {
+//            let backgroundContext = manager.container.newBackgroundContext()
+//            try backgroundContext.execute(asyncFetch)
+//        } catch let error {
+//            print("Error Fetching TodoListEntity \(error)")
+//        }
+        
         do {
             let result = try manager.context.fetch(request)
             print(calendarInfo.date)
             let entitys = result.filter { $0.kindEntity != nil }
             let dict = Dictionary(grouping: entitys, by: { $0.kindEntity! })
-            
+
             var temp: [EntityGroupedByKind] = []
             for key in dict.keys {
                 temp.append(EntityGroupedByKind(kind: key, entitys: dict[key]?.sorted() ?? []))
             }
-            
+
             entitysGroupedByKind = temp.sorted()
-//            print(entitysGroupedByKind)
+            print(entitysGroupedByKind)
         } catch let error {
             print("Error Fetching TodoListEntity \(error)")
         }
@@ -68,23 +93,13 @@ class TodoViewModel: ObservableObject {
         request.sortDescriptors = [sort]
         do {
             kinds = try manager.context.fetch(request)
-            if kinds.isEmpty {
-                let sample = KindEntity(context: manager.context)
-                sample.name = "Study"
-                sample.id = UUID().uuidString
-                sample.colorKindID = "blue"
-                sample.progressEntitys = []
-                sample.timetableEntitys = []
-                sample.todolistEntitys = []
-                kinds = [sample]
-            }
         } catch let error {
             print("Error Fetching Kind Entity: \(error)")
         }
         
     }
     
-    func getTodoEvents() -> TodoEvents? {
+    func todoEvents() -> TodoEvents? {
         let request = NSFetchRequest<TodoEvents>(entityName: "TodoEvents")
         do {
             let result = try manager.context.fetch(request)
@@ -113,20 +128,20 @@ class TodoViewModel: ObservableObject {
     }
     
     func addEvent(_ date: Date) {
-        let result = todoEvents?.dates?.first { $0 == date}
+        let result = events?.dates?.first { $0 == date}
         if result == nil {
-            var newDates = todoEvents?.dates ?? []
+            var newDates = events?.dates ?? []
             newDates.append(date)
-            todoEvents?.dates = newDates
+            events?.dates = newDates
         }
     }
     
     func deleteEvent() {
-        let index = todoEvents?.dates?.firstIndex { $0 == calendarInfo.date}
+        let index = events?.dates?.firstIndex { $0 == calendarInfo.date}
         if let index = index {
-            var newDates = todoEvents?.dates ?? []
+            var newDates = events?.dates ?? []
             newDates.remove(at: index) //
-            todoEvents?.dates = newDates
+            events?.dates = newDates
         }
     }
     
@@ -137,7 +152,7 @@ class TodoViewModel: ObservableObject {
         newEntity.date = calendarInfo.date
         newEntity.kindEntity = kind
         newEntity.isDone = false
-        withAnimation(.spring()) {
+        withAnimation(.closeCard) {
             save()
         }
     }
@@ -152,18 +167,13 @@ class TodoViewModel: ObservableObject {
         }
     }
     
-    func toggle(_ entity: TodoListEntity) {
-        entity.isDone.toggle()
-        save()
-    }
-    
-    func deleteEntity(entity: TodoListEntity) {
+    func deleteTodoEntity(entity: TodoListEntity) {
         let entitys = entitysGroupedByKind.map({$0.entitys}).flatMap({$0})
         let model = entitys.first { $0.id == entity.id }
         
         if let model = model {
             manager.context.delete(model)
-            withAnimation(.spring()){
+            withAnimation(.closeCard){
                 save()
             }
         } else {
@@ -171,26 +181,18 @@ class TodoViewModel: ObservableObject {
         }
     }
     
-    func addKindEntity(_ name: String, color: ColorKind) {
-        
-        let newKindEntity = KindEntity(context: manager.context)
-        newKindEntity.name = name
-        newKindEntity.id = UUID().uuidString
-        newKindEntity.colorKindID = color.id
-        newKindEntity.progressEntitys = []
-        newKindEntity.timetableEntitys = []
-        newKindEntity.todolistEntitys = []
-        manager.save()
+    func toggle(_ entity: TodoListEntity) {
+        entity.isDone.toggle()
+        save()
     }
     
-    func edit(_ model: TodoListEntity) {
+    func changeTaskToEdit(_ model: TodoListEntity) {
         withAnimation(.spring()) {
             editingEntity = model
             taskCase = .edit
             text = model.name ?? ""
             kind = model.kindEntity
         }
-        
     }
     
     func moveBackDate(_ model: TodoListEntity) {
@@ -216,7 +218,7 @@ class TodoViewModel: ObservableObject {
         
         checkEvent()
         manager.save()
-        todoEvents = getTodoEvents()
+        events = todoEvents()
     }
 }
 

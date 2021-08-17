@@ -27,10 +27,10 @@ struct GridPatternView : View {
                     path.addLine(to: CGPoint(x: geo.size.width, y: hOffset))
                 }
             }
-            .stroke(Color.primary.opacity(0.04))
+            .stroke(Color.primary.opacity(0.03))
         }.ignoresSafeArea()
         .background(
-            Color.theme.backgroundColor
+            Color.theme.groupBackgroundColor
                 .ignoresSafeArea()
         )
         .overlay(
