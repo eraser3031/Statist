@@ -20,7 +20,7 @@ struct TimeTableColumn: View {
                     .overlay(
                         Text("\(i)")
                             .font(.footnote)
-                            .foregroundColor(Color(.tertiaryLabel))
+                            .foregroundColor(Color(.systemGray))
                     )
                     .overlay(Divider(), alignment: .bottom)
                     .overlay(

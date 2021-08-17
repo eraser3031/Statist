@@ -21,9 +21,14 @@ struct TimetableView: View {
             GroupedCalendarView(info: $vm.calendarInfo, dates: vm.events?.dates ?? [])
                 .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0.0, y: 5)
                 .padding(.horizontal, 16)
-                .padding(.bottom, 20)
+                .padding(.bottom, 16)
+            
+            KindPicker($vm.selectedKind, showKindView: $vm.showKindView, kinds: vm.kinds)
+                .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0, y: 5)
+                .padding(.bottom, 16)
             
             timetable
+                .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0, y: 5)
         }
         .onChange(of: vm.calendarInfo.date) { _ in
             withAnimation(defaultAnimation){

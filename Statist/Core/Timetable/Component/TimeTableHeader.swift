@@ -22,7 +22,7 @@ struct TimeTableHeader: View {
                         .overlay(
                             Text("\(i*10)")
                                 .font(.footnote)
-                                .foregroundColor(Color(.tertiaryLabel))
+                                .foregroundColor(Color(.systemGray))
                         )
                         .offset(x: geo.size.width/2)
                 }

@@ -38,8 +38,8 @@ struct TimeTable<ItemView>: View where ItemView: View {
                 }
             }
             .padding([.horizontal, .bottom], 1)
-            .background(Color(.systemBackground))
-            .padding()
+            .background(Color.theme.groupBackgroundColor)
+            .padding(.horizontal, 16)
         }
 
     }
