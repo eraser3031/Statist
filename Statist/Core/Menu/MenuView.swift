@@ -21,7 +21,6 @@ struct MenuView: View {
     @Environment(\.horizontalSizeClass) var horizontalSize
     
     let menuAnimation = Animation.closeCard
-    let changeAnimation = Animation.spring(response: 0.5, dampingFraction: 0.95)
     
     private func show() {
         withAnimation(menuAnimation) {
@@ -31,11 +30,8 @@ struct MenuView: View {
     
     private func changeMenu(_ menu: MenuCase) {
         menuCase = menu
-//        withAnimation(.openCard) {
-//            menuCase = menu
-//        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
-            withAnimation(.openCard) {
+            withAnimation(menuAnimation) {
                 showMenu = false
                 
             }

@@ -15,7 +15,7 @@ struct TimeTableColumn: View {
         VStack(spacing: 0) {
             ForEach(0..<24) { i in
                 Rectangle()
-                    .fill(Color(.systemBackground))
+                    .fill(Color.theme.groupBackgroundColor)
                     .frame(maxWidth: 48, minHeight: 48)
                     .overlay(
                         Text("\(i)")

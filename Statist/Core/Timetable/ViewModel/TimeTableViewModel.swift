@@ -19,6 +19,7 @@ class NewTimetableViewModel: ObservableObject {
     
     @Published var kinds: [KindEntity] = []
     @Published var showKindView = false
+    @Published var showKindMenuView = false
     
     @Published var events: TimetableEvents?
     
@@ -29,6 +30,20 @@ class NewTimetableViewModel: ObservableObject {
     init(){
         entitys()
         kindEntitys()
+        addSubscriber()
+    }
+    
+    func addSubscriber() {
+        $items
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .map(encodeToTimetableEntitys)
+            .sink { [weak self] timetables in
+                guard let self = self else { return }
+                self.removeEntitys()
+                self.timetables = timetables
+                self.manager.save()
+            }
+            .store(in: &cancellables)
     }
     
     func entitys() {
@@ -116,6 +131,12 @@ class NewTimetableViewModel: ObservableObject {
             items[hour] = newItems
         } else {
             items[hour] = [KindEntity?](repeating: nil, count: 6)
+        }
+    }
+    
+    func removeEntitys() {
+        for timetable in timetables {
+            manager.context.delete(timetable)
         }
     }
 }

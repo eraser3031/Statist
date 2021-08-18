@@ -29,7 +29,7 @@ struct TimeTable<ItemView>: View where ItemView: View {
                 Section(header: TimeTableHeader()) {
                     HStack(spacing: 0){
                         TimeTableColumn(tapColumn: tapColumn)
-                        LazyVStack(spacing: 0){
+                        LazyVStack(spacing: 1){
                             ForEach(0..<items.count){ index in
                                 TimeTableRow(index: index, models: items[index], content: self.content)
                             }
@@ -38,7 +38,9 @@ struct TimeTable<ItemView>: View where ItemView: View {
                 }
             }
             .padding([.horizontal, .bottom], 1)
-            .background(Color.theme.groupBackgroundColor)
+            .background(Color.theme.dividerColor)
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(Color.theme.dividerColor))
             .padding(.horizontal, 16)
         }
 

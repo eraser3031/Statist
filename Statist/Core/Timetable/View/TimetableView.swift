@@ -6,34 +6,67 @@
 //
 
 import SwiftUI
+import PopupView
 
 struct TimetableView: View {
     @StateObject var vm = NewTimetableViewModel()
     let show: () -> Void
     
     let defaultAnimation = Animation.closeCard
+    let drawAnimation = Animation.flipCard
     
     var body: some View {
-        VStack(spacing: 0) {
-            header
-                .padding(.vertical, 20)
-            
-            GroupedCalendarView(info: $vm.calendarInfo, dates: vm.events?.dates ?? [])
-                .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0.0, y: 5)
-                .padding(.horizontal, 16)
-                .padding(.bottom, 16)
-            
-            KindPicker($vm.selectedKind, showKindView: $vm.showKindView, kinds: vm.kinds)
+        ZStack {
+            VStack(spacing: 0) {
+                header
+                    .padding(.vertical, 20)
+                
+                GroupedCalendarView(info: $vm.calendarInfo, dates: vm.events?.dates ?? [])
+                    .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0.0, y: 5)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
+                
+                //            KindPicker($vm.selectedKind, showKindView: $vm.showKindView, kinds: vm.kinds)
+                HStack {
+                    Spacer()
+                    KindMenu(selectedKind: $vm.selectedKind, showKindMenuView: $vm.showKindMenuView, kinds: vm.kinds)
+                }
                 .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0, y: 5)
-                .padding(.bottom, 16)
-            
-            timetable
-                .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0, y: 5)
-        }
-        .onChange(of: vm.calendarInfo.date) { _ in
-            withAnimation(defaultAnimation){
-                vm.entitys()
+                .padding(.bottom, 16).padding(.horizontal, 16)
+                
+                timetable
+                    .shadow(color: Color.theme.shadowColor.opacity(0.2), radius: 20, x: 0, y: 5)
             }
+            .onChange(of: vm.calendarInfo.date) { _ in
+                withAnimation(defaultAnimation){
+                    vm.entitys()
+                }
+            }
+        }
+        .overlay(
+            Color.black.opacity(vm.showKindMenuView ? 0.2 : 0)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    withAnimation(defaultAnimation) {
+                        vm.showKindMenuView = false
+                    }
+                }
+        )
+        .popup(isPresented: $vm.showKindMenuView,
+               type: .floater(verticalPadding: 30),
+               position: .bottom,
+               animation: .closeCard,
+               dragToDismiss: true,
+               closeOnTap: false,
+               closeOnTapOutside: false,
+               dismissCallback: {}) {
+            KindMenuSheet(selectedKind: $vm.selectedKind, showKindMenuView: $vm.showKindMenuView, showKindView: $vm.showKindView, kinds: vm.kinds)
+                .padding()
+                .background(Color.theme.groupBackgroundColor)
+                .frame(height: 300)
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .shadow(color: Color.theme.shadowColor.opacity(0.2), radius: 20, x: 0, y: 5)
+                .padding(.horizontal, 16)
         }
     }
     
@@ -58,28 +91,31 @@ struct TimetableView: View {
     private var timetable: some View {
         GeometryReader { geo in
             TimeTable(models: vm.items, tapColumn: vm.changeItemsByHour) { item, outIndex, inIndex in
-                Rectangle()
-                    .fill(item?.color.toPrimary() ?? Color.clear)
-                    .background(Divider(), alignment: .trailing)
-                    .background(
-                        VStack{
-                            Spacer()
-                            Divider()
-                        }, alignment: .bottom)
-                    .frame(minHeight: 48)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        if item == nil {
-                            withAnimation(defaultAnimation){
-                                vm.items[outIndex][inIndex] = vm.selectedKind
+                Group {
+                    if let item = item {
+                        Rectangle()
+                            .fill(item.color.toPrimary().opacity(0.5))
+                            .shadow(color: item.color.toPrimary().opacity(0.2), radius: 10, x: 0, y: 0)
+                            .padding(.vertical, 5)
+                            .frame(minHeight: 48)
+                            .background(Divider(), alignment: .trailing)
+                            .onTapGesture {
+                                withAnimation(drawAnimation){
+                                    vm.items[outIndex][inIndex] = nil
+                                }
                             }
-                        } else {
-                            withAnimation(defaultAnimation){
-                                vm.items[outIndex][inIndex] = nil
+                    } else {
+                        Color.clear
+                            .frame(minHeight: 48)
+                            .background(Divider(), alignment: .trailing)
+                            .contentShape(Rectangle())
+                            .onTapGesture{
+                                withAnimation(drawAnimation){
+                                    vm.items[outIndex][inIndex] = vm.selectedKind
+                                }
                             }
-                        }
                     }
-                    .transition(.scale)
+                }
             }
             .frame(width: geo.size.width)
         }

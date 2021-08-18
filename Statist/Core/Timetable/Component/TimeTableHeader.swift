@@ -11,14 +11,14 @@ struct TimeTableHeader: View {
     var body: some View {
         HStack(spacing: 0){
             Rectangle()
-                .fill(Color(.systemBackground))
+                .fill(Color.theme.groupBackgroundColor)
                 .frame(maxWidth: 48)
                 .overlay(Divider(), alignment: .trailing)
             
             ForEach(1..<6) { i in
                 GeometryReader { geo in
                     Rectangle()
-                        .fill(Color(.systemBackground))
+                        .fill(Color.theme.groupBackgroundColor)
                         .overlay(
                             Text("\(i*10)")
                                 .font(.footnote)
@@ -31,10 +31,10 @@ struct TimeTableHeader: View {
             
             
             Rectangle()
-                .fill(Color(.systemBackground))
+                .fill(Color.theme.groupBackgroundColor)
         }
         .frame(height: 24)
-        .background(Color(.systemBackground))
+        .background(Color.theme.groupBackgroundColor)
         .overlay(
             Rectangle()
                 .stroke(Color.theme.dividerColor, lineWidth: 1)

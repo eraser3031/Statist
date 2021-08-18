@@ -28,6 +28,6 @@ struct TimeTableRow<ItemView>: View where ItemView: View {
             ForEach(0..<6){ i in
                 self.content( items[i], index, i )
             }
-        }
+        }.background(Color.theme.groupBackgroundColor)
     }
 }

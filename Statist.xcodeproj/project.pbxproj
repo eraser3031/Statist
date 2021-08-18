@@ -41,6 +41,8 @@
 		218A100F2692B31800579B1E /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 218A100E2692B31800579B1E /* FSCalendar */; };
 		218A10152692BDE300579B1E /* Gilroy-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10132692BDE200579B1E /* Gilroy-ExtraBold.otf */; };
 		218A10162692BDE300579B1E /* Gilroy-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10142692BDE200579B1E /* Gilroy-Light.otf */; };
+		218B26EB26CD08330089AC14 /* KindMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B26EA26CD08320089AC14 /* KindMenu.swift */; };
+		218B26EE26CD0A900089AC14 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 218B26ED26CD0A900089AC14 /* PopupView */; };
 		219C544926A6BBCE009D639D /* ProgressEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219C544826A6BBCD009D639D /* ProgressEntity.swift */; };
 		219C544B26A6BC35009D639D /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219C544A26A6BC35009D639D /* ProgressBar.swift */; };
 		21CC0EA5269D715800584873 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CC0EA4269D715800584873 /* UIApplication.swift */; };
@@ -110,6 +112,7 @@
 		217BB3BB26A41BEF00FD5D7A /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		218A10132692BDE200579B1E /* Gilroy-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBold.otf"; sourceTree = "<group>"; };
 		218A10142692BDE200579B1E /* Gilroy-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Light.otf"; sourceTree = "<group>"; };
+		218B26EA26CD08320089AC14 /* KindMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindMenu.swift; sourceTree = "<group>"; };
 		219C544826A6BBCD009D639D /* ProgressEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressEntity.swift; sourceTree = "<group>"; };
 		219C544A26A6BC35009D639D /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		21CC0EA4269D715800584873 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -151,6 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				218B26EE26CD0A900089AC14 /* PopupView in Frameworks */,
 				218A100F2692B31800579B1E /* FSCalendar in Frameworks */,
 				21E9ED8126C0B7A400A66E64 /* Introspect in Frameworks */,
 			);
@@ -482,6 +486,7 @@
 			isa = PBXGroup;
 			children = (
 				21CC0EA6269D82F300584873 /* KindPicker.swift */,
+				218B26EA26CD08320089AC14 /* KindMenu.swift */,
 				213EB5FF269ED8A900059680 /* CustomColorPicker.swift */,
 				21615023269DB62F00401572 /* CustomButton.swift */,
 				21615021269DB50F00401572 /* CustomTextField.swift */,
@@ -555,6 +560,7 @@
 			packageProductDependencies = (
 				218A100E2692B31800579B1E /* FSCalendar */,
 				21E9ED8026C0B7A400A66E64 /* Introspect */,
+				218B26ED26CD0A900089AC14 /* PopupView */,
 			);
 			productName = Statist;
 			productReference = 21D045B82691F5D90048685A /* Statist.app */;
@@ -586,6 +592,7 @@
 			packageReferences = (
 				218A100D2692B31700579B1E /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				21E9ED7F26C0B7A400A66E64 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				218B26EC26CD0A900089AC14 /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = 21D045B92691F5D90048685A /* Products */;
 			projectDirPath = "";
@@ -649,6 +656,7 @@
 				21E9ED7926BEEA8E00A66E64 /* GroupShapeModifier.swift in Sources */,
 				211D35E226BD52F1007EC9FF /* GroupedCalendarView.swift in Sources */,
 				21D045D22691F82E0048685A /* HeaderView.swift in Sources */,
+				218B26EB26CD08330089AC14 /* KindMenu.swift in Sources */,
 				21D045BC2691F5D90048685A /* StatistApp.swift in Sources */,
 				21D1F4F52695AEFA00E57727 /* PreviewProvider.swift in Sources */,
 				2157610426ADA018009F617B /* Graph.swift in Sources */,
@@ -874,6 +882,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		218B26EC26CD0A900089AC14 /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		21E9ED7F26C0B7A400A66E64 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
@@ -889,6 +905,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 218A100D2692B31700579B1E /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		218B26ED26CD0A900089AC14 /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 218B26EC26CD0A900089AC14 /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
 		};
 		21E9ED8026C0B7A400A66E64 /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
