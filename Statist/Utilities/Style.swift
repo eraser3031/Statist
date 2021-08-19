@@ -21,6 +21,14 @@ struct TaskButtonStyle: ButtonStyle {
     }
 }
 
+struct InteractiveButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .opacity(configuration.isPressed ? 0.9 : 1.0)
+            .scaleEffect(configuration.isPressed ? 0.96 : 1.0)
+    }
+}
+
 //dynamic custom font
 @available(iOS 13, macCatalyst 13, tvOS 13, watchOS 6, *)
 struct ScaledFont: ViewModifier {
@@ -42,5 +50,6 @@ extension View {
 }
 
 struct CustomFont {
+    static let AbrilFatface = "AbrilFatface-Regular"
     static let Gilroy_ExtraBold = "Gilroy-ExtraBold"
 }

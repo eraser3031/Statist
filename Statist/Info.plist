@@ -4,6 +4,7 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>AbrilFatface-Regular.ttf</string>
 		<string>Gilroy-ExtraBold.otf</string>
 		<string>Gilroy-Light.otf</string>
 	</array>

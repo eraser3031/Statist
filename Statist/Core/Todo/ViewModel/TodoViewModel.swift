@@ -15,11 +15,12 @@ class TodoViewModel: ObservableObject {
     @Published var calendarInfo = CalendarInfo()
     
     @Published var kinds: [KindEntity] = []
-    @Published var events: TodoEvents?
+    @Published var dates: [Date] = []
     
     @Published var taskCase: TaskCase = .none
     @Published var showKindView = false
-    @Published var editingEntity: TodoListEntity?
+    @Published var showMenuKindView = false
+    @Published var editingEntity: TodoEntity?
     
     @Published var text: String = ""
     @Published var kind: KindEntity?
@@ -34,12 +35,11 @@ class TodoViewModel: ObservableObject {
     init(){
         entitys()
         kindEntitys()
-        self.events = self.todoEvents()
     }
     
     func entitys() {
-        let request = NSFetchRequest<TodoListEntity>(entityName: "TodoListEntity")
-        let sort = NSSortDescriptor(keyPath: \TodoListEntity.kindEntity, ascending: true)
+        let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
+        let sort = NSSortDescriptor(keyPath: \TodoEntity.kindEntity, ascending: true)
         request.sortDescriptors = [sort]
         let filter = NSPredicate(format: "date = %@", calendarInfo.date as NSDate)
         request.predicate = filter
@@ -71,6 +71,7 @@ class TodoViewModel: ObservableObject {
         
         do {
             let result = try manager.context.fetch(request)
+            
             print(calendarInfo.date)
             let entitys = result.filter { $0.kindEntity != nil }
             let dict = Dictionary(grouping: entitys, by: { $0.kindEntity! })
@@ -99,24 +100,14 @@ class TodoViewModel: ObservableObject {
         
     }
     
-    func todoEvents() -> TodoEvents? {
-        let request = NSFetchRequest<TodoEvents>(entityName: "TodoEvents")
+    func datesByEvents() {
+        let request = NSFetchRequest<TodoEvent>(entityName: "TodoEvent")
         do {
             let result = try manager.context.fetch(request)
-            
-            if result.first == nil {
-                let newTodoEvents = TodoEvents(context: manager.context)
-                newTodoEvents.dates = []
-                manager.save()
-                return newTodoEvents
-            }
-            
-            return result.first
-            
+            dates = result.map{ $0.date }
         } catch let error {
             print("Error Fetching Todo Event Entity: \(error)")
         }
-        return nil
     }
     
     func checkEvent() {
@@ -146,7 +137,7 @@ class TodoViewModel: ObservableObject {
     }
     
     func addTodoEntity() {
-        let newEntity = TodoListEntity(context: manager.context)
+        let newEntity = TodoEntity(context: manager.context)
         newEntity.id = UUID().uuidString
         newEntity.name = text
         newEntity.date = calendarInfo.date
@@ -167,7 +158,7 @@ class TodoViewModel: ObservableObject {
         }
     }
     
-    func deleteTodoEntity(entity: TodoListEntity) {
+    func deleteTodoEntity(entity: TodoEntity) {
         let entitys = entitysGroupedByKind.map({$0.entitys}).flatMap({$0})
         let model = entitys.first { $0.id == entity.id }
         
@@ -181,12 +172,12 @@ class TodoViewModel: ObservableObject {
         }
     }
     
-    func toggle(_ entity: TodoListEntity) {
+    func toggle(_ entity: TodoEntity) {
         entity.isDone.toggle()
         save()
     }
     
-    func changeTaskToEdit(_ model: TodoListEntity) {
+    func changeTaskToEdit(_ model: TodoEntity) {
         withAnimation(.spring()) {
             editingEntity = model
             taskCase = .edit
@@ -195,7 +186,7 @@ class TodoViewModel: ObservableObject {
         }
     }
     
-    func moveBackDate(_ model: TodoListEntity) {
+    func moveBackDate(_ model: TodoEntity) {
         let newDate = Calendar.current.date(byAdding: .day, value: 1, to: model.date ?? Date())
         model.date = newDate
         withAnimation(.spring()) {
@@ -229,9 +220,9 @@ struct EntityGroupedByKind: Identifiable, Comparable {
     
     let id: String
     var kindEntity: KindEntity
-    var entitys: [TodoListEntity]
+    var entitys: [TodoEntity]
     
-    init(kind: KindEntity, entitys: [TodoListEntity]) {
+    init(kind: KindEntity, entitys: [TodoEntity]) {
         self.id = kind.id ?? ""
         self.kindEntity = kind
         self.entitys = entitys

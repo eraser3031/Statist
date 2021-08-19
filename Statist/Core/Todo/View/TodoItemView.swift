@@ -9,12 +9,12 @@ import SwiftUI
 
 struct TodoItemView: View {
     @Environment(\.colorScheme) var colorScheme
-    let model: TodoListEntity
-    @Binding var editingEntity: TodoListEntity?
+    let model: TodoEntity
+    @Binding var editingEntity: TodoEntity?
     @Binding var showEditTodoView: Bool
     var save: () -> Void
     
-    init(_ model: TodoListEntity, editing: Binding<TodoListEntity?>, showEdit: Binding<Bool>, save: @escaping () -> Void) {
+    init(_ model: TodoEntity, editing: Binding<TodoEntity?>, showEdit: Binding<Bool>, save: @escaping () -> Void) {
         self.model = model
         self._editingEntity = editing
         self._showEditTodoView = showEdit
@@ -67,12 +67,12 @@ struct TodoItemView: View {
 
 struct NewTodoItemView: View {
     @Environment(\.colorScheme) var colorScheme
-    let model: TodoListEntity
+    let model: TodoEntity
     @ObservedObject var vm: TodoViewModel
     
     let primaryColor: Color
     
-    init(_ model: TodoListEntity, vm: TodoViewModel) {
+    init(_ model: TodoEntity, vm: TodoViewModel) {
         self.model = model
         self.vm = vm
         self.primaryColor = model.kindEntity?.color.toPrimary() ?? .primary

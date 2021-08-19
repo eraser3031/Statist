@@ -32,11 +32,14 @@ struct KindPicker: View {
                             .frame(width: 10, height: 10)
                         Text(kind.name ?? "")
                             .font(Font.system(.caption, design: .default).weight(.bold))
-                            .foregroundColor(isSelected(kind: kind) ? Color(.systemBackground) : Color.primary)
                     }
                     .modifier(CapsuleItemModifier())
                     .background(
-                        isSelected(kind: kind) ? Color.primary : Color(.systemBackground)
+                        isSelected(kind: kind) ? Color.theme.groupBackgroundColor : Color.theme.itemBackgroundColor
+                    )
+                    .overlay(
+                        Capsule().stroke(Color.primary, lineWidth: isSelected(kind: kind) ? 1 : 0)
+                            .padding(0.5)
                     )
                     .clipShape(Capsule())
                     .contentShape(Rectangle())

@@ -12,7 +12,7 @@ struct TimeTableColumn: View {
     let tapColumn: (Int) -> Void
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 1) {
             ForEach(0..<24) { i in
                 Rectangle()
                     .fill(Color.theme.groupBackgroundColor)
@@ -21,14 +21,6 @@ struct TimeTableColumn: View {
                         Text("\(i)")
                             .font(.footnote)
                             .foregroundColor(Color(.systemGray))
-                    )
-                    .overlay(Divider(), alignment: .bottom)
-                    .overlay(
-                        HStack{
-                            Divider()
-                            Spacer()
-                            Divider()
-                        }
                     )
                     .onTapGesture {
                         withAnimation(.easeOutExpo) {

@@ -14,7 +14,11 @@ struct KindMenu: View {
     let kinds: [KindEntity]
     
     var body: some View {
-        ZStack {
+        Button(action: {
+            withAnimation(.closeCard) {
+                showKindMenuView = true
+            }
+        }){
             HStack(spacing: 12) {
                 HStack(spacing: 8) {
                     Circle()
@@ -23,7 +27,6 @@ struct KindMenu: View {
                     
                     Text(selectedKind?.name ?? "Select Kind")
                         .lineLimit(1)
-
                         .font(Font.system(.subheadline, design: .default).weight(.medium))
                 }
                 
@@ -35,12 +38,8 @@ struct KindMenu: View {
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(Color.theme.dividerColor))
             .contentShape(Rectangle())
-            .onTapGesture {
-                withAnimation(.closeCard) {
-                    showKindMenuView = true
-                }
-            }
         }
+        .buttonStyle(InteractiveButtonStyle())
     }
 }
 
@@ -51,37 +50,63 @@ struct KindMenuSheet: View {
     let kinds: [KindEntity]
     
     var body: some View {
-        VStack(spacing: 4) {
-            
-            Color.theme.dividerColor
-                .frame(width: 48, height: 5)
-                .clipShape(Capsule())
+        VStack(spacing: 20) {
+            VStack(spacing: 8) {
+                HStack {
+                    Text("Kinds")
+                        .font(Font.system(.headline, design: .default).weight(.bold))
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        withAnimation(.spring()) {
+                            showKindView = true
+                        }
+                    }) {
+                        Label("Edit", systemImage: "pencil")
+                            .font(Font.system(.footnote, design: .default).weight(.semibold))
+                            .foregroundColor(Color(.systemGray))
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(
+                                Capsule(style: .continuous)
+                                    .fill(Color.theme.itemBackgroundColor)
+                            )
+                    }
+                }
+                
+                Divider()
+            }
             
             ScrollView(.vertical, showsIndicators: false) {
-                VStack{
+                VStack(spacing: 10){
                     ForEach(kinds) { kind in
-                        HStack(spacing: 8) {
+                        HStack(spacing: 10) {
                             Circle()
                                 .fill(kind.color.toPrimary())
                                 .frame(width: 12, height: 12)
                             
                             Text(kind.name ?? "")
-                                .font(.headline)
+                                .font(Font.system(.subheadline, design: .default).weight(.medium))
                             
                             Spacer()
                         }
                         .padding()
-                        .contentShape(Rectangle())
+                        .background(Color.theme.itemBackgroundColor)
+                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                         .onTapGesture {
-                            withAnimation(.closeCard) {
-                                selectedKind = kind
+                            selectedKind = kind
+                            withAnimation(.linear(duration: 0.1)) {
                                 showKindMenuView = false
                             }
                         }
-                        Divider()
                     }
                 }
             }
-        }
+        }.padding([.horizontal, .top])
+        .background(Color.theme.subBackgroundColor )
+        .frame(height: 400)
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .padding(.horizontal, 16)
     }
 }

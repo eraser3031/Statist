@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-extension TodoListEntity: Comparable {
-    public static func < (lhs: TodoListEntity, rhs: TodoListEntity) -> Bool {
+extension TodoEntity: Comparable {
+    public static func < (lhs: TodoEntity, rhs: TodoEntity) -> Bool {
         (lhs.name ?? "") > (rhs.name ?? "")
     }
 }

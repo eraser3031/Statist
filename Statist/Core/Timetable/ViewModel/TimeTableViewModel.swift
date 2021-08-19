@@ -21,7 +21,7 @@ class NewTimetableViewModel: ObservableObject {
     @Published var showKindView = false
     @Published var showKindMenuView = false
     
-    @Published var events: TimetableEvents?
+    @Published var events: TimetableEvent?
     
     let manager = CoreDataManager.instance
     
@@ -274,9 +274,10 @@ class TimeTableViewModel: ObservableObject {
         newKindEntity.name = name
         newKindEntity.id = UUID().uuidString
         newKindEntity.colorKindID = color.id
-        newKindEntity.progressEntitys = []
-        newKindEntity.timetableEntitys = []
-        newKindEntity.todolistEntitys = []
+        
+        newKindEntity.progressEntities = []
+        newKindEntity.timetableEntities = []
+        newKindEntity.todoEntities = []
         manager.save()
     }
     

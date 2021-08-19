@@ -48,9 +48,9 @@ class TaskKindViewModel: ObservableObject {
         newEntity.name = text
         newEntity.colorKindID = color?.id ?? "blue"
         
-        newEntity.progressEntitys = []
-        newEntity.todolistEntitys = []
-        newEntity.timetableEntitys = []
+        newEntity.progressEntities = []
+        newEntity.todoEntities = []
+        newEntity.timetableEntities = []
         print(newEntity)
     }
     
@@ -64,21 +64,21 @@ class TaskKindViewModel: ObservableObject {
     func deleteKindEntity() {
         guard let kind = kind else { return }
         
-        let todoes = kind.todolistEntitys?.allObjects as? [TodoListEntity] ?? []
-        let timetables = kind.timetableEntitys?.allObjects as? [TimetableEntity] ?? []
-        let progresses = kind.progressEntitys?.allObjects as? [ProgressEntity] ?? []
-        
-        todoes.forEach { todo in
-            manager.context.delete(todo)
-        }
-        
-        timetables.forEach { timetable in
-            manager.context.delete(timetable)
-        }
-        
-        progresses.forEach { progress in
-            manager.context.delete(progress)
-        }
+//        let todoes = kind.todolistEntitys?.allObjects as? [TodoListEntity] ?? []
+//        let timetables = kind.timetableEntitys?.allObjects as? [TimetableEntity] ?? []
+//        let progresses = kind.progressEntitys?.allObjects as? [ProgressEntity] ?? []
+//        
+//        todoes.forEach { todo in
+//            manager.context.delete(todo)
+//        }
+//        
+//        timetables.forEach { timetable in
+//            manager.context.delete(timetable)
+//        }
+//        
+//        progresses.forEach { progress in
+//            manager.context.delete(progress)
+//        }
         
         manager.context.delete(kind)
     }

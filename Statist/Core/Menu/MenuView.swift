@@ -20,7 +20,7 @@ struct MenuView: View {
     
     @Environment(\.horizontalSizeClass) var horizontalSize
     
-    let menuAnimation = Animation.closeCard
+    let menuAnimation = Animation.moreCloseCard
     
     private func show() {
         withAnimation(menuAnimation) {
@@ -106,7 +106,7 @@ struct MenuView: View {
                     Text("Timetable").onTapGesture {changeMenu(.timeTable) }
                     Text("Goal").onTapGesture {changeMenu(.goal) }
                 }
-                .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 28)
+                .scaledFont(name: CustomFont.AbrilFatface, size: 28)
 //                .font(Font.system(.title, design: .default).weight(.heavy))
                 
                 GeometryReader { geo in
@@ -117,7 +117,7 @@ struct MenuView: View {
                 .frame(height: 2)
                 
                 Text("Stat").onTapGesture {changeMenu(.goal) }
-                    .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 28)
+                    .scaledFont(name: CustomFont.AbrilFatface, size: 28)
 //                    .font(Font.system(.title, design: .default).weight(.heavy))
                 
                 Spacer()

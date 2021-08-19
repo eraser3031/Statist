@@ -94,8 +94,8 @@ struct TodoView: View {
     
     private var header: some View {
         HStack(spacing: 0){
-            Label("Todo", systemImage: "line.3.horizontal.circle.fill")
-                .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 22)
+            Text("Todo")
+                .scaledFont(name: CustomFont.AbrilFatface, size: 22)
                 .padding(.vertical, 2)
                 .contentShape(Rectangle())
                 .onTapGesture{
@@ -182,7 +182,7 @@ struct TodoView: View {
             if vm.taskCase != .none {
                 ZStack {
                     Color.black
-                        .opacity(0.2)
+                        .opacity(0.4)
                         .ignoresSafeArea()
                         .transition(.opacity)
                         .onTapGesture {
@@ -275,14 +275,14 @@ struct TodoView: View {
             , alignment: .trailing
         )
         .font(Font.system(.headline, design: .default).weight(.semibold))
-        .padding(16)
+        .padding(14).padding(.horizontal, 2)
         .frame(maxWidth: 400, alignment: .leading)
         .background(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(Color.theme.backgroundColor)
         )
         .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .stroke(Color.theme.dividerColor)
         )
     }

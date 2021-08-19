@@ -21,12 +21,11 @@ struct TimetableView: View {
                 header
                     .padding(.vertical, 20)
                 
-                GroupedCalendarView(info: $vm.calendarInfo, dates: vm.events?.dates ?? [])
-                    .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0.0, y: 5)
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 16)
+//                GroupedCalendarView(info: $vm.calendarInfo, dates: vm.events?.dates ?? [])
+//                    .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0.0, y: 5)
+//                    .padding(.horizontal, 16)
+//                    .padding(.bottom, 16)
                 
-                //            KindPicker($vm.selectedKind, showKindView: $vm.showKindView, kinds: vm.kinds)
                 HStack {
                     Spacer()
                     KindMenu(selectedKind: $vm.selectedKind, showKindMenuView: $vm.showKindMenuView, kinds: vm.kinds)
@@ -47,7 +46,7 @@ struct TimetableView: View {
             Color.black.opacity(vm.showKindMenuView ? 0.2 : 0)
                 .ignoresSafeArea()
                 .onTapGesture {
-                    withAnimation(defaultAnimation) {
+                    withAnimation(.linear(duration: 0.1)) {
                         vm.showKindMenuView = false
                     }
                 }
@@ -61,19 +60,20 @@ struct TimetableView: View {
                closeOnTapOutside: false,
                dismissCallback: {}) {
             KindMenuSheet(selectedKind: $vm.selectedKind, showKindMenuView: $vm.showKindMenuView, showKindView: $vm.showKindView, kinds: vm.kinds)
-                .padding()
-                .background(Color.theme.groupBackgroundColor)
-                .frame(height: 300)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .shadow(color: Color.theme.shadowColor.opacity(0.2), radius: 20, x: 0, y: 5)
-                .padding(.horizontal, 16)
         }
+           .sheet(isPresented: $vm.showKindView, onDismiss: {
+               vm.kindEntitys()
+               vm.entitys()
+           }) {
+               KindView()
+           }
     }
     
     private var header: some View {
         HStack(spacing: 0){
-            Label("Timetable", systemImage: "line.3.horizontal.circle.fill")
-                .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 22)
+            Text("Timetable")
+                .scaledFont(name: CustomFont.AbrilFatface, size: 22)
                 .padding(.vertical, 2)
                 .contentShape(Rectangle())
                 .onTapGesture{
