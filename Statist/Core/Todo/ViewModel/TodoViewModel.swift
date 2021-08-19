@@ -14,6 +14,7 @@ class TodoViewModel: ObservableObject {
     @Published var entitysGroupedByKind: [EntityGroupedByKind] = []
     @Published var calendarInfo = CalendarInfo()
     
+    @Published var event: TodoEvent?
     @Published var kinds: [KindEntity] = []
     @Published var dates: [Date] = []
     
@@ -22,10 +23,10 @@ class TodoViewModel: ObservableObject {
     @Published var showMenuKindView = false
     @Published var editingEntity: TodoEntity?
     
-    @Published var text: String = ""
-    @Published var kind: KindEntity?
+    @Published var bindingText: String = ""
+    @Published var bindingKind: KindEntity?
     var canTask: Bool {
-        !text.isEmpty && kind != nil
+        !bindingText.isEmpty && bindingKind != nil
     }
     
     let manager = CoreDataManager.instance
@@ -33,48 +34,23 @@ class TodoViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init(){
-        entitys()
+        datesByEvents()
+        entities()
         kindEntitys()
     }
     
-    func entitys() {
-        let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
-        let sort = NSSortDescriptor(keyPath: \TodoEntity.kindEntity, ascending: true)
-        request.sortDescriptors = [sort]
+    func entities() {
+        let request = NSFetchRequest<TodoEvent>(entityName: "TodoEvent")
         let filter = NSPredicate(format: "date = %@", calendarInfo.date as NSDate)
         request.predicate = filter
         
-//        let asyncFetch = NSAsynchronousFetchRequest(fetchRequest: request) { [weak self] result in
-//            guard let self = self, let todoes = result.finalResult else {
-//                return
-//            }
-//            
-//            let entitys = todoes.filter { $0.kindEntity != nil }
-//            let dict = Dictionary(grouping: entitys, by: { $0.kindEntity! })
-//            
-//            var temp: [EntityGroupedByKind] = []
-//            for key in dict.keys {
-//                temp.append(EntityGroupedByKind(kind: key, entitys: dict[key]?.sorted() ?? []))
-//            }
-//            
-//            DispatchQueue.main.async {
-//                self.entitysGroupedByKind = temp.sorted()
-//            }
-//        }
-//        
-//        do {
-//            let backgroundContext = manager.container.newBackgroundContext()
-//            try backgroundContext.execute(asyncFetch)
-//        } catch let error {
-//            print("Error Fetching TodoListEntity \(error)")
-//        }
-        
         do {
-            let result = try manager.context.fetch(request)
+            let result = try manager.context.fetch(request).first
+            event = result
             
-            print(calendarInfo.date)
-            let entitys = result.filter { $0.kindEntity != nil }
-            let dict = Dictionary(grouping: entitys, by: { $0.kindEntity! })
+            let entities = result?.entities?.allObjects as? [TodoEntity] ?? []
+            let entitiesHavingKind = entities.filter { $0.kindEntity != nil }
+            let dict = Dictionary(grouping: entitiesHavingKind, by: { $0.kindEntity! })
 
             var temp: [EntityGroupedByKind] = []
             for key in dict.keys {
@@ -82,9 +58,9 @@ class TodoViewModel: ObservableObject {
             }
 
             entitysGroupedByKind = temp.sorted()
-            print(entitysGroupedByKind)
+
         } catch let error {
-            print("Error Fetching TodoListEntity \(error)")
+            print("Error Fetching entities: \(error)")
         }
     }
     
@@ -100,76 +76,55 @@ class TodoViewModel: ObservableObject {
         
     }
     
-    func datesByEvents() {
-        let request = NSFetchRequest<TodoEvent>(entityName: "TodoEvent")
-        do {
-            let result = try manager.context.fetch(request)
-            dates = result.map{ $0.date }
-        } catch let error {
-            print("Error Fetching Todo Event Entity: \(error)")
-        }
-    }
-    
-    func checkEvent() {
-        if entitysGroupedByKind.isEmpty {
-            deleteEvent()
-        } else {
-            addEvent(calendarInfo.date)
-        }
-    }
-    
-    func addEvent(_ date: Date) {
-        let result = events?.dates?.first { $0 == date}
-        if result == nil {
-            var newDates = events?.dates ?? []
-            newDates.append(date)
-            events?.dates = newDates
-        }
-    }
-    
-    func deleteEvent() {
-        let index = events?.dates?.firstIndex { $0 == calendarInfo.date}
-        if let index = index {
-            var newDates = events?.dates ?? []
-            newDates.remove(at: index) //
-            events?.dates = newDates
-        }
-    }
-    
-    func addTodoEntity() {
+    func addEntity() {
         let newEntity = TodoEntity(context: manager.context)
         newEntity.id = UUID().uuidString
-        newEntity.name = text
+        newEntity.name = bindingText
         newEntity.date = calendarInfo.date
-        newEntity.kindEntity = kind
+        newEntity.kindEntity = bindingKind
         newEntity.isDone = false
-        withAnimation(.closeCard) {
-            save()
-        }
+        newEntity.event = event == nil ? addEvent() : event
+        save()
     }
     
-    func editTodoEntity() {
+    func updateEntity() {
         if let entity = editingEntity {
-            entity.name = text
-            entity.kindEntity = kind
+            entity.name = bindingText
+            entity.kindEntity = bindingKind
         }
-        withAnimation(.spring()) {
-            save()
-        }
+        save()
     }
     
-    func deleteTodoEntity(entity: TodoEntity) {
+    func deleteEntity(entity: TodoEntity) {
         let entitys = entitysGroupedByKind.map({$0.entitys}).flatMap({$0})
         let model = entitys.first { $0.id == entity.id }
         
         if let model = model {
             manager.context.delete(model)
-            withAnimation(.closeCard){
-                save()
-            }
+            save()
         } else {
             print("Error Deleting TodoListEntity")
         }
+    }
+    
+    func datesByEvents() {
+        let request = NSFetchRequest<TodoEvent>(entityName: "TodoEvent")
+        
+        do {
+            let events = try manager.context.fetch(request)
+            dates = events.map{ $0.date ?? Date().toDay}
+        } catch let error {
+            print("Error datesByEvents: \(error)")
+        }
+    }
+    
+    func addEvent() -> TodoEvent {
+        let newEvent = TodoEvent(context: manager.context)
+        newEvent.id = UUID().uuidString
+        newEvent.date = calendarInfo.date
+        newEvent.entities = []
+        manager.save()
+        return newEvent
     }
     
     func toggle(_ entity: TodoEntity) {
@@ -178,38 +133,30 @@ class TodoViewModel: ObservableObject {
     }
     
     func changeTaskToEdit(_ model: TodoEntity) {
-        withAnimation(.spring()) {
-            editingEntity = model
-            taskCase = .edit
-            text = model.name ?? ""
-            kind = model.kindEntity
-        }
+        editingEntity = model
+        taskCase = .edit
+        bindingText = model.name ?? ""
+        bindingKind = model.kindEntity
     }
     
     func moveBackDate(_ model: TodoEntity) {
         let newDate = Calendar.current.date(byAdding: .day, value: 1, to: model.date ?? Date())
         model.date = newDate
-        withAnimation(.spring()) {
-            addEvent(newDate ?? Date().toDay)
-            self.save()
-        }
+        self.save()
     }
     
     func clearTask() {
         UIApplication.shared.endEditing()
-        text = ""
-        kind = nil
+        bindingText = ""
+        bindingKind = nil
         editingEntity = nil
         taskCase = .none
     }
     
     func save() {
         manager.save()
-        entitys()
-        
-        checkEvent()
-        manager.save()
-        events = todoEvents()
+        datesByEvents()
+        entities()
     }
 }
 
@@ -234,3 +181,28 @@ enum TaskCase: String {
     case add
     case none
 }
+
+//        let asyncFetch = NSAsynchronousFetchRequest(fetchRequest: request) { [weak self] result in
+//            guard let self = self, let todoes = result.finalResult else {
+//                return
+//            }
+//
+//            let entitys = todoes.filter { $0.kindEntity != nil }
+//            let dict = Dictionary(grouping: entitys, by: { $0.kindEntity! })
+//
+//            var temp: [EntityGroupedByKind] = []
+//            for key in dict.keys {
+//                temp.append(EntityGroupedByKind(kind: key, entitys: dict[key]?.sorted() ?? []))
+//            }
+//
+//            DispatchQueue.main.async {
+//                self.entitysGroupedByKind = temp.sorted()
+//            }
+//        }
+//
+//        do {
+//            let backgroundContext = manager.container.newBackgroundContext()
+//            try backgroundContext.execute(asyncFetch)
+//        } catch let error {
+//            print("Error Fetching TodoListEntity \(error)")
+//        }

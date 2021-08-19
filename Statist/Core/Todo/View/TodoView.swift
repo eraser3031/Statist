@@ -19,7 +19,7 @@ struct TodoView: View {
             header
                 .padding(.vertical, 20)
             
-            GroupedCalendarView(info: $vm.calendarInfo, dates: vm.events?.dates ?? [])
+            GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
                 .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0.0, y: 5)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 20)
@@ -56,7 +56,7 @@ struct TodoView: View {
         )
         .onChange(of: vm.calendarInfo.date) { _ in
             withAnimation(.spring()){
-                vm.entitys()
+                vm.entities()
             }
         }
     }
@@ -84,7 +84,8 @@ struct TodoView: View {
                 
                 VStack(spacing: 12) {
                     ForEach(entitys) { entity in
-                        NewTodoItemView(entity, vm: vm)
+                        TodoItemView(entity, vm: vm)
+                            .shadow(color: Color.theme.shadowColor.opacity(0.05), radius: 30, x: 0, y: 2)
                     }
                 }
             }
@@ -136,7 +137,7 @@ struct TodoView: View {
         VStack(spacing: 0) {
             
             if vm.taskCase != .none {
-                KindPicker($vm.kind, showKindView: $vm.showKindView, kinds: vm.kinds)
+                KindPicker($vm.bindingKind, showKindView: $vm.showKindView, kinds: vm.kinds)
                     .contentShape(Rectangle())
                     .transition(
                         AnyTransition.asymmetric(
@@ -147,7 +148,7 @@ struct TodoView: View {
                     .padding(.vertical, 20)
                     .sheet(isPresented: $vm.showKindView, onDismiss: {
                         withAnimation(.spring()) {
-                            vm.entitys()
+                            vm.entities()
                             vm.kindEntitys()
                         }
                     }) {
@@ -200,13 +201,13 @@ struct TodoView: View {
             switch vm.taskCase {
             case .add:
                 withAnimation(.closeCard) {
-                    vm.addTodoEntity()
+                    vm.addEntity()
                     vm.clearTask()
                 }
 
             case .edit:
                 withAnimation(.closeCard) {
-                    vm.editTodoEntity()
+                    vm.updateEntity()
                     vm.clearTask()
                 }
                 
@@ -230,7 +231,7 @@ struct TodoView: View {
     }
     
     private var customTextField: some View {
-        TextField("Add new Todo", text: $vm.text) { isEdit in
+        TextField("Add new Todo", text: $vm.bindingText) { isEdit in
             if isEdit && vm.taskCase == .none {
                 withAnimation(.closeCard) {
                     vm.taskCase = .add
@@ -241,14 +242,14 @@ struct TodoView: View {
             case .add:
                 if vm.canTask {
                     withAnimation(.closeCard){
-                        vm.addTodoEntity()
+                        vm.addEntity()
                         vm.clearTask()
                     }
                 }
             case .edit:
                 if vm.canTask {
                     withAnimation(.closeCard){
-                        vm.editTodoEntity()
+                        vm.updateEntity()
                         vm.clearTask()
                     }
                 }
@@ -268,9 +269,9 @@ struct TodoView: View {
                 .padding()
                 .offset(x: 10)
                 .foregroundColor(.secondary)
-                .opacity(vm.text.isEmpty ? 0.0 : 1.0)
+                .opacity(vm.bindingText.isEmpty ? 0.0 : 1.0)
                 .onTapGesture {
-            vm.text = ""
+            vm.bindingText = ""
         }
             , alignment: .trailing
         )

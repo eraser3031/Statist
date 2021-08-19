@@ -13,7 +13,6 @@
 		211D35E026BD4FD0007EC9FF /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211D35DF26BD4FD0007EC9FF /* TodoView.swift */; };
 		211D35E226BD52F1007EC9FF /* GroupedCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211D35E126BD52F1007EC9FF /* GroupedCalendarView.swift */; };
 		211D35E426BD5B55007EC9FF /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211D35E326BD5B55007EC9FF /* TodoViewModel.swift */; };
-		211D35E626BDA274007EC9FF /* TodoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211D35E526BDA274007EC9FF /* TodoEntity.swift */; };
 		212777C926BAD1B2009C2349 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212777C826BAD1B2009C2349 /* VisualEffectView.swift */; };
 		213EB600269ED8A900059680 /* CustomColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EB5FF269ED8A900059680 /* CustomColorPicker.swift */; };
 		2152D28826A7EB74000B0B19 /* AddProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152D28726A7EB74000B0B19 /* AddProgressView.swift */; };
@@ -44,6 +43,7 @@
 		218B26EB26CD08330089AC14 /* KindMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B26EA26CD08320089AC14 /* KindMenu.swift */; };
 		218B26EE26CD0A900089AC14 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 218B26ED26CD0A900089AC14 /* PopupView */; };
 		218B26F026CDEB820089AC14 /* AbrilFatface-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 218B26EF26CDEB820089AC14 /* AbrilFatface-Regular.ttf */; };
+		218E0EB926CEAF6200828D94 /* TodoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E0EB826CEAF6200828D94 /* TodoEntity.swift */; };
 		219C544926A6BBCE009D639D /* ProgressEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219C544826A6BBCD009D639D /* ProgressEntity.swift */; };
 		219C544B26A6BC35009D639D /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219C544A26A6BC35009D639D /* ProgressBar.swift */; };
 		21CC0EA5269D715800584873 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CC0EA4269D715800584873 /* UIApplication.swift */; };
@@ -86,7 +86,6 @@
 		211D35DF26BD4FD0007EC9FF /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		211D35E126BD52F1007EC9FF /* GroupedCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedCalendarView.swift; sourceTree = "<group>"; };
 		211D35E326BD5B55007EC9FF /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
-		211D35E526BDA274007EC9FF /* TodoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEntity.swift; sourceTree = "<group>"; };
 		212777C826BAD1B2009C2349 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		213EB5FF269ED8A900059680 /* CustomColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColorPicker.swift; sourceTree = "<group>"; };
 		2152D28726A7EB74000B0B19 /* AddProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProgressView.swift; sourceTree = "<group>"; };
@@ -115,6 +114,7 @@
 		218A10142692BDE200579B1E /* Gilroy-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Light.otf"; sourceTree = "<group>"; };
 		218B26EA26CD08320089AC14 /* KindMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindMenu.swift; sourceTree = "<group>"; };
 		218B26EF26CDEB820089AC14 /* AbrilFatface-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AbrilFatface-Regular.ttf"; sourceTree = "<group>"; };
+		218E0EB826CEAF6200828D94 /* TodoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEntity.swift; sourceTree = "<group>"; };
 		219C544826A6BBCD009D639D /* ProgressEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressEntity.swift; sourceTree = "<group>"; };
 		219C544A26A6BC35009D639D /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		21CC0EA4269D715800584873 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -457,7 +457,7 @@
 				219C544826A6BBCD009D639D /* ProgressEntity.swift */,
 				2157610726AEB407009F617B /* TimetableEntity.swift */,
 				21D1F5172699B62300E57727 /* UserDataContainer.xcdatamodeld */,
-				211D35E526BDA274007EC9FF /* TodoEntity.swift */,
+				218E0EB826CEAF6200828D94 /* TodoEntity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -630,7 +630,6 @@
 				215760FE26AD9F93009F617B /* StatViewModel.swift in Sources */,
 				210F75C426CA79A3004CA1C4 /* MenuView.swift in Sources */,
 				21E9ED7E26C0B78200A66E64 /* TextFieldFocusableArea.swift in Sources */,
-				211D35E626BDA274007EC9FF /* TodoEntity.swift in Sources */,
 				21D1F50F26987FD700E57727 /* TimeTableViewModel.swift in Sources */,
 				21D1F51B2699E27F00E57727 /* CoreDataManager.swift in Sources */,
 				21E9ED7926BEEA8E00A66E64 /* GroupShapeModifier.swift in Sources */,
@@ -643,6 +642,7 @@
 				2157610026AD9FBE009F617B /* CircleChart.swift in Sources */,
 				2152D28E26A7FA87000B0B19 /* EditProgressViewModel.swift in Sources */,
 				21D1F5022696236E00E57727 /* ProgressItemView.swift in Sources */,
+				218E0EB926CEAF6200828D94 /* TodoEntity.swift in Sources */,
 				21D1F4E42694948600E57727 /* TimeTable.swift in Sources */,
 				2152D28A26A7EB7E000B0B19 /* AddProgressViewModel.swift in Sources */,
 				21D1F4F92695FF6100E57727 /* TimeTableColumn.swift in Sources */,
