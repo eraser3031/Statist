@@ -34,23 +34,51 @@ class TodoViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init(){
-        datesByEvents()
+        todoEvent()
         entities()
         kindEntitys()
     }
     
-    func entities() {
+    func todoEvent() {
         let request = NSFetchRequest<TodoEvent>(entityName: "TodoEvent")
+        do {
+            let result = try manager.context.fetch(request).first
+            
+            guard let result = result else {
+                let newEvent = TodoEvent(context: manager.context)
+                newEvent.id = UUID().uuidString
+                newEvent.dates = [:]
+                newEvent.entities = []
+                manager.save()
+                
+                event = newEvent
+                dates = []
+                
+                return
+            }
+            
+            event = result
+            if let resultDates = result.dates {
+                print(resultDates)
+                    dates = Array(resultDates.keys)
+            } else {
+                dates = []
+            }
+            
+        } catch let error {
+            print("Error getEvent: \(error)")
+        }
+    }
+    
+    func entities() {
+        let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
         let filter = NSPredicate(format: "date = %@", calendarInfo.date as NSDate)
         request.predicate = filter
         
         do {
-            let result = try manager.context.fetch(request).first
-            event = result
-            
-            let entities = result?.entities?.allObjects as? [TodoEntity] ?? []
-            let entitiesHavingKind = entities.filter { $0.kindEntity != nil }
-            let dict = Dictionary(grouping: entitiesHavingKind, by: { $0.kindEntity! })
+            let result = try manager.context.fetch(request)
+            let resultHavingKind = result.filter { $0.kindEntity != nil }
+            let dict = Dictionary(grouping: resultHavingKind, by: { $0.kindEntity! })
 
             var temp: [EntityGroupedByKind] = []
             for key in dict.keys {
@@ -83,7 +111,14 @@ class TodoViewModel: ObservableObject {
         newEntity.date = calendarInfo.date
         newEntity.kindEntity = bindingKind
         newEntity.isDone = false
-        newEntity.event = event == nil ? addEvent() : event
+        newEntity.event = event
+        
+        if var eventDates = event?.dates {
+            let itemDate = newEntity.date ?? Date().toDay
+            eventDates[itemDate] = (eventDates[itemDate] ?? 0) + 1
+            newEntity.event?.dates = eventDates
+        }
+        
         save()
     }
     
@@ -107,26 +142,6 @@ class TodoViewModel: ObservableObject {
         }
     }
     
-    func datesByEvents() {
-        let request = NSFetchRequest<TodoEvent>(entityName: "TodoEvent")
-        
-        do {
-            let events = try manager.context.fetch(request)
-            dates = events.map{ $0.date ?? Date().toDay}
-        } catch let error {
-            print("Error datesByEvents: \(error)")
-        }
-    }
-    
-    func addEvent() -> TodoEvent {
-        let newEvent = TodoEvent(context: manager.context)
-        newEvent.id = UUID().uuidString
-        newEvent.date = calendarInfo.date
-        newEvent.entities = []
-        manager.save()
-        return newEvent
-    }
-    
     func toggle(_ entity: TodoEntity) {
         entity.isDone.toggle()
         save()
@@ -141,8 +156,24 @@ class TodoViewModel: ObservableObject {
     
     func moveBackDate(_ model: TodoEntity) {
         let newDate = Calendar.current.date(byAdding: .day, value: 1, to: model.date ?? Date())
-        model.date = newDate
-        self.save()
+        
+        deleteEntity(entity: model)
+        
+        let newEntity = TodoEntity(context: manager.context)
+        newEntity.id = UUID().uuidString
+        newEntity.name = bindingText
+        newEntity.date = newDate
+        newEntity.kindEntity = bindingKind
+        newEntity.isDone = false
+        newEntity.event = event
+        
+        if var eventDates = event?.dates {
+            let itemDate = newEntity.date ?? Date().toDay
+            eventDates[itemDate] = (eventDates[itemDate] ?? 0) + 1
+            newEntity.event?.dates = eventDates
+        }
+        
+        save()
     }
     
     func clearTask() {
@@ -155,7 +186,7 @@ class TodoViewModel: ObservableObject {
     
     func save() {
         manager.save()
-        datesByEvents()
+        todoEvent()
         entities()
     }
 }

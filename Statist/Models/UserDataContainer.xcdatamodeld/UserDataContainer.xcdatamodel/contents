@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19141.11" systemVersion="21A5268h" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Entity" representedClassName="Entity" syncable="YES" codeGenerationType="class">
+        <attribute name="test" optional="YES" attributeType="Transformable" customClassName="[Dictionary&lt;Date, Int&gt;]"/>
+    </entity>
     <entity name="KindEntity" representedClassName="KindEntity" syncable="YES" codeGenerationType="class">
         <attribute name="colorKindID" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
@@ -44,17 +47,18 @@
         <relationship name="kindEntity" maxCount="1" deletionRule="Nullify" destinationEntity="KindEntity" inverseName="todoEntities" inverseEntity="KindEntity"/>
     </entity>
     <entity name="TodoEvent" representedClassName="TodoEvent" syncable="YES" codeGenerationType="class">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" customClassName="[Date]"/>
+        <attribute name="dates" optional="YES" attributeType="Transformable" customClassName="Dictionary&lt;Date, Int&gt;"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <relationship name="entities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoEntity" inverseName="event" inverseEntity="TodoEntity"/>
     </entity>
     <elements>
+        <element name="Entity" positionX="-45" positionY="-126" width="128" height="44"/>
         <element name="KindEntity" positionX="379.282958984375" positionY="-120.0494079589844" width="128" height="133"/>
         <element name="ProgressEntity" positionX="-29.10980224609375" positionY="-282.5895233154297" width="128" height="118"/>
         <element name="ProgressPoint" positionX="-229.0687866210938" positionY="-267.6315460205078" width="128" height="103"/>
         <element name="TimetableEntity" positionX="-38.53082275390625" positionY="-67.05123901367188" width="128" height="148"/>
         <element name="TimetableEvent" positionX="-231.1759033203125" positionY="-21.7606201171875" width="128" height="88"/>
         <element name="TodoEntity" positionX="-40.0025634765625" positionY="89.8092041015625" width="128" height="133"/>
-        <element name="TodoEvent" positionX="-241.1222229003906" positionY="120.127197265625" width="128" height="88"/>
+        <element name="TodoEvent" positionX="-241.1222229003906" positionY="120.127197265625" width="128" height="74"/>
     </elements>
 </model>

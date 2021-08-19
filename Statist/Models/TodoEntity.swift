@@ -9,15 +9,35 @@ import UIKit
 import CoreData
 
 extension TodoEntity: Comparable {
+    
+//    public override func awakeFromInsert() {
+//        super.awakeFromInsert()
+//        
+//        guard var eventDates = event?.dates else { return }
+//        let itemDate = self.date ?? Date().toDay
+//        eventDates[itemDate] = (eventDates[itemDate] ?? 0) + 1
+//        
+//        self.event?.dates = eventDates
+//        CoreDataManager.instance.save()
+//        print("awake:")
+//        print(eventDates)
+//    }
+    
     public override func prepareForDeletion() {
         super.prepareForDeletion()
-        guard let event = event else { return }
-        let entities = event.entities?.allObjects as? [TodoEntity]
-        guard let entities = entities else { return }
-        if entities.count <= 1 {
-            CoreDataManager.instance.context.delete(event)
-            print("delete event by prepareDeletion")
+        
+        guard var eventDates = event?.dates else { return }
+        let itemDate = self.date ?? Date().toDay
+        eventDates[itemDate] = (eventDates[itemDate] ?? 0) - 1
+        
+        if (eventDates[itemDate] ?? 0) <= 0 {
+            eventDates[itemDate] = nil
         }
+        
+        self.event?.dates = eventDates
+        CoreDataManager.instance.save()
+        print("deletion:")
+        print(eventDates)
     }
     
     public static func < (lhs: TodoEntity, rhs: TodoEntity) -> Bool {
