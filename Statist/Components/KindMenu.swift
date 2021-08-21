@@ -51,7 +51,7 @@ struct KindMenuSheet: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            VStack(spacing: 8) {
+            VStack(spacing: 10) {
                 HStack {
                     Text("Kinds")
                         .font(Font.system(.headline, design: .default).weight(.bold))
@@ -107,6 +107,7 @@ struct KindMenuSheet: View {
         .background(Color.theme.subBackgroundColor )
         .frame(height: 400)
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(Color.theme.dividerColor))
         .padding(.horizontal, 16)
     }
 }

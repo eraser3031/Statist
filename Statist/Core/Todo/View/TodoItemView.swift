@@ -72,7 +72,7 @@ struct TodoItemView: View {
                     .padding(5).padding(.horizontal, 2)
                     .background(
                         Capsule(style: .continuous)
-                            .fill(Color.theme.itemBackgroundColor)
+                            .fill(Color.theme.subBackgroundColor)
                     )
                     .padding(2)
             }

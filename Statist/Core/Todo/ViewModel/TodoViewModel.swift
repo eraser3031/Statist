@@ -59,8 +59,7 @@ class TodoViewModel: ObservableObject {
             
             event = result
             if let resultDates = result.dates {
-                print(resultDates)
-                    dates = Array(resultDates.keys)
+                dates = Array(resultDates.keys)
             } else {
                 dates = []
             }
@@ -119,7 +118,7 @@ class TodoViewModel: ObservableObject {
             newEntity.event?.dates = eventDates
         }
         
-        save()
+        saveAndLoad()
     }
     
     func updateEntity() {
@@ -127,7 +126,7 @@ class TodoViewModel: ObservableObject {
             entity.name = bindingText
             entity.kindEntity = bindingKind
         }
-        save()
+        saveAndLoadOnlyEntities()
     }
     
     func deleteEntity(entity: TodoEntity) {
@@ -136,7 +135,7 @@ class TodoViewModel: ObservableObject {
         
         if let model = model {
             manager.context.delete(model)
-            save()
+            saveAndLoad()
         } else {
             print("Error Deleting TodoListEntity")
         }
@@ -144,7 +143,7 @@ class TodoViewModel: ObservableObject {
     
     func toggle(_ entity: TodoEntity) {
         entity.isDone.toggle()
-        save()
+        saveAndLoadOnlyEntities()
     }
     
     func changeTaskToEdit(_ model: TodoEntity) {
@@ -157,15 +156,15 @@ class TodoViewModel: ObservableObject {
     func moveBackDate(_ model: TodoEntity) {
         let newDate = Calendar.current.date(byAdding: .day, value: 1, to: model.date ?? Date())
         
-        deleteEntity(entity: model)
-        
         let newEntity = TodoEntity(context: manager.context)
-        newEntity.id = UUID().uuidString
-        newEntity.name = bindingText
+        newEntity.id = model.id
+        newEntity.name = model.name
         newEntity.date = newDate
-        newEntity.kindEntity = bindingKind
-        newEntity.isDone = false
-        newEntity.event = event
+        newEntity.kindEntity = model.kindEntity
+        newEntity.isDone = model.isDone
+        newEntity.event = model.event
+        
+        deleteEntity(entity: model)
         
         if var eventDates = event?.dates {
             let itemDate = newEntity.date ?? Date().toDay
@@ -173,7 +172,7 @@ class TodoViewModel: ObservableObject {
             newEntity.event?.dates = eventDates
         }
         
-        save()
+        saveAndLoad()
     }
     
     func clearTask() {
@@ -184,9 +183,14 @@ class TodoViewModel: ObservableObject {
         taskCase = .none
     }
     
-    func save() {
+    func saveAndLoad() {
         manager.save()
         todoEvent()
+        entities()
+    }
+    
+    func saveAndLoadOnlyEntities() {
+        manager.save()
         entities()
     }
 }

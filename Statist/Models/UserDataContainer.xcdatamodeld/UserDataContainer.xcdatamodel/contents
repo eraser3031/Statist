@@ -34,7 +34,7 @@
         <relationship name="kindEntity" maxCount="1" deletionRule="Nullify" destinationEntity="KindEntity" inverseName="timetableEntities" inverseEntity="KindEntity"/>
     </entity>
     <entity name="TimetableEvent" representedClassName="TimetableEvent" syncable="YES" codeGenerationType="class">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" customClassName="[Date]"/>
+        <attribute name="dates" optional="YES" attributeType="Transformable" customClassName="Dictionary&lt;Date, Int&gt;"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <relationship name="entities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimetableEntity" inverseName="event" inverseEntity="TimetableEntity"/>
     </entity>
@@ -57,7 +57,7 @@
         <element name="ProgressEntity" positionX="-29.10980224609375" positionY="-282.5895233154297" width="128" height="118"/>
         <element name="ProgressPoint" positionX="-229.0687866210938" positionY="-267.6315460205078" width="128" height="103"/>
         <element name="TimetableEntity" positionX="-38.53082275390625" positionY="-67.05123901367188" width="128" height="148"/>
-        <element name="TimetableEvent" positionX="-231.1759033203125" positionY="-21.7606201171875" width="128" height="88"/>
+        <element name="TimetableEvent" positionX="-231.1759033203125" positionY="-21.7606201171875" width="128" height="74"/>
         <element name="TodoEntity" positionX="-40.0025634765625" positionY="89.8092041015625" width="128" height="133"/>
         <element name="TodoEvent" positionX="-241.1222229003906" positionY="120.127197265625" width="128" height="74"/>
     </elements>

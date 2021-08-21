@@ -9,6 +9,9 @@ import SwiftUI
 import PopupView
 
 struct TimetableView: View {
+    
+    @Environment(\.safeAreaInsets) private var safeAreaInsets
+    
     @StateObject var vm = NewTimetableViewModel()
     let show: () -> Void
     
@@ -21,14 +24,37 @@ struct TimetableView: View {
                 header
                     .padding(.vertical, 20)
                 
-//                GroupedCalendarView(info: $vm.calendarInfo, dates: vm.events?.dates ?? [])
-//                    .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0.0, y: 5)
-//                    .padding(.horizontal, 16)
-//                    .padding(.bottom, 16)
+                GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
+                    .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0.0, y: 5)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
                 
                 HStack {
-                    Spacer()
                     KindMenu(selectedKind: $vm.selectedKind, showKindMenuView: $vm.showKindMenuView, kinds: vm.kinds)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        withAnimation(defaultAnimation) {
+                            vm.saveAndLoad()
+                            vm.isModified = false
+                        }
+                    }){
+                        Text("Save")
+                            .font(Font.system(.subheadline, design: .default).weight(.semibold))
+                            .padding(.horizontal, 28).padding(.vertical, 8)
+                            .background(Color.theme.backgroundColor)
+                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                    .stroke(vm.isModified ? Color.primary : Color.theme.dividerColor, lineWidth: vm.isModified ? 2 : 1)
+                                    .padding(vm.isModified ? 1 : 0.5)
+                            )
+                            .contentShape(Rectangle())
+                    }
+                    .opacity(vm.isModified ? 1 : 0.6)
+                    .disabled(!vm.isModified)
+                    .buttonStyle(InteractiveButtonStyle())
                 }
                 .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0, y: 5)
                 .padding(.bottom, 16).padding(.horizontal, 16)
@@ -38,12 +64,13 @@ struct TimetableView: View {
             }
             .onChange(of: vm.calendarInfo.date) { _ in
                 withAnimation(defaultAnimation){
-                    vm.entitys()
+                    vm.isModified = false
+                    vm.entities()
                 }
             }
         }
         .overlay(
-            Color.black.opacity(vm.showKindMenuView ? 0.2 : 0)
+            Color.black.opacity(vm.showKindMenuView ? 0.4 : 0)
                 .ignoresSafeArea()
                 .onTapGesture {
                     withAnimation(.linear(duration: 0.1)) {
@@ -52,7 +79,7 @@ struct TimetableView: View {
                 }
         )
         .popup(isPresented: $vm.showKindMenuView,
-               type: .floater(verticalPadding: 30),
+               type: .floater(verticalPadding: safeAreaInsets.bottom + 8),
                position: .bottom,
                animation: .closeCard,
                dragToDismiss: true,
@@ -63,8 +90,8 @@ struct TimetableView: View {
                 .shadow(color: Color.theme.shadowColor.opacity(0.2), radius: 20, x: 0, y: 5)
         }
            .sheet(isPresented: $vm.showKindView, onDismiss: {
-               vm.kindEntitys()
-               vm.entitys()
+               vm.kindEntities()
+               vm.entities()
            }) {
                KindView()
            }
@@ -101,6 +128,9 @@ struct TimetableView: View {
                             .background(Divider(), alignment: .trailing)
                             .onTapGesture {
                                 withAnimation(drawAnimation){
+                                    if !vm.isModified {
+                                        vm.isModified = true
+                                    }
                                     vm.items[outIndex][inIndex] = nil
                                 }
                             }
@@ -111,6 +141,9 @@ struct TimetableView: View {
                             .contentShape(Rectangle())
                             .onTapGesture{
                                 withAnimation(drawAnimation){
+                                    if !vm.isModified {
+                                        vm.isModified = true
+                                    }
                                     vm.items[outIndex][inIndex] = vm.selectedKind
                                 }
                             }
