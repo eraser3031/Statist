@@ -82,5 +82,8 @@ struct TodoItemView: View {
         .padding(.vertical, model.isDone ? 0 : 3)
         .background(colorScheme == .dark ? Color.theme.itemBackgroundColor : Color.theme.backgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(Color.theme.dividerColor))
+        .contentShape(Rectangle())
+        .animation(defaultAnimation)
     }
 }

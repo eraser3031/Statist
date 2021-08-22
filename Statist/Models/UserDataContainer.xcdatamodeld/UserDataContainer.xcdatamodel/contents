@@ -1,28 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19141.11" systemVersion="21A5268h" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Entity" representedClassName="Entity" syncable="YES" codeGenerationType="class">
-        <attribute name="test" optional="YES" attributeType="Transformable" customClassName="[Dictionary&lt;Date, Int&gt;]"/>
+    <entity name="GoalEntity" representedClassName="GoalEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="goal" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="times" optional="YES" attributeType="Transformable" customClassName="[Date]"/>
+        <relationship name="kindEntity" maxCount="1" deletionRule="Nullify" destinationEntity="KindEntity" inverseName="goalEntities" inverseEntity="KindEntity"/>
     </entity>
     <entity name="KindEntity" representedClassName="KindEntity" syncable="YES" codeGenerationType="class">
         <attribute name="colorKindID" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="progressEntities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ProgressEntity" inverseName="kindEntity" inverseEntity="ProgressEntity"/>
+        <relationship name="goalEntities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GoalEntity" inverseName="kindEntity" inverseEntity="GoalEntity"/>
         <relationship name="timetableEntities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TimetableEntity" inverseName="kindEntity" inverseEntity="TimetableEntity"/>
         <relationship name="todoEntities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TodoEntity" inverseName="kindEntity" inverseEntity="TodoEntity"/>
-    </entity>
-    <entity name="ProgressEntity" representedClassName="ProgressEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="goal" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="id" attributeType="String"/>
-        <attribute name="name" attributeType="String"/>
-        <relationship name="kindEntity" maxCount="1" deletionRule="Nullify" destinationEntity="KindEntity" inverseName="progressEntities" inverseEntity="KindEntity"/>
-        <relationship name="progressPoints" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProgressPoint" inverseName="progressEntity" inverseEntity="ProgressPoint"/>
-    </entity>
-    <entity name="ProgressPoint" representedClassName="ProgressPoint" syncable="YES" codeGenerationType="class">
-        <attribute name="count" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
-        <relationship name="progressEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProgressEntity" inverseName="progressPoints" inverseEntity="ProgressEntity"/>
     </entity>
     <entity name="TimetableEntity" representedClassName="TimetableEntity" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -52,10 +44,8 @@
         <relationship name="entities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoEntity" inverseName="event" inverseEntity="TodoEntity"/>
     </entity>
     <elements>
-        <element name="Entity" positionX="-45" positionY="-126" width="128" height="44"/>
+        <element name="GoalEntity" positionX="-29.10980224609375" positionY="-282.5895233154297" width="128" height="119"/>
         <element name="KindEntity" positionX="379.282958984375" positionY="-120.0494079589844" width="128" height="133"/>
-        <element name="ProgressEntity" positionX="-29.10980224609375" positionY="-282.5895233154297" width="128" height="118"/>
-        <element name="ProgressPoint" positionX="-229.0687866210938" positionY="-267.6315460205078" width="128" height="103"/>
         <element name="TimetableEntity" positionX="-38.53082275390625" positionY="-67.05123901367188" width="128" height="148"/>
         <element name="TimetableEvent" positionX="-231.1759033203125" positionY="-21.7606201171875" width="128" height="74"/>
         <element name="TodoEntity" positionX="-40.0025634765625" positionY="89.8092041015625" width="128" height="133"/>

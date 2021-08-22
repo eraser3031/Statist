@@ -48,7 +48,7 @@ class TaskKindViewModel: ObservableObject {
         newEntity.name = text
         newEntity.colorKindID = color?.id ?? "blue"
         
-        newEntity.progressEntities = []
+        newEntity.goalEntities = []
         newEntity.todoEntities = []
         newEntity.timetableEntities = []
         print(newEntity)

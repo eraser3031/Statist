@@ -25,9 +25,10 @@ struct TimetableView: View {
                     .padding(.vertical, 20)
                 
                 GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
-                    .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0.0, y: 5)
+                    .dividerShadow()
+                    .floatShadow()
                     .padding(.horizontal, 16)
-                    .padding(.bottom, 16)
+                    .padding(.bottom, 28)
                 
                 HStack {
                     KindMenu(selectedKind: $vm.selectedKind, showKindMenuView: $vm.showKindMenuView, kinds: vm.kinds)
@@ -42,7 +43,7 @@ struct TimetableView: View {
                     }){
                         Text("Save")
                             .font(Font.system(.subheadline, design: .default).weight(.semibold))
-                            .padding(.horizontal, 28).padding(.vertical, 8)
+                            .padding(.horizontal, 28).padding(.vertical, 12)
                             .background(Color.theme.backgroundColor)
                             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                             .overlay(
@@ -56,11 +57,13 @@ struct TimetableView: View {
                     .disabled(!vm.isModified)
                     .buttonStyle(InteractiveButtonStyle())
                 }
-                .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0, y: 5)
-                .padding(.bottom, 16).padding(.horizontal, 16)
+                .dividerShadow()
+                .floatShadow()
+                .padding(.bottom, 20).padding(.horizontal, 16)
                 
                 timetable
-                    .shadow(color: Color.theme.shadowColor.opacity(0.2), radius: 20, x: 0, y: 5)
+                    .dividerShadow()
+                    .floatShadow()
             }
             .onChange(of: vm.calendarInfo.date) { _ in
                 withAnimation(defaultAnimation){
@@ -87,7 +90,7 @@ struct TimetableView: View {
                closeOnTapOutside: false,
                dismissCallback: {}) {
             KindMenuSheet(selectedKind: $vm.selectedKind, showKindMenuView: $vm.showKindMenuView, showKindView: $vm.showKindView, kinds: vm.kinds)
-                .shadow(color: Color.theme.shadowColor.opacity(0.2), radius: 20, x: 0, y: 5)
+                .floatShadow()
         }
            .sheet(isPresented: $vm.showKindView, onDismiss: {
                vm.kindEntities()
@@ -100,7 +103,7 @@ struct TimetableView: View {
     private var header: some View {
         HStack(spacing: 0){
             Text("Timetable")
-                .scaledFont(name: CustomFont.AbrilFatface, size: 22)
+                .scaledFont(name: CustomFont.AbrilFatface, size: 25)
                 .padding(.vertical, 2)
                 .contentShape(Rectangle())
                 .onTapGesture{
@@ -154,79 +157,3 @@ struct TimetableView: View {
         }
     }
 }
-//
-//struct TimetableView: View {
-//    
-//    @EnvironmentObject var environment: StatistViewModel
-//    @StateObject var vm: TimeTableViewModel
-//    
-//    init(date: Date){
-//        self._vm = StateObject(wrappedValue: TimeTableViewModel(date: date))
-//    }
-//    
-//    var body: some View {
-//        GeometryReader { geo in
-//            VStack(spacing: 10){
-//            
-////                KindPicker($vm.selectedKind, showAddKindView: $vm.showAddKindView, kinds: vm.kinds)
-////                    .sheet(isPresented: $vm.showAddKindView,
-////                           onDismiss: {
-////                            withAnimation(.spring()){
-////                                vm.getKindEntitys()
-////                            }
-////                        }) {
-////                            AddKindView()
-////                    }
-////            
-//            
-//                TimeTable(models: vm.items, tapColumn: vm.tapColumn) { item, outIndex, inIndex in
-//                    Rectangle()
-//                        .fill(item?.color.toPrimary() ?? Color.clear)
-//                        .background(Divider(), alignment: .trailing)
-//                        .background(
-//                            VStack{
-//                                Spacer()
-//                                Divider()
-//                            }, alignment: .bottom)
-//                        .frame(minHeight: 48)
-//                        .contentShape(Rectangle())
-//                        .onTapGesture {
-//                            if item == nil {
-//                                withAnimation(.easeOutExpo){
-//                                    vm.items[outIndex][inIndex] = vm.selectedKind
-//                                }
-//                            } else {
-//                                withAnimation(.easeOutExpo){
-//                                    vm.items[outIndex][inIndex] = nil
-//                                }
-//                            }
-//                        }
-//                        .transition(.scale)
-//                }
-//                .frame(width: geo.size.width)
-//                
-//                LineChart(datas: [vm.timeTableEntitys])
-//            }
-//        }
-//        .onReceive(environment.$date) { date in
-//            withAnimation(.spring()) {
-//                vm.getTimeTableEntitys(date: date)
-//            }
-//        }
-//    }
-//}
-//
-//struct TimetableView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TimetableView(date: Date())
-//    }
-//}
-
-//struct TimetableView: View {
-//
-//    @StateObject vm = TimeTableViewModel()
-//
-//    var body: some View {
-//
-//    }
-//}

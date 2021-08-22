@@ -26,7 +26,7 @@ struct GroupedCalendarView: View {
             }.frame(height: info.scope ? 292 : 72)
         }
         .padding(14)
-        .background(Color.theme.groupBackgroundColor)
+        .background(Color.theme.backgroundColor)
         .overlay(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .stroke(Color.theme.dividerColor)

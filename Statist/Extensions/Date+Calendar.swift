@@ -18,6 +18,12 @@ extension Date: Identifiable {
         return formatter.string(from: self)
     }
     
+    func string() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy.MM.dd"
+        return formatter.string(from: self)
+    }
+    
     var toDay: Date {
         let calendar = Calendar.current
         return calendar.date(bySettingHour: 0, minute: 0, second: 0, of: self) ?? self

@@ -73,7 +73,7 @@ struct MenuView: View {
             } else if menuCase == .timeTable {
                 TimetableView(){ show() }
             } else if menuCase == .goal {
-                EmptyView()
+                GoalView(){ show() }
             } else if menuCase == .stat {
                 EmptyView()
             }
@@ -88,9 +88,9 @@ struct MenuView: View {
                 }
         )
         .background(
-            Color.theme.groupBackgroundColor
+            Color.theme.backgroundColor
         )
-        .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: showMenu ? 30 : 0, style: .continuous))
         .shadow(color: Color.theme.shadowColor.opacity(showMenu ? 0.4 : 0), radius: 40, x: 0.0, y: 20)
     }
     

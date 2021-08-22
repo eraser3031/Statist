@@ -11,6 +11,7 @@ struct KindView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @StateObject var vm = KindViewModel()
+    @State var testText = ""
     
     var body: some View {
         NavigationView {
@@ -36,9 +37,6 @@ struct KindView: View {
             }
             .navigationBarTitle("Kinds", displayMode: .inline)
             .toolbar {
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    cancelButton
-//                }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     addButton
@@ -64,7 +62,8 @@ struct KindView: View {
     private var addButton: some View {
         NavigationLink(destination: TaskKindView(nil, kinds: vm.kinds, save: {
             vm.save()
-        })) {
+        })
+        ) {
             Image(systemName: "plus")
         }
     }

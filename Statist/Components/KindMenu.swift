@@ -33,8 +33,8 @@ struct KindMenu: View {
                 Image(systemName: "chevron.down")
                     .font(Font.system(.footnote, design: .default).weight(.semibold))
             }
-            .padding(.horizontal, 12).padding(.vertical, 8)
-            .background(Color.theme.groupBackgroundColor)
+            .padding(.horizontal, 12).padding(.vertical, 12)
+            .background(Color.theme.backgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(Color.theme.dividerColor))
             .contentShape(Rectangle())

@@ -99,7 +99,7 @@ struct CalendarView: UIViewRepresentable {
             if dates.contains(date) {
                 return UIColor(named: "DividerColor")
             } else {
-                return UIColor(named: "GroupBackgroundColor")
+                return UIColor(named: "BackgroundColor")
             }
         }
         

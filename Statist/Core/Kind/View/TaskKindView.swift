@@ -23,6 +23,10 @@ struct TaskKindView: View {
     var body: some View {
         VStack(spacing: 20){
             
+            NavigationLink(destination: EmptyView()) {
+                EmptyView()
+            }
+            
             Spacer().frame(height: 0)
             
             CustomTextField("Write Kind's Name", text: $vm.text)

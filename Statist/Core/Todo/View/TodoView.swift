@@ -14,13 +14,16 @@ struct TodoView: View {
     @Namespace private var namespace
     let show: () -> Void
     
+    let defaultAnimation = Animation.closeCard
+    
     var body: some View {
         VStack(spacing: 0) {
             header
                 .padding(.vertical, 20)
             
             GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
-                .shadow(color: Color.theme.shadowColor.opacity(0.1), radius: 12, x: 0.0, y: 5)
+                .dividerShadow()
+                .floatShadow(yOffset: 10)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 20)
             
@@ -33,7 +36,7 @@ struct TodoView: View {
                         .padding(16 + 14)
                 }
                 .padding(.horizontal, 16)
-                .transition(AnyTransition.asymmetric(insertion: .move(edge: .bottom), removal: .opacity.animation(.easeInOut(duration: 0.1))))
+                .transition(AnyTransition.asymmetric(insertion: .move(edge: .bottom).animation(defaultAnimation), removal: .opacity.animation(.easeInOut(duration: 0.1))))
             } else {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 28){
@@ -48,8 +51,8 @@ struct TodoView: View {
             }
         }
         .scaleEffect(vm.taskCase == .none ? 1 : 0.96)
-        .overlay(curtain)
         .ignoresSafeArea(.keyboard)
+        .overlay(curtain)
         .overlay(
             todoItemTask
             ,alignment: .bottom
@@ -85,7 +88,7 @@ struct TodoView: View {
                 VStack(spacing: 12) {
                     ForEach(entitys) { entity in
                         TodoItemView(entity, vm: vm)
-                            .shadow(color: Color.theme.shadowColor.opacity(0.05), radius: 30, x: 0, y: 2)
+//
                     }
                 }
             }
@@ -96,7 +99,7 @@ struct TodoView: View {
     private var header: some View {
         HStack(spacing: 0){
             Text("Todo")
-                .scaledFont(name: CustomFont.AbrilFatface, size: 22)
+                .scaledFont(name: CustomFont.AbrilFatface, size: 25)
                 .padding(.vertical, 2)
                 .contentShape(Rectangle())
                 .onTapGesture{
@@ -147,7 +150,7 @@ struct TodoView: View {
                     )
                     .padding(.vertical, 20)
                     .sheet(isPresented: $vm.showKindView, onDismiss: {
-                        withAnimation(.spring()) {
+                        withAnimation(defaultAnimation) {
                             vm.entities()
                             vm.kindEntitys()
                         }
@@ -181,17 +184,16 @@ struct TodoView: View {
     private var curtain: some View {
         Group {
             if vm.taskCase != .none {
-                ZStack {
-                    Color.black
-                        .opacity(0.4)
-                        .ignoresSafeArea()
-                        .transition(.opacity)
-                        .onTapGesture {
-                            withAnimation {
-                                vm.clearTask()
-                            }
+                Rectangle()
+                    .fill(Color.black)
+                    .opacity(0.4)
+                    .ignoresSafeArea()
+                    .transition(.opacity)
+                    .onTapGesture {
+                        withAnimation(defaultAnimation) {
+                            vm.clearTask()
                         }
-                }
+                    }
             }
         }
     }
@@ -200,20 +202,20 @@ struct TodoView: View {
         Button(action: {
             switch vm.taskCase {
             case .add:
-                withAnimation(.closeCard) {
+                withAnimation(defaultAnimation) {
                     vm.addEntity()
                     vm.clearTask()
                 }
 
             case .edit:
-                withAnimation(.closeCard) {
+                withAnimation(defaultAnimation) {
                     vm.updateEntity()
                     vm.clearTask()
                 }
                 
             case .none:
                 print("error: impossible state of taskCase in onCommit")
-                withAnimation(.closeCard) {
+                withAnimation(defaultAnimation) {
                     vm.clearTask()
                 }
             }
@@ -233,7 +235,7 @@ struct TodoView: View {
     private var customTextField: some View {
         TextField("Add new Todo", text: $vm.bindingText) { isEdit in
             if isEdit && vm.taskCase == .none {
-                withAnimation(.closeCard) {
+                withAnimation(defaultAnimation) {
                     vm.taskCase = .add
                 }
             }
@@ -241,14 +243,14 @@ struct TodoView: View {
             switch vm.taskCase {
             case .add:
                 if vm.canTask {
-                    withAnimation(.closeCard){
+                    withAnimation(defaultAnimation){
                         vm.addEntity()
                         vm.clearTask()
                     }
                 }
             case .edit:
                 if vm.canTask {
-                    withAnimation(.closeCard){
+                    withAnimation(defaultAnimation){
                         vm.updateEntity()
                         vm.clearTask()
                     }
