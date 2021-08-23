@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HeaderView: View {
-    
+    @Environment(\.horizontalSizeClass) var horizontalSize
     @Binding var info: CalendarInfo
     @State var alterDate: Date = Date().toDay
     
@@ -27,7 +27,7 @@ struct HeaderView: View {
             Spacer()
             
             Button(action: {
-                withAnimation(.spring()) {
+                withAnimation(.semiFlipCard) {
                     info.scope.toggle()
                 }
             }) {
@@ -41,6 +41,7 @@ struct HeaderView: View {
                             .fill(Color.theme.itemBackgroundColor)
                     )
             }
+            .opacity(horizontalSize == .compact ? 1 : 0)
         }
     }
 }

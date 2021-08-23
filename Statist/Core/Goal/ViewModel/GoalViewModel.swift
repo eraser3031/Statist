@@ -13,6 +13,18 @@ class GoalViewModel: ObservableObject {
     @Published var goalCase: GoalCase = .recent
     @Published var sortCase: SortCase = .name
     
+    @Published var onEntity: GoalEntity?
+    
+    @Published var taskCase: TaskCase = .none
+    @Published var editingEntity: GoalEntity?
+    
+    @Published var nameForTask = ""
+    @Published var endDateForTask = Date().toDay
+    @Published var kindForTask: KindEntity?
+    @Published var goalForTask = 0
+    
+    
+    
     let manager = CoreDataManager.instance
     
     init(){
@@ -39,6 +51,65 @@ class GoalViewModel: ObservableObject {
             print("hi?")
         } catch let error {
             print("Error getEvent: \(error)")
+        }
+    }
+    
+    func addEntity() {
+        let newEntity = GoalEntity(context: manager.context)
+        newEntity.id = UUID().uuidString
+        newEntity.name = nameForTask
+        newEntity.endDate = endDateForTask
+        newEntity.kindEntity = kindForTask
+        newEntity.times = []
+        
+        saveAndLoad()
+    }
+    
+    func updateEntity() {
+        guard let editingEntity = editingEntity else {
+            return
+        }
+        
+        editingEntity.name = nameForTask
+        editingEntity.endDate = endDateForTask
+        editingEntity.kindEntity = kindForTask
+        
+        saveAndLoad()
+    }
+    
+    func deleteEntity(entity: GoalEntity) {
+        manager.context.delete(entity)
+        saveAndLoad()
+    }
+    
+    func saveAndLoad() {
+        manager.save()
+        entities()
+    }
+    
+    func clearForTask() {
+        switch taskCase {
+        case .none:
+            nameForTask = ""
+            endDateForTask = Date().toDay
+            kindForTask = nil
+            goalForTask = 0
+            
+        case .add:
+            nameForTask = ""
+            endDateForTask = Date().toDay
+            kindForTask = nil
+            goalForTask = 0
+            
+        case .edit:
+            guard let editingEntity = editingEntity else {
+                return
+            }
+
+            nameForTask = editingEntity.name ?? ""
+            endDateForTask = editingEntity.endDate ?? Date().toDay
+            kindForTask = editingEntity.kindEntity
+            goalForTask = Int(editingEntity.goal)
         }
     }
 }

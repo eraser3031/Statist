@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+enum TaskCase: String {
+    case edit
+    case add
+    case none
+}
+
 enum MenuCase: String {
     case todo
     case timeTable
@@ -30,7 +36,7 @@ struct MenuView: View {
     
     private func changeMenu(_ menu: MenuCase) {
         menuCase = menu
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
             withAnimation(menuAnimation) {
                 showMenu = false
                 

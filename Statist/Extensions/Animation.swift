@@ -14,4 +14,5 @@ extension Animation {
     static let closeCard = Animation.spring(response: 0.35, dampingFraction: 1)
     static let moreCloseCard = Animation.spring(response: 0.35, dampingFraction: 0.9)
     static let flipCard = Animation.spring(response: 0.25, dampingFraction: 0.7)
+    static let semiFlipCard = Animation.spring(response: 0.3, dampingFraction: 0.75)
 }

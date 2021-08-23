@@ -9,7 +9,7 @@ import SwiftUI
 import PopupView
 
 struct TimetableView: View {
-    
+    @Environment(\.horizontalSizeClass) var horizontalSize
     @Environment(\.safeAreaInsets) private var safeAreaInsets
     
     @StateObject var vm = NewTimetableViewModel()
@@ -24,46 +24,11 @@ struct TimetableView: View {
                 header
                     .padding(.vertical, 20)
                 
-                GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
-                    .dividerShadow()
-                    .floatShadow()
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 28)
-                
-                HStack {
-                    KindMenu(selectedKind: $vm.selectedKind, showKindMenuView: $vm.showKindMenuView, kinds: vm.kinds)
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        withAnimation(defaultAnimation) {
-                            vm.saveAndLoad()
-                            vm.isModified = false
-                        }
-                    }){
-                        Text("Save")
-                            .font(Font.system(.subheadline, design: .default).weight(.semibold))
-                            .padding(.horizontal, 28).padding(.vertical, 12)
-                            .background(Color.theme.backgroundColor)
-                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                    .stroke(vm.isModified ? Color.primary : Color.theme.dividerColor, lineWidth: vm.isModified ? 2 : 1)
-                                    .padding(vm.isModified ? 1 : 0.5)
-                            )
-                            .contentShape(Rectangle())
-                    }
-                    .opacity(vm.isModified ? 1 : 0.6)
-                    .disabled(!vm.isModified)
-                    .buttonStyle(InteractiveButtonStyle())
+                if horizontalSize == .regular {
+                    regular
+                } else {
+                    compact
                 }
-                .dividerShadow()
-                .floatShadow()
-                .padding(.bottom, 20).padding(.horizontal, 16)
-                
-                timetable
-                    .dividerShadow()
-                    .floatShadow()
             }
             .onChange(of: vm.calendarInfo.date) { _ in
                 withAnimation(defaultAnimation){
@@ -76,10 +41,10 @@ struct TimetableView: View {
             Color.black.opacity(vm.showKindMenuView ? 0.4 : 0)
                 .ignoresSafeArea()
                 .onTapGesture {
-                    withAnimation(.linear(duration: 0.1)) {
-                        vm.showKindMenuView = false
-                    }
-                }
+            withAnimation(.linear(duration: 0.1)) {
+                vm.showKindMenuView = false
+            }
+        }
         )
         .popup(isPresented: $vm.showKindMenuView,
                type: .floater(verticalPadding: safeAreaInsets.bottom + 8),
@@ -92,13 +57,70 @@ struct TimetableView: View {
             KindMenuSheet(selectedKind: $vm.selectedKind, showKindMenuView: $vm.showKindMenuView, showKindView: $vm.showKindView, kinds: vm.kinds)
                 .floatShadow()
         }
-           .sheet(isPresented: $vm.showKindView, onDismiss: {
-               vm.kindEntities()
-               vm.entities()
-           }) {
-               KindView()
-           }
+               .sheet(isPresented: $vm.showKindView, onDismiss: {
+                   vm.kindEntities()
+                   vm.entities()
+               }) {
+                   KindView()
+               }
     }
+    
+    //  MARK: - Layout
+    
+    private var compact: some View {
+        VStack(spacing: 0) {
+            GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
+                .dividerShadow()
+                .floatShadow()
+                .padding(.horizontal, 16)
+                .padding(.bottom, 28)
+            
+            HStack {
+                KindMenu(selectedKind: $vm.selectedKind, showKindMenuView: $vm.showKindMenuView, kinds: vm.kinds)
+                
+                Spacer()
+                
+                saveButton
+            }
+            .dividerShadow()
+            .floatShadow()
+            .padding(.bottom, 20).padding(.horizontal, 16)
+            
+            timetable
+                .dividerShadow()
+                .floatShadow()
+        }
+    }
+    
+    private var regular: some View {
+        HStack(alignment: .top, spacing: 0) {
+            GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
+                .dividerShadow()
+                .floatShadow()
+                .frame(width: 320)
+                .padding(.horizontal, 16)
+                .padding(.bottom, 28)
+            
+            VStack(spacing: 0) {
+                HStack {
+                    KindMenu(selectedKind: $vm.selectedKind, showKindMenuView: $vm.showKindMenuView, kinds: vm.kinds)
+                    
+                    Spacer()
+                    
+                    saveButton
+                }
+                .dividerShadow()
+                .floatShadow()
+                .padding(.bottom, 20).padding(.horizontal, 16)
+                
+                timetable
+                    .dividerShadow()
+                    .floatShadow()
+            }
+        }
+    }
+    
+    //  MARK: - Component
     
     private var header: some View {
         HStack(spacing: 0){
@@ -155,5 +177,29 @@ struct TimetableView: View {
             }
             .frame(width: geo.size.width)
         }
+    }
+    
+    private var saveButton: some View {
+        Button(action: {
+            withAnimation(defaultAnimation) {
+                vm.saveAndLoad()
+                vm.isModified = false
+            }
+        }){
+            Text("Save")
+                .font(Font.system(.subheadline, design: .default).weight(.semibold))
+                .padding(.horizontal, 28).padding(.vertical, 12)
+                .background(Color.theme.backgroundColor)
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .stroke(vm.isModified ? Color.primary : Color.theme.dividerColor, lineWidth: vm.isModified ? 2 : 1)
+                        .padding(vm.isModified ? 1 : 0.5)
+                )
+                .contentShape(Rectangle())
+        }
+        .opacity(vm.isModified ? 1 : 0.6)
+        .disabled(!vm.isModified)
+        .buttonStyle(InteractiveButtonStyle())
     }
 }

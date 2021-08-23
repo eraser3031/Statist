@@ -9,7 +9,7 @@ import SwiftUI
 import Introspect
 
 struct TodoView: View {
-    
+    @Environment(\.horizontalSizeClass) var horizontalSize
     @StateObject var vm = TodoViewModel()
     @Namespace private var namespace
     let show: () -> Void
@@ -17,37 +17,15 @@ struct TodoView: View {
     let defaultAnimation = Animation.closeCard
     
     var body: some View {
+        
         VStack(spacing: 0) {
             header
                 .padding(.vertical, 20)
             
-            GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
-                .dividerShadow()
-                .floatShadow(yOffset: 10)
-                .padding(.horizontal, 16)
-                .padding(.bottom, 20)
-            
-            if vm.entitysGroupedByKind.isEmpty {
-                VStack(spacing: 24) {
-                    empty
-                    
-                    Text("") // For Offset ( TodoItemTask
-                        .font(Font.system(.subheadline, design: .default).weight(.semibold))
-                        .padding(16 + 14)
-                }
-                .padding(.horizontal, 16)
-                .transition(AnyTransition.asymmetric(insertion: .move(edge: .bottom).animation(defaultAnimation), removal: .opacity.animation(.easeInOut(duration: 0.1))))
+            if horizontalSize == .regular {
+                regular
             } else {
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 28){
-                        todoList
-                        
-                        Text("") // For Offset ( TodoItemTask
-                            .font(Font.system(.subheadline, design: .default).weight(.semibold))
-                            .padding(16 + 20)
-                    }
-                    .padding(.horizontal, 16)
-                }
+                compact
             }
         }
         .scaleEffect(vm.taskCase == .none ? 1 : 0.96)
@@ -64,7 +42,76 @@ struct TodoView: View {
         }
     }
     
+    //  MARK: - Layout
+    private var compact: some View {
+        VStack(spacing: 0) {
+            GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
+                .dividerShadow()
+                .floatShadow(opacity: 0.2, radius: 20, yOffset: 10)
+                .padding(.horizontal, 16)
+                .padding(.bottom, 20)
+            
+            if vm.entitysGroupedByKind.isEmpty {
+                VStack(spacing: 24) {
+                    empty
+                    
+                    Text("") // For Offset ( TodoItemTask
+                        .font(Font.system(.subheadline, design: .default).weight(.semibold))
+                        .padding(16 + 14)
+                }
+                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
+                .padding(.horizontal, 16)
+            } else {
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 28){
+                        todoList
+                        
+                        Text("") // For Offset ( TodoItemTask
+                            .font(Font.system(.subheadline, design: .default).weight(.semibold))
+                            .padding(16 + 20)
+                    }
+                    .padding(.horizontal, 16)
+                }
+            }
+        }
+    }
+    
+    private var regular: some View {
+        HStack(alignment: .top, spacing: 0) {
+            GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
+                .dividerShadow()
+                .floatShadow(opacity: 0.2, radius: 20, yOffset: 10)
+                .frame(width: 320)
+                .padding(.horizontal, 16)
+                .padding(.bottom, 20)
+            
+            if vm.entitysGroupedByKind.isEmpty {
+                VStack(spacing: 24) {
+                    empty
+                    
+                    Text("") // For Offset ( TodoItemTask
+                        .font(Font.system(.subheadline, design: .default).weight(.semibold))
+                        .padding(16 + 14)
+                }
+                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
+                .padding(.horizontal, 16)
+            } else {
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 28){
+                        todoList
+                        
+                        Text("") // For Offset ( TodoItemTask
+                            .font(Font.system(.subheadline, design: .default).weight(.semibold))
+                            .padding(16 + 20)
+                    }
+                    .padding(.horizontal, 16)
+                }
+            }
+        }
+    }
+    
     //  MARK: - Components
+    
     
     private var todoList: some View {
         ForEach(vm.entitysGroupedByKind, id: \.id) { groupedByKind in
@@ -163,7 +210,7 @@ struct TodoView: View {
             HStack(spacing: 8) {
                 customTextField
                     .compositingGroup()
-                    .shadow(color: Color.theme.shadowColor.opacity(0.2), radius: 20, x: 0.0, y: 10)
+                    .floatShadow(opacity: vm.taskCase == .none ? 0.2 : 0, radius: 20, yOffset: 10)
                 
                 if vm.canTask {
                     submitTaskButton
@@ -174,11 +221,10 @@ struct TodoView: View {
                 }
                 
             }
-            .transition(.scale.animation(.spring()))
             .padding(.horizontal, 16)
             .padding(.bottom, 20)
         }
-        .background(Color(.systemBackground).opacity(0.01))
+        .background(Color.theme.backgroundColor.opacity(0.01))
     }
     
     private var curtain: some View {

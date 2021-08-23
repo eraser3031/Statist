@@ -10,7 +10,7 @@ import FSCalendar
 import Combine
 
 struct CalendarView: UIViewRepresentable {
-
+    @Environment(\.horizontalSizeClass) var horizontalSize
     @Binding var info: CalendarInfo
     var geo: GeometryProxy
     let dates: [Date]
@@ -34,7 +34,7 @@ struct CalendarView: UIViewRepresentable {
         calendar.appearance.caseOptions = FSCalendarCaseOptions.weekdayUsesSingleUpperCase
         calendar.appearance.weekdayFont = UIFont(name: "Gilroy-ExtraBold", size: 10)
         calendar.appearance.titleFont = UIFont.systemFont(ofSize: 12, weight: .semibold)
-        calendar.scope = info.scope ? .month : .week
+        calendar.scope = horizontalSize == .regular ? .month : info.scope ? .month : .week
 //        calendar.select(info.date)
     }
     
@@ -58,7 +58,8 @@ struct CalendarView: UIViewRepresentable {
             
             if let calendar = calendar as? FSCalendar {
                 calendar.select(info.date)
-                calendar.setScope(info.scope ? .month : .week, animated: true)
+                calendar.setScope(horizontalSize == .regular ? .month : info.scope ? .month : .week, animated: false)
+
             }
             
             if (geo.size.width) != calendar.frame.width {

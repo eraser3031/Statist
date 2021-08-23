@@ -21,15 +21,16 @@ struct GoalView: View {
                 .padding(.vertical, 30)
             
             HStack {
-                CustomPicker(currentPick: $vm.goalCase, picks: [.recent, .finish])
+                CustomPicker(currentPick: $vm.goalCase, picks: [.finish, .recent])
                 
                 Spacer()
                 
                 sortMenu
+                    .compositingGroup()
             }
             .dividerShadow()
-            .floatShadow(opacity: 0.2, radius: 40, yOffset: 20)
-            .padding(.horizontal, 16)
+            .floatShadow(opacity: 0.2, radius: 20, yOffset: 20)
+            .padding(.horizontal, 20)
             
 //            ScrollView(.vertical, showsIndicators: false) {
 //

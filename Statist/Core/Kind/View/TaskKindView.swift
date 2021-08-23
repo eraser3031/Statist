@@ -23,10 +23,6 @@ struct TaskKindView: View {
     var body: some View {
         VStack(spacing: 20){
             
-            NavigationLink(destination: EmptyView()) {
-                EmptyView()
-            }
-            
             Spacer().frame(height: 0)
             
             CustomTextField("Write Kind's Name", text: $vm.text)
@@ -43,42 +39,40 @@ struct TaskKindView: View {
             }
             
             Button(action: {
-                if vm.isEdit {
-                    vm.editKindEntity()
-                    save()
-                    presentationMode.wrappedValue.dismiss()
-                } else {
-                    vm.addKindEntity()
-                    save()
-                    presentationMode.wrappedValue.dismiss()
-                }
+                vm.alertDelete = true
             }) {
-                Label(vm.isEdit ? "Edit" : "Add", systemImage: vm.isEdit ? "pencil" : "plus")
+                Label("Delete", systemImage: "trash.fill")
             }
-            .buttonStyle(TaskButtonStyle())
+            .foregroundColor(.red)
+            .frame(height: 50).frame(maxWidth: 400)
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Color.theme.groupBackgroundColor)
+            )
+            .buttonStyle(InteractiveButtonStyle())
             .padding([.bottom, .horizontal], 20)
-            .opacity(vm.isDisabled ? 0.5 : 1)
-            .disabled(vm.isDisabled)
+            .opacity(vm.isEdit ? 1 : 0)
             
         }
-        .background(
-            Group {
-                if vm.isEdit {
-                    Color(.systemBackground)
-                        .toolbar{
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Text("Delete")
-                                    .foregroundColor(.red)
-                                    .onTapGesture {
-                                        vm.alertDelete = true
-                                    }
-                            }
+        .toolbar{
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Text(vm.isEdit ? "Edit" : "Add")
+                    .bold()
+                    .opacity(vm.isOverlap ? 0.5 : 1)
+                    .foregroundColor(Color.primary)
+                    .onTapGesture {
+                        if vm.isEdit && !vm.isOverlap {
+                            vm.editKindEntity()
+                            save()
+                            presentationMode.wrappedValue.dismiss()
+                        } else if !vm.isEdit && !vm.isOverlap {
+                            vm.addKindEntity()
+                            save()
+                            presentationMode.wrappedValue.dismiss()
                         }
-                } else {
-                    EmptyView()
-                }
+                    }
             }
-        )
+        }
         .alert(isPresented: $vm.alertDelete){
             
             Alert(title: Text("remove all data"), message: Text("all really?"),

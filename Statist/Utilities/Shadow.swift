@@ -11,7 +11,7 @@ import SwiftUI
 struct DividerShadowModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .shadow(color: Color.black.opacity(0.02), radius: 1, x: 0, y: 1)
+            .shadow(color: Color.black.opacity(0.03), radius: 1, x: 0, y: 2)
     }
 }
 

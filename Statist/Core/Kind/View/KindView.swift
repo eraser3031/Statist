@@ -36,13 +36,21 @@ struct KindView: View {
                 }
             }
             .navigationBarTitle("Kinds", displayMode: .inline)
+            .background(
+                NavigationLink(destination: TaskKindView(nil, kinds: vm.kinds, save: {
+                    vm.save()
+                })
+                , isActive: $vm.showTaskKindView) {
+                    EmptyView()
+                }
+            )
             .toolbar {
-                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     addButton
                 }
             }
         }
+        .accentColor(.primary)
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             UIApplication.shared.endEditing()
@@ -60,12 +68,12 @@ struct KindView: View {
     }
     
     private var addButton: some View {
-        NavigationLink(destination: TaskKindView(nil, kinds: vm.kinds, save: {
-            vm.save()
-        })
-        ) {
+        Button(action: {
+            vm.showTaskKindView = true
+        }) {
             Image(systemName: "plus")
         }
+        .buttonStyle(PlainButtonStyle())
     }
     
     //  MARK: - method

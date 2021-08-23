@@ -45,6 +45,8 @@
 		2171375C26D208A900FEE614 /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171375B26D208A900FEE614 /* GoalView.swift */; };
 		2171375E26D208B400FEE614 /* GoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171375D26D208B400FEE614 /* GoalViewModel.swift */; };
 		2171376026D258D500FEE614 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171375F26D258D500FEE614 /* CustomPicker.swift */; };
+		2171376226D282A500FEE614 /* GoalTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171376126D282A500FEE614 /* GoalTaskView.swift */; };
+		2171376426D282B500FEE614 /* GoalSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171376326D282B500FEE614 /* GoalSheetView.swift */; };
 		217BB3BC26A41BEF00FD5D7A /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217BB3BB26A41BEF00FD5D7A /* Animation.swift */; };
 		218A10152692BDE300579B1E /* Gilroy-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10132692BDE200579B1E /* Gilroy-ExtraBold.otf */; };
 		218A10162692BDE300579B1E /* Gilroy-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10142692BDE200579B1E /* Gilroy-Light.otf */; };
@@ -72,11 +74,8 @@
 		21D1F4F72695F2D600E57727 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4F62695F2D600E57727 /* TimeInterval.swift */; };
 		21D1F4F92695FF6100E57727 /* TimeTableColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4F82695FF6100E57727 /* TimeTableColumn.swift */; };
 		21D1F4FB2696032800E57727 /* TimeTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4FA2696032800E57727 /* TimeTableHeader.swift */; };
-		21D1F5022696236E00E57727 /* ProgressItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F5012696236E00E57727 /* ProgressItemView.swift */; };
 		21D1F504269623A200E57727 /* TimetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F503269623A200E57727 /* TimetableView.swift */; };
-		21D1F506269623B400E57727 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F505269623B400E57727 /* ProgressView.swift */; };
 		21D1F50F26987FD700E57727 /* TimeTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F50E26987FD700E57727 /* TimeTableViewModel.swift */; };
-		21D1F51126987FE500E57727 /* ProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F51026987FE500E57727 /* ProgressViewModel.swift */; };
 		21D1F5192699B62300E57727 /* UserDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F5172699B62300E57727 /* UserDataContainer.xcdatamodeld */; };
 		21D1F51B2699E27F00E57727 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F51A2699E27F00E57727 /* CoreDataManager.swift */; };
 		21E9ED7926BEEA8E00A66E64 /* GroupShapeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E9ED7826BEEA8E00A66E64 /* GroupShapeModifier.swift */; };
@@ -119,6 +118,8 @@
 		2171375B26D208A900FEE614 /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		2171375D26D208B400FEE614 /* GoalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalViewModel.swift; sourceTree = "<group>"; };
 		2171375F26D258D500FEE614 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
+		2171376126D282A500FEE614 /* GoalTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskView.swift; sourceTree = "<group>"; };
+		2171376326D282B500FEE614 /* GoalSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSheetView.swift; sourceTree = "<group>"; };
 		217BB3BB26A41BEF00FD5D7A /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		218A10132692BDE200579B1E /* Gilroy-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBold.otf"; sourceTree = "<group>"; };
 		218A10142692BDE200579B1E /* Gilroy-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Light.otf"; sourceTree = "<group>"; };
@@ -148,11 +149,8 @@
 		21D1F4F62695F2D600E57727 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		21D1F4F82695FF6100E57727 /* TimeTableColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableColumn.swift; sourceTree = "<group>"; };
 		21D1F4FA2696032800E57727 /* TimeTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableHeader.swift; sourceTree = "<group>"; };
-		21D1F5012696236E00E57727 /* ProgressItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressItemView.swift; sourceTree = "<group>"; };
 		21D1F503269623A200E57727 /* TimetableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableView.swift; sourceTree = "<group>"; };
-		21D1F505269623B400E57727 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		21D1F50E26987FD700E57727 /* TimeTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableViewModel.swift; sourceTree = "<group>"; };
-		21D1F51026987FE500E57727 /* ProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewModel.swift; sourceTree = "<group>"; };
 		21D1F5182699B62300E57727 /* UserDataContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserDataContainer.xcdatamodel; sourceTree = "<group>"; };
 		21D1F51A2699E27F00E57727 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		21E9ED7826BEEA8E00A66E64 /* GroupShapeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupShapeModifier.swift; sourceTree = "<group>"; };
@@ -340,8 +338,8 @@
 		216E10BB26C520520054AB35 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				21D1F505269623B400E57727 /* ProgressView.swift */,
 				2171375B26D208A900FEE614 /* GoalView.swift */,
+				2171376126D282A500FEE614 /* GoalTaskView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -349,7 +347,6 @@
 		216E10BC26C520570054AB35 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				21D1F51026987FE500E57727 /* ProgressViewModel.swift */,
 				2171375D26D208B400FEE614 /* GoalViewModel.swift */,
 			);
 			path = ViewModel;
@@ -358,8 +355,8 @@
 		216E10BD26C5205F0054AB35 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				21D1F5012696236E00E57727 /* ProgressItemView.swift */,
 				2171375926D1F1FD00FEE614 /* GoalItemView.swift */,
+				2171376326D282B500FEE614 /* GoalSheetView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -616,17 +613,18 @@
 			files = (
 				21CC0EA5269D715800584873 /* UIApplication.swift in Sources */,
 				21565E08269B144F00E28748 /* RotationModifier.swift in Sources */,
+				2171376226D282A500FEE614 /* GoalTaskView.swift in Sources */,
 				2171376026D258D500FEE614 /* CustomPicker.swift in Sources */,
 				2157610226AD9FCE009F617B /* LineChart.swift in Sources */,
 				217BB3BC26A41BEF00FD5D7A /* Animation.swift in Sources */,
 				216E10AF26C4C1750054AB35 /* Style.swift in Sources */,
 				2114E3B226D04E1500565275 /* SafeAreaInsets.swift in Sources */,
 				21D098E726C3B7380085DB34 /* KindView.swift in Sources */,
+				2171376426D282B500FEE614 /* GoalSheetView.swift in Sources */,
 				21615022269DB50F00401572 /* CustomTextField.swift in Sources */,
 				2171375A26D1F1FD00FEE614 /* GoalItemView.swift in Sources */,
 				21D1F4F72695F2D600E57727 /* TimeInterval.swift in Sources */,
 				210F75C826CAAAF2004CA1C4 /* GridPatternView.swift in Sources */,
-				21D1F51126987FE500E57727 /* ProgressViewModel.swift in Sources */,
 				21D1F4E62694949600E57727 /* TimeTableRow.swift in Sources */,
 				2114E3BD26D0A38800565275 /* Shadow.swift in Sources */,
 				212777C926BAD1B2009C2349 /* VisualEffectView.swift in Sources */,
@@ -656,7 +654,6 @@
 				2157610426ADA018009F617B /* Graph.swift in Sources */,
 				2157610026AD9FBE009F617B /* CircleChart.swift in Sources */,
 				2152D28E26A7FA87000B0B19 /* EditProgressViewModel.swift in Sources */,
-				21D1F5022696236E00E57727 /* ProgressItemView.swift in Sources */,
 				218E0EB926CEAF6200828D94 /* TodoEntity.swift in Sources */,
 				21D1F4E42694948600E57727 /* TimeTable.swift in Sources */,
 				2152D28A26A7EB7E000B0B19 /* AddProgressViewModel.swift in Sources */,
@@ -679,7 +676,6 @@
 				215760F526AD9F3E009F617B /* PeriodView.swift in Sources */,
 				21D1F4E82694954700E57727 /* KindEntity.swift in Sources */,
 				211D35E026BD4FD0007EC9FF /* TodoView.swift in Sources */,
-				21D1F506269623B400E57727 /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

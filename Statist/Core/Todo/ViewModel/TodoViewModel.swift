@@ -18,9 +18,10 @@ class TodoViewModel: ObservableObject {
     @Published var kinds: [KindEntity] = []
     @Published var dates: [Date] = []
     
+    @Published var showTaskView = false
     @Published var taskCase: TaskCase = .none
     @Published var showKindView = false
-    @Published var showMenuKindView = false
+    @Published var showKindMenuView = false
     @Published var editingEntity: TodoEntity?
     
     @Published var bindingText: String = ""
@@ -147,6 +148,7 @@ class TodoViewModel: ObservableObject {
     }
     
     func changeTaskToEdit(_ model: TodoEntity) {
+        showTaskView = true
         editingEntity = model
         taskCase = .edit
         bindingText = model.name ?? ""
@@ -209,12 +211,6 @@ struct EntityGroupedByKind: Identifiable, Comparable {
         self.kindEntity = kind
         self.entitys = entitys
     }
-}
-
-enum TaskCase: String {
-    case edit
-    case add
-    case none
 }
 
 //        let asyncFetch = NSAsynchronousFetchRequest(fetchRequest: request) { [weak self] result in

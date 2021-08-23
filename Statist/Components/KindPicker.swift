@@ -34,12 +34,12 @@ struct KindPicker: View {
                             .font(Font.system(.caption, design: .default).weight(.bold))
                     }
                     .modifier(CapsuleItemModifier())
-                    .background(
-                        isSelected(kind: kind) ? Color.theme.groupBackgroundColor : Color.theme.itemBackgroundColor
-                    )
+                    .background(Color.theme.backgroundColor)
                     .overlay(
-                        Capsule().stroke(Color.primary, lineWidth: isSelected(kind: kind) ? 1 : 0)
-                            .padding(0.5)
+                        Capsule()
+                            .stroke(isSelected(kind: kind) ? Color.primary : Color.theme.dividerColor,
+                                    lineWidth: isSelected(kind: kind) ? 2 : 1)
+                            .padding(isSelected(kind: kind) ? 1 : 0.5)
                     )
                     .clipShape(Capsule())
                     .contentShape(Rectangle())
@@ -55,6 +55,7 @@ struct KindPicker: View {
                     .overlay(
                         Circle()
                             .stroke(Color.theme.dividerColor)
+                            .padding(0.5)
                     )
                     .onTapGesture {
                         withAnimation(.spring()) {
