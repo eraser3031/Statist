@@ -18,7 +18,12 @@ extension GoalEntity {
     }
     
     var percent: Int {
-        return Int(Float(now) / Float(goal) * 100)
+        if goal != 0 {
+            return Int(Float(now) / Float(goal) * 100)
+        } else {
+            return
+            0
+        }
     }
     
     var isFinish: Bool {

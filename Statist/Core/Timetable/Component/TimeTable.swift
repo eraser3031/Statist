@@ -24,13 +24,13 @@ struct TimeTable<ItemView>: View where ItemView: View {
     }
 
     var body: some View {
-        ScrollViewReader { proxy in
+//        ScrollViewReader { proxy in
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(spacing: 0, pinnedViews: [.sectionHeaders]) {
                     Section(header: TimeTableHeader()) {
                         HStack(spacing: 1){
                             TimeTableColumn(tapColumn: tapColumn)
-                            LazyVStack(spacing: 1){
+                            VStack(spacing: 1){
                                 ForEach(0..<items.count){ index in
                                     TimeTableRow(index: index, models: items[index], content: self.content)
                                         .id(index)
@@ -42,10 +42,10 @@ struct TimeTable<ItemView>: View where ItemView: View {
                 .padding(1)
                 .background(Color.theme.dividerColor)
                 .padding(.horizontal, 16)
-            }
-            .onAppear {
-                proxy.scrollTo(12, anchor: .center)
-            }
+//            }
+//            .onAppear {
+//                proxy.scrollTo(12, anchor: .center)
+//            }
         }
     }
 }

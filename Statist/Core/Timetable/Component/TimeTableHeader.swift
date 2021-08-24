@@ -13,7 +13,7 @@ struct TimeTableHeader: View {
             Rectangle()
                 .fill(Color.theme.backgroundColor)
                 .frame(maxWidth: 48)
-                .overlay(Divider(), alignment: .trailing)
+//                .overlay(Divider(), alignment: .trailing)
             
             ForEach(1..<6) { i in
                 GeometryReader { geo in

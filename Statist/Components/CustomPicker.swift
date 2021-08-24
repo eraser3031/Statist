@@ -65,6 +65,7 @@ struct CustomPicker<PickerableCase>: View where PickerableCase: Pickerable & Ide
                 HStack(spacing: 6) {
                     Image(systemName: pick.labelImage)
                     Text(pick.name)
+                        .lineLimit(1)
                 }
                 .font(Font.system(.subheadline, design: .default).weight(.medium))
                 .padding(.horizontal, 15).padding(.vertical, 10)

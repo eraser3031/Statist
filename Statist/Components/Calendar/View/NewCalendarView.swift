@@ -46,7 +46,7 @@ struct CalendarView: UIViewRepresentable {
         
         view.addSubview(calendar)
 
-        let newRect = CGRect(x: 0, y: 0, width: geo.size.width, height: 292)
+        let newRect = CGRect(x: 0, y: 0, width: geo.size.width, height: horizontalSize == .regular ? 220 : 292 )
         calendar.frame = newRect
         
         return view
@@ -64,7 +64,7 @@ struct CalendarView: UIViewRepresentable {
             
             if (geo.size.width) != calendar.frame.width {
                 calendar.removeFromSuperview()
-                let newRect = CGRect(x: 0, y: 0, width: geo.size.width, height: 292)
+                let newRect = CGRect(x: 0, y: 0, width: geo.size.width, height: horizontalSize == .regular ? 220 : 292)
                 let calendar = FSCalendar(frame: newRect)
                 
                 setCalendar(calendar, context: context)

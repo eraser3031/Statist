@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct GoalItemView: View {
-    @Binding var entity: GoalEntity
+    let entity: GoalEntity
+    @ObservedObject var vm: GoalViewModel
+    
+    let defaultAnimation = Animation.closeCard
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            HStack {
+            HStack(alignment: .top) {
                 HStack(spacing: 4) {
                     Circle()
                         .fill(entity.kindEntity?.color.toPrimary() ?? Color.primary)
@@ -23,14 +27,46 @@ struct GoalItemView: View {
                 .padding(.horizontal, 10).padding(.vertical, 5)
                 .overlay(Capsule().stroke(Color.theme.dividerColor))
                 
-                Spacer()
-                
-                Text(entity.endDate?.string() ?? "∞")
+                Text("~ \(entity.endDate?.string() ?? "∞")")
                     .font(Font.system(.caption, design: .default).weight(.bold))
                     .foregroundColor(Color(.darkGray))
                     .padding(.horizontal, 10).padding(.vertical, 5)
                     .background(Color.theme.subBackgroundColor)
                     .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                
+                Spacer()
+                
+                
+                Menu {
+                    Button(action: {
+                        withAnimation(defaultAnimation){
+                            vm.editingEntity = entity
+                            vm.taskCase = .edit
+                        }
+                    }) {
+                        Label("Edit", systemImage: "pencil")
+                    }
+                    
+                    Divider()
+                    
+                    Button(action: {
+                        withAnimation(defaultAnimation) {
+                            vm.deleteEntity(entity: entity)
+                        }
+                    }) {
+                        Label("Delete", systemImage: "trash")
+                    }
+                } label: {
+                    Circle()
+                        .fill(Color.theme.itemBackgroundColor)
+                        .frame(width: 28, height: 28)
+                        .overlay(
+                            Image(systemName: "ellipsis")
+                                .font(Font.system(.footnote, design: .default).weight(.medium))
+                                .foregroundColor(.gray)
+                        )
+                }
+
             }
             
             VStack(alignment: .leading, spacing: 2) {
@@ -38,24 +74,77 @@ struct GoalItemView: View {
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 
-                Text("\(entity.now) \\ \(Int(entity.goal))")
-                    .font(Font.system(.headline, design: .default).weight(.heavy))
+                Text("\(entity.now) / \(Int(entity.goal))")
+                    .font(Font.system(.title3, design: .default).weight(.heavy))
                     .italic()
+                    .minimumScaleFactor(0.1)
             }
             
-            Capsule()
-                .fill(Color.theme.dividerColor)
-                .frame(maxWidth: .infinity).frame(height: 1)
-                .overlay(
-                    GeometryReader { geo in
-                        Capsule()
-                            .fill(entity.kindEntity?.color.toPrimary() ?? Color.primary)
-                            .frame(width: geo.size.width * entity.percentForCalcurate, height: 1)
+            HStack(spacing: 8) {
+                Capsule()
+                    .fill(Color.theme.dividerColor)
+                    .frame(maxWidth: .infinity).frame(height: 2)
+                    .overlay(
+                        GeometryReader { geo in
+                            Capsule()
+                                .fill(entity.kindEntity?.color.toPrimary() ?? Color.primary)
+                                .frame(width: geo.size.width * entity.percentForCalcurate, height: 2, alignment: .leading)
+                        }
+                    )
+                
+                Text("\(entity.percent)%")
+                    .minimumScaleFactor(0.1)
+                    .font(.caption)
+                    .foregroundColor(Color.gray)
+            }
+            
+            
+            if vm.selectedEntity == entity {
+                HStack(spacing: 10) {
+                    Button(action: {
+                        withAnimation(defaultAnimation){
+                            vm.backward()
+                        }
+                    }) {
+                        Label("Backward", systemImage: "arrow.uturn.backward")
+                            .font(Font.system(.footnote, design: .default).weight(.semibold))
+                            .foregroundColor(.primary)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 40)
+                            .background(Color.theme.groupBackgroundColor)
+                            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                    .stroke(Color.theme.dividerColor)
+                            )
                     }
-                )
+                    
+                    Button(action: {
+                        withAnimation(defaultAnimation) {
+                            vm.proceed()
+                        }
+                    }) {
+                        Label("Proceed", systemImage: "arrow.forward")
+                            .font(Font.system(.footnote, design: .default).weight(.semibold))
+                            .foregroundColor(Color.theme.backgroundColor)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 40)
+                            .background(Color.primary)
+                            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    }
+                }
+            }
+            
         }
         .padding(16)
-        .background(Color.theme.backgroundColor)
+        .background(
+            Color.theme.backgroundColor
+                .onTapGesture {
+                    withAnimation(defaultAnimation){
+                        vm.selectedEntity = entity
+                    }
+                }
+        )
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(Color.theme.dividerColor))
     }

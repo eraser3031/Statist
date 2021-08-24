@@ -24,6 +24,7 @@ struct MenuView: View {
     @State var menuCase: MenuCase = .todo
     @State var showMenu = false
     
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.horizontalSizeClass) var horizontalSize
     
     let menuAnimation = Animation.moreCloseCard
@@ -88,7 +89,7 @@ struct MenuView: View {
         .padding(.top, geo.safeAreaInsets.top)
         .padding(.bottom, geo.safeAreaInsets.bottom)
         .overlay(
-            Color.black.opacity(showMenu ? 0.6 : 0)
+            Color.black.opacity(showMenu ? colorScheme == .dark ? 0.6 : 0.05 : 0)
                 .onTapGesture {
                     changeMenu(menuCase)
                 }

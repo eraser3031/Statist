@@ -79,4 +79,8 @@ extension Calendar {
         
         return dates
     }
+    
+    func distanceByDay(start: Date, end: Date) -> Int {
+        return dateComponents([.day], from: start, to: end).day ?? 0
+    }
 }

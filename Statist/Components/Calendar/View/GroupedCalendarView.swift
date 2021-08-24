@@ -23,7 +23,7 @@ struct GroupedCalendarView: View {
                 CalendarView(info: $info, geo: geo, dates: dates, colorScheme: colorScheme)
                     .id(self.colorScheme)
                     .id(dates)
-            }.frame(height: horizontalSize == .regular ? 292 : info.scope ? 292 : 72)
+            }.frame(height: horizontalSize == .regular ? 220 : info.scope ? 292 : 68)
         }
         .padding(14)
         .background(Color.theme.backgroundColor)

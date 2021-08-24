@@ -46,7 +46,7 @@ struct TodoView: View {
     private var compact: some View {
         VStack(spacing: 0) {
             GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
-                .dividerShadow()
+                .dividerShadow(opacity: 0.02, yOffset: 1)
                 .floatShadow(opacity: 0.2, radius: 20, yOffset: 10)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 20)
@@ -79,11 +79,11 @@ struct TodoView: View {
     private var regular: some View {
         HStack(alignment: .top, spacing: 0) {
             GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
-                .dividerShadow()
+                .dividerShadow(opacity: 0.02, yOffset: 1)
                 .floatShadow(opacity: 0.2, radius: 20, yOffset: 10)
                 .frame(width: 320)
                 .padding(.horizontal, 16)
-                .padding(.bottom, 20)
+                .padding(.bottom, horizontalSize == .regular ? 0 : 20)
             
             if vm.entitysGroupedByKind.isEmpty {
                 VStack(spacing: 24) {
@@ -279,13 +279,7 @@ struct TodoView: View {
     }
     
     private var customTextField: some View {
-        TextField("Add new Todo", text: $vm.bindingText) { isEdit in
-            if isEdit && vm.taskCase == .none {
-                withAnimation(defaultAnimation) {
-                    vm.taskCase = .add
-                }
-            }
-        } onCommit: {
+        TextField("Add New Todo", text: $vm.bindingText, onEditingChanged: {_ in}){
             switch vm.taskCase {
             case .add:
                 if vm.canTask {
@@ -307,7 +301,7 @@ struct TodoView: View {
         }
         .introspectTextField(customize: { textField in
             //            textField.returnKeyType = .done
-            if vm.taskCase == .edit && vm.showKindView == false {
+            if vm.taskCase != .none && vm.showKindView == false {
                 textField.becomeFirstResponder()
             }
         })
@@ -334,5 +328,19 @@ struct TodoView: View {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .stroke(Color.theme.dividerColor)
         )
+        .overlay(
+            ZStack {
+                if vm.taskCase == .none {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(Color.theme.backgroundColor.opacity(0.01))
+                        .onTapGesture{
+                            withAnimation(defaultAnimation) {
+                                vm.taskCase = .add
+                            }
+                        }
+                }
+            }
+        )
+        
     }
 }

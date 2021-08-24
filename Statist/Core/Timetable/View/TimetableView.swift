@@ -70,7 +70,7 @@ struct TimetableView: View {
     private var compact: some View {
         VStack(spacing: 0) {
             GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
-                .dividerShadow()
+                .dividerShadow(opacity: 0.02, yOffset: 1)
                 .floatShadow()
                 .padding(.horizontal, 16)
                 .padding(.bottom, 28)
@@ -95,11 +95,11 @@ struct TimetableView: View {
     private var regular: some View {
         HStack(alignment: .top, spacing: 0) {
             GroupedCalendarView(info: $vm.calendarInfo, dates: vm.dates)
-                .dividerShadow()
+                .dividerShadow(opacity: 0.02, yOffset: 1)
                 .floatShadow()
                 .frame(width: 320)
                 .padding(.horizontal, 16)
-                .padding(.bottom, 28)
+                .padding(.bottom, horizontalSize == .regular ? 0 : 20)
             
             VStack(spacing: 0) {
                 HStack {

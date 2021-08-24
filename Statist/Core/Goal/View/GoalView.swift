@@ -18,7 +18,7 @@ struct GoalView: View {
         VStack(spacing: 0) {
             
             header
-                .padding(.vertical, 30)
+                .padding(.vertical, 20)
             
             HStack {
                 CustomPicker(currentPick: $vm.goalCase, picks: [.finish, .recent])
@@ -31,12 +31,43 @@ struct GoalView: View {
             .dividerShadow()
             .floatShadow(opacity: 0.2, radius: 20, yOffset: 20)
             .padding(.horizontal, 20)
+            .padding(.bottom, 15)
             
-//            ScrollView(.vertical, showsIndicators: false) {
-//
-//            }
-            
-            Spacer()
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 16) {
+                    ForEach(vm.goals) { goal in
+                        GoalItemView(entity: goal, vm: vm)
+                    }
+                }
+                .padding(.top, 15)
+                .padding(.horizontal, 16)
+            }
+            .dividerShadow()
+            .floatShadow()
+        }
+        .overlay(
+            Button(action: {
+                withAnimation {
+                    vm.taskCase = .add
+                }
+            }) {
+                ZStack {
+                    Circle()
+                        .fill(Color.primary)
+                        .frame(width: 52, height: 52)
+                    Image(systemName: "plus")
+                        .font(.title2)
+                        .foregroundColor(Color.theme.backgroundColor)
+                }
+            }
+            .buttonStyle(PlainButtonStyle())
+            .padding()
+            ,alignment: .bottomTrailing
+        )
+        .sheet(isPresented: $vm.showTaskView, onDismiss: {vm.clearForTask()}){
+            NavigationView {
+                GoalTaskView(vm: vm)
+            }
         }
         .onChange(of: vm.sortCase) { _ in
             withAnimation(defaultAnimation){
