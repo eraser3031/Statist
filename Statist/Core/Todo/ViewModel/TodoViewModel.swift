@@ -18,7 +18,6 @@ class TodoViewModel: ObservableObject {
     @Published var kinds: [KindEntity] = []
     @Published var dates: [Date] = []
     
-    @Published var showTaskView = false
     @Published var taskCase: TaskCase = .none
     @Published var showKindView = false
     @Published var showKindMenuView = false
@@ -37,7 +36,7 @@ class TodoViewModel: ObservableObject {
     init(){
         todoEvent()
         entities()
-        kindEntitys()
+        kindEntities()
     }
     
     func todoEvent() {
@@ -92,7 +91,7 @@ class TodoViewModel: ObservableObject {
         }
     }
     
-    func kindEntitys() {
+    func kindEntities() {
         let request = NSFetchRequest<KindEntity>(entityName: "KindEntity")
         let sort = NSSortDescriptor(keyPath: \KindEntity.name, ascending: true)
         request.sortDescriptors = [sort]
@@ -148,7 +147,6 @@ class TodoViewModel: ObservableObject {
     }
     
     func changeTaskToEdit(_ model: TodoEntity) {
-        showTaskView = true
         editingEntity = model
         taskCase = .edit
         bindingText = model.name ?? ""
@@ -175,6 +173,21 @@ class TodoViewModel: ObservableObject {
         }
         
         saveAndLoad()
+    }
+    
+    func confirmTask() {
+        switch taskCase {
+        case .add:
+            addEntity()
+            clearTask()
+
+        case .edit:
+            updateEntity()
+            clearTask()
+            
+        case .none:
+            clearTask()
+        }
     }
     
     func clearTask() {

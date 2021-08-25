@@ -23,6 +23,7 @@ struct ColorTheme {
     let shadowColor = Color("ShadowColor")
     let groupBackgroundColor = Color("GroupBackgroundColor")
     let subBackgroundColor = Color("SubBackgroundColor")
+    let groupItemBackgroundColor = Color("GroupItemBackgroundColor")
 }
 
 enum ColorKind: String, Identifiable, Codable, CaseIterable {
@@ -35,7 +36,7 @@ enum ColorKind: String, Identifiable, Codable, CaseIterable {
         return self.allCases.filter{$0.rawValue == name}.first ?? nil
     }
     
-    func toPrimary() -> Color {
+    func primary() -> Color {
         switch self{
         case .red:
             return Color(.systemRed)
@@ -56,24 +57,25 @@ enum ColorKind: String, Identifiable, Codable, CaseIterable {
         }
     }
     
-    func toSecondary() -> Color {
+    func secondary() -> Color {
+        let opacity: CGFloat = 0.1
         switch self{
         case .red:
-            return Color("RedSecondary")
+            return Color(.systemRed).opacity(opacity)
         case .orange:
-            return Color("OrangeSecondary")
+            return Color(.systemOrange).opacity(opacity)
         case .yellow:
-            return Color("YellowSecondary")
+            return Color(.systemYellow).opacity(opacity)
         case .green:
-            return Color("GreenSecondary")
+            return Color(.systemGreen).opacity(opacity)
         case .teal:
-            return Color("TealSecondary")
+            return Color(.systemTeal).opacity(opacity)
         case .blue:
-            return Color("BlueSecondary")
+            return Color(.systemBlue).opacity(opacity)
         case .purple:
-            return Color("PurpleSecondary")
+            return Color("Purple").opacity(opacity)
         case .pink:
-            return Color("PinkSecondary")
+            return Color("Pink").opacity(opacity)
         }
     }
     

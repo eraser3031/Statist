@@ -10,6 +10,7 @@ import SwiftUI
 struct GoalItemView: View {
     let entity: GoalEntity
     @ObservedObject var vm: GoalViewModel
+    @State var showAlert = false
     
     let defaultAnimation = Animation.closeCard
     
@@ -18,7 +19,7 @@ struct GoalItemView: View {
             HStack(alignment: .top) {
                 HStack(spacing: 4) {
                     Circle()
-                        .fill(entity.kindEntity?.color.toPrimary() ?? Color.primary)
+                        .fill(entity.kindEntity?.color.primary() ?? Color.primary)
                         .frame(width: 8, height: 8)
                     
                     Text(entity.kindEntity?.name ?? "Kind")
@@ -50,9 +51,7 @@ struct GoalItemView: View {
                     Divider()
                     
                     Button(action: {
-                        withAnimation(defaultAnimation) {
-                            vm.deleteEntity(entity: entity)
-                        }
+                        showAlert = true
                     }) {
                         Label("Delete", systemImage: "trash")
                     }
@@ -65,6 +64,17 @@ struct GoalItemView: View {
                                 .font(Font.system(.footnote, design: .default).weight(.medium))
                                 .foregroundColor(.gray)
                         )
+                }
+                .alert(isPresented: $showAlert) {
+                    
+                    Alert(title: Text("Delete Goal"),
+                          message: Text("Do you want to delete the goal?"),
+                          primaryButton: .destructive(Text("Delete"), action: {
+                                withAnimation(defaultAnimation) {
+                                    vm.deleteEntity(entity: entity)
+                                }
+                            }),
+                          secondaryButton: .cancel(Text("Cancel")))
                 }
 
             }
@@ -87,7 +97,7 @@ struct GoalItemView: View {
                     .overlay(
                         GeometryReader { geo in
                             Capsule()
-                                .fill(entity.kindEntity?.color.toPrimary() ?? Color.primary)
+                                .fill(entity.kindEntity?.color.primary() ?? Color.primary)
                                 .frame(width: geo.size.width * entity.percentForCalcurate, height: 2, alignment: .leading)
                         }
                     )

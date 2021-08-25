@@ -18,7 +18,7 @@ struct KindView: View {
             List {
                 ForEach(vm.kinds) { kind in
                     let name = kind.name ?? ""
-                    let primaryColor = kind.color.toPrimary()
+                    let primaryColor = kind.color.primary()
                     
                     NavigationLink(destination: TaskKindView(kind, kinds: vm.kinds, save: {
                         vm.save()

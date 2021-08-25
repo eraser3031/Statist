@@ -22,7 +22,7 @@ struct KindMenu: View {
             HStack(spacing: 12) {
                 HStack(spacing: 8) {
                     Circle()
-                        .fill(selectedKind?.color.toPrimary() ?? Color.primary)
+                        .fill(selectedKind?.color.primary() ?? Color.primary)
                         .frame(width: 10, height: 10)
                     
                     Text(selectedKind?.name ?? "Select Kind")
@@ -33,7 +33,7 @@ struct KindMenu: View {
                 Image(systemName: "chevron.down")
                     .font(Font.system(.footnote, design: .default).weight(.semibold))
             }
-            .padding(.horizontal, 12).padding(.vertical, 12)
+            .padding(.horizontal, 12).padding(.vertical, 10)
             .background(Color.theme.backgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(Color.theme.dividerColor))
@@ -83,7 +83,7 @@ struct KindMenuSheet: View {
                     ForEach(kinds) { kind in
                         HStack(spacing: 10) {
                             Circle()
-                                .fill(kind.color.toPrimary())
+                                .fill(kind.color.primary())
                                 .frame(width: 12, height: 12)
                             
                             Text(kind.name ?? "")

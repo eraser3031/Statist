@@ -24,7 +24,7 @@ struct CustomColorPicker: View {
                 
                 ForEach(ColorKind.allCases) { colorKind in
                     Circle()
-                        .fill(colorKind.toPrimary())
+                        .fill(colorKind.primary())
                         .frame(width: 48, height: 48)
                         .overlay(
                             ZStack {

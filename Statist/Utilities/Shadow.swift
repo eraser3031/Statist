@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct DividerShadowModifier: ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
     var opacity: CGFloat = 0.03
     let radius: CGFloat
     let yOffset: CGFloat
@@ -21,11 +22,15 @@ struct DividerShadowModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .shadow(color: Color.black.opacity(opacity), radius: radius, x: 0, y: yOffset)
+            .shadow(color: Color.black.opacity(colorScheme == .light ? opacity : opacity + 0.4),
+                    radius: radius,
+                    x: 0,
+                    y: yOffset)
     }
 }
 
 struct FloatShadowModifier: ViewModifier {
+    @Environment(\.colorScheme) var colorScheme
     var opacity: CGFloat = 0.2
     let radius: CGFloat
     let yOffset: CGFloat
@@ -38,7 +43,10 @@ struct FloatShadowModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .shadow(color: Color.theme.shadowColor.opacity(opacity), radius: radius, x: 0, y: yOffset)
+            .shadow(color: Color.theme.shadowColor.opacity(colorScheme == .light ? opacity : opacity + 0.4),
+                    radius: radius,
+                    x: 0,
+                    y: yOffset)
     }
 }
 

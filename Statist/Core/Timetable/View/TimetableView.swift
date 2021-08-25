@@ -143,37 +143,36 @@ struct TimetableView: View {
     private var timetable: some View {
         GeometryReader { geo in
             TimeTable(models: vm.items, tapColumn: vm.changeItemsByHour) { item, outIndex, inIndex in
-                Group {
-                    if let item = item {
-                        Rectangle()
-                            .fill(item.color.toPrimary().opacity(0.5))
-                            .shadow(color: item.color.toPrimary().opacity(0.2), radius: 10, x: 0, y: 0)
-                            .padding(.vertical, 5)
-                            .frame(minHeight: 48)
-                            .background(Divider(), alignment: .trailing)
-                            .onTapGesture {
-                                withAnimation(drawAnimation){
-                                    if !vm.isModified {
-                                        vm.isModified = true
-                                    }
-                                    vm.items[outIndex][inIndex] = nil
-                                }
+                Color.clear
+                    .frame(minHeight: 48)
+                    .background(Divider(), alignment: .trailing)
+                    .contentShape(Rectangle())
+                    .onTapGesture{
+                        withAnimation(drawAnimation){
+                            if !vm.isModified {
+                                vm.isModified = true
                             }
-                    } else {
-                        Color.clear
-                            .frame(minHeight: 48)
-                            .background(Divider(), alignment: .trailing)
-                            .contentShape(Rectangle())
-                            .onTapGesture{
-                                withAnimation(drawAnimation){
-                                    if !vm.isModified {
-                                        vm.isModified = true
-                                    }
-                                    vm.items[outIndex][inIndex] = vm.selectedKind
-                                }
-                            }
+                            vm.items[outIndex][inIndex] = vm.selectedKind
+                        }
                     }
-                }
+                    .overlay(
+                        ZStack {
+                        if let item = item {
+                            Rectangle()
+                                .fill(item.color.primary().opacity(0.5))
+                                .shadow(color: item.color.primary().opacity(0.2), radius: 10, x: 0, y: 0)
+                                .padding(.vertical, 5)
+                                .onTapGesture {
+                                    withAnimation(drawAnimation){
+                                        if !vm.isModified {
+                                            vm.isModified = true
+                                        }
+                                        vm.items[outIndex][inIndex] = nil
+                                    }
+                                }
+                        }
+                    }
+                    )
             }
             .frame(width: geo.size.width)
         }
@@ -188,7 +187,7 @@ struct TimetableView: View {
         }){
             Text("Save")
                 .font(Font.system(.subheadline, design: .default).weight(.semibold))
-                .padding(.horizontal, 28).padding(.vertical, 12)
+                .padding(.horizontal, 28).padding(.vertical, 10)
                 .background(Color.theme.backgroundColor)
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .overlay(

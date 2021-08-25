@@ -22,48 +22,39 @@ struct KindPicker: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 16) {
+            HStack(spacing: 12) {
+                
                 Spacer()
-                    .frame(width: 4)
+                    .frame(width: 8)
+                
                 ForEach(kinds) { kind in
-                    HStack(spacing: 8) {
-                        Circle()
-                            .fill(kind.color.toPrimary())
-                            .frame(width: 10, height: 10)
-                        Text(kind.name ?? "")
-                            .font(Font.system(.caption, design: .default).weight(.bold))
-                    }
-                    .modifier(CapsuleItemModifier())
-                    .background(Color.theme.backgroundColor)
-                    .overlay(
-                        Capsule()
-                            .stroke(isSelected(kind: kind) ? Color.primary : Color.theme.dividerColor,
-                                    lineWidth: isSelected(kind: kind) ? 2 : 1)
-                            .padding(isSelected(kind: kind) ? 1 : 0.5)
-                    )
-                    .clipShape(Capsule())
-                    .contentShape(Rectangle())
-                    .onTapGesture{
-                        selectedKind = kind
-                    }
+                    Text(kind.name ?? "")
+                        .font(Font.system(.subheadline, design: .default).weight(.medium))
+                        .foregroundColor(selectedKind == kind ? Color(.systemBackground) : kind.color.primary())
+                        .padding(.horizontal, 16).padding(.vertical, 10)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .fill(selectedKind == kind ? kind.color.primary() : kind.color.secondary())
+                        )
+                        .contentShape(Rectangle())
+                        .onTapGesture{
+                            selectedKind = kind
+                        }
                 }
 
-                Image(systemName: "pencil")
-                    .font(Font.system(.caption, design: .default).weight(.bold))
-                    .padding(16)
-                    .background(Circle().fill(Color(.systemBackground)))
-                    .overlay(
-                        Circle()
-                            .stroke(Color.theme.dividerColor)
-                            .padding(0.5)
+                Label("Edit", systemImage: "pencil")
+                    .font(Font.system(.subheadline, design: .default).weight(.bold))
+                    .padding(.horizontal, 16).padding(.vertical, 10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(Color.primary.opacity(0.05))
                     )
                     .onTapGesture {
-                        withAnimation(.spring()) {
-                            showKindView = true
-                        }
+                        showKindView = true
                     }
+                
                 Spacer()
-                    .frame(width: 4)
+                    .frame(width: 8)
             }
         }
     }
@@ -74,19 +65,5 @@ struct KindPicker: View {
         } else {
             return false
         }
-    }
-}
-
-//struct KindPicker_AddView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        KindPicker()
-//    }
-//}
-
-struct CapsuleItemModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .padding(14)
-            .padding(.horizontal, 8)
     }
 }

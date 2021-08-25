@@ -48,6 +48,7 @@
 		2171376226D282A500FEE614 /* GoalTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171376126D282A500FEE614 /* GoalTaskView.swift */; };
 		2171376426D282B500FEE614 /* GoalSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171376326D282B500FEE614 /* GoalSheetView.swift */; };
 		217BB3BC26A41BEF00FD5D7A /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217BB3BB26A41BEF00FD5D7A /* Animation.swift */; };
+		2186210A26D6593500AF5521 /* TodoTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2186210926D6593500AF5521 /* TodoTaskView.swift */; };
 		218A10152692BDE300579B1E /* Gilroy-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10132692BDE200579B1E /* Gilroy-ExtraBold.otf */; };
 		218A10162692BDE300579B1E /* Gilroy-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 218A10142692BDE200579B1E /* Gilroy-Light.otf */; };
 		218B26EB26CD08330089AC14 /* KindMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B26EA26CD08320089AC14 /* KindMenu.swift */; };
@@ -121,6 +122,7 @@
 		2171376126D282A500FEE614 /* GoalTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskView.swift; sourceTree = "<group>"; };
 		2171376326D282B500FEE614 /* GoalSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSheetView.swift; sourceTree = "<group>"; };
 		217BB3BB26A41BEF00FD5D7A /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		2186210926D6593500AF5521 /* TodoTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskView.swift; sourceTree = "<group>"; };
 		218A10132692BDE200579B1E /* Gilroy-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-ExtraBold.otf"; sourceTree = "<group>"; };
 		218A10142692BDE200579B1E /* Gilroy-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Light.otf"; sourceTree = "<group>"; };
 		218B26EA26CD08320089AC14 /* KindMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindMenu.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			children = (
 				211D35DF26BD4FD0007EC9FF /* TodoView.swift */,
 				21D1F4F22695AD6F00E57727 /* TodoItemView.swift */,
+				2186210926D6593500AF5521 /* TodoTaskView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 				2152D28E26A7FA87000B0B19 /* EditProgressViewModel.swift in Sources */,
 				218E0EB926CEAF6200828D94 /* TodoEntity.swift in Sources */,
 				21D1F4E42694948600E57727 /* TimeTable.swift in Sources */,
+				2186210A26D6593500AF5521 /* TodoTaskView.swift in Sources */,
 				2152D28A26A7EB7E000B0B19 /* AddProgressViewModel.swift in Sources */,
 				21D1F4F92695FF6100E57727 /* TimeTableColumn.swift in Sources */,
 				219C544B26A6BC35009D639D /* ProgressBar.swift in Sources */,

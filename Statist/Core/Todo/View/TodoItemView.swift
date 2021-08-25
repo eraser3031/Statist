@@ -19,7 +19,7 @@ struct TodoItemView: View {
     init(_ model: TodoEntity, vm: TodoViewModel) {
         self.model = model
         self.vm = vm
-        self.primaryColor = model.kindEntity?.color.toPrimary() ?? .primary
+        self.primaryColor = model.kindEntity?.color.primary() ?? .primary
     }
     
     var body: some View {
@@ -80,9 +80,12 @@ struct TodoItemView: View {
         .foregroundColor(model.isDone ? primaryColor : .primary )
         .padding(12)
         .padding(.vertical, model.isDone ? 0 : 3)
-        .background(colorScheme == .dark ? Color.theme.itemBackgroundColor : Color.theme.backgroundColor)
+        .background(Color.theme.backgroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(Color.theme.dividerColor))
+//        .background(colorScheme == .dark ? Color.theme.itemBackgroundColor : Color.theme.backgroundColor)
+//        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+//        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(Color.theme.dividerColor))
         .contentShape(Rectangle())
         .animation(defaultAnimation)
     }

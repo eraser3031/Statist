@@ -22,6 +22,7 @@ struct GoalView: View {
             
             HStack {
                 CustomPicker(currentPick: $vm.goalCase, picks: [.finish, .recent])
+                    .compositingGroup()
                 
                 Spacer()
                 
@@ -37,6 +38,7 @@ struct GoalView: View {
                 VStack(spacing: 16) {
                     ForEach(vm.goals) { goal in
                         GoalItemView(entity: goal, vm: vm)
+                            .compositingGroup()
                     }
                 }
                 .padding(.top, 15)

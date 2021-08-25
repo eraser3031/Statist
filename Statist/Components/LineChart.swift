@@ -30,7 +30,7 @@ extension LineChart {
                     VStack(spacing: 0){
                         ForEach(datas[index]) { data in
                             Rectangle()
-                                .fill(data.kindEntity?.color.toPrimary() ?? Color.primary)
+                                .fill(data.kindEntity?.color.primary() ?? Color.primary)
                                 .frame(width: 8,
                                        height: geo.size.height * CGFloat(data.duration ) / calTotalMin(datas[index]) )
                         }

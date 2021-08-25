@@ -28,11 +28,24 @@ struct TodoView: View {
                 compact
             }
         }
-        .scaleEffect(vm.taskCase == .none ? 1 : 0.96)
+        .overlay(
+            taskButton
+            .padding()
+            ,alignment: .bottomTrailing
+        )
+        .blur(radius: vm.taskCase == .none ? 0 : 16)
         .ignoresSafeArea(.keyboard)
         .overlay(curtain)
         .overlay(
-            todoItemTask
+            ZStack {
+            if vm.taskCase != .none {
+                    TodoTaskView(vm: vm)
+                        .compositingGroup()
+                        .dividerShadow()
+                        .floatShadow()
+                        .transition(.move(edge: .bottom))
+                }
+            }
             ,alignment: .bottom
         )
         .onChange(of: vm.calendarInfo.date) { _ in
@@ -119,7 +132,7 @@ struct TodoView: View {
             let entitys = groupedByKind.entitys
             let kind = groupedByKind.kindEntity
             let name = kind.name ?? ""
-            let primaryColor = kind.color.toPrimary()
+            let primaryColor = kind.color.primary()
             
             VStack(alignment: .leading, spacing: 0){
                 HStack(spacing: 8) {
@@ -135,9 +148,11 @@ struct TodoView: View {
                 VStack(spacing: 12) {
                     ForEach(entitys) { entity in
                         TodoItemView(entity, vm: vm)
-//
                     }
                 }
+                .compositingGroup()
+                .dividerShadow(opacity: 0.01, radius: 1, yOffset: 1)
+                .floatShadow(opacity: 0.1, radius: 30, yOffset: 16)
             }
             
         }
@@ -183,58 +198,28 @@ struct TodoView: View {
             )
     }
     
-    private var todoItemTask: some View {
-        VStack(spacing: 0) {
-            
-            if vm.taskCase != .none {
-                KindPicker($vm.bindingKind, showKindView: $vm.showKindView, kinds: vm.kinds)
-                    .contentShape(Rectangle())
-                    .transition(
-                        AnyTransition.asymmetric(
-                            insertion: .opacity.combined(with: .move(edge: .bottom)),
-                            removal: .opacity.animation(.easeIn(duration: 0.1))
-                        )
-                    )
-                    .padding(.vertical, 20)
-                    .sheet(isPresented: $vm.showKindView, onDismiss: {
-                        withAnimation(defaultAnimation) {
-                            vm.entities()
-                            vm.kindEntitys()
-                        }
-                    }) {
-                        KindView()
-                    }
+    private var taskButton: some View {
+        Button(action: {
+            withAnimation(defaultAnimation) {
+                vm.taskCase = .add
             }
-            
-            
-            HStack(spacing: 8) {
-                customTextField
-                    .compositingGroup()
-                    .floatShadow(opacity: vm.taskCase == .none ? 0.2 : 0, radius: 20, yOffset: 10)
-                
-                if vm.canTask {
-                    submitTaskButton
-                        .transition(
-                            AnyTransition.asymmetric(insertion: .scale.animation(.closeCard),
-                                                     removal: .opacity.animation(.easeIn(duration: 0.1)))
-                        )
-                }
-                
+        }) {
+            ZStack {
+                Circle()
+                    .fill(Color.primary)
+                    .frame(width: 52, height: 52)
+                Image(systemName: "plus")
+                    .font(.title2)
+                    .foregroundColor(Color.theme.backgroundColor)
             }
-            .padding(.horizontal, 16)
-            .padding(.bottom, 20)
         }
-        .background(Color.theme.backgroundColor.opacity(0.01))
+        .buttonStyle(PlainButtonStyle())
     }
     
     private var curtain: some View {
-        Group {
+        ZStack {
             if vm.taskCase != .none {
-                Rectangle()
-                    .fill(Color.black)
-                    .opacity(0.4)
-                    .ignoresSafeArea()
-                    .transition(.opacity)
+                Color.theme.backgroundColor.opacity(0.01)
                     .onTapGesture {
                         withAnimation(defaultAnimation) {
                             vm.clearTask()
@@ -242,105 +227,5 @@ struct TodoView: View {
                     }
             }
         }
-    }
-    
-    private var submitTaskButton: some View {
-        Button(action: {
-            switch vm.taskCase {
-            case .add:
-                withAnimation(defaultAnimation) {
-                    vm.addEntity()
-                    vm.clearTask()
-                }
-
-            case .edit:
-                withAnimation(defaultAnimation) {
-                    vm.updateEntity()
-                    vm.clearTask()
-                }
-                
-            case .none:
-                print("error: impossible state of taskCase in onCommit")
-                withAnimation(defaultAnimation) {
-                    vm.clearTask()
-                }
-            }
-        }) {
-            Circle()
-                .fill(Color.primary)
-                .overlay(
-                    Image(systemName: vm.taskCase == .edit ? "pencil" : "plus")
-                        .font(Font.system(.subheadline, design: .default).weight(.semibold))
-                        .foregroundColor(Color(.systemBackground))
-                )
-                .frame(width: 48, height: 48)
-                .disabled(!vm.canTask)
-        }
-    }
-    
-    private var customTextField: some View {
-        TextField("Add New Todo", text: $vm.bindingText, onEditingChanged: {_ in}){
-            switch vm.taskCase {
-            case .add:
-                if vm.canTask {
-                    withAnimation(defaultAnimation){
-                        vm.addEntity()
-                        vm.clearTask()
-                    }
-                }
-            case .edit:
-                if vm.canTask {
-                    withAnimation(defaultAnimation){
-                        vm.updateEntity()
-                        vm.clearTask()
-                    }
-                }
-            case .none:
-                print("error: impossible state of taskCase in onCommit")
-            }
-        }
-        .introspectTextField(customize: { textField in
-            //            textField.returnKeyType = .done
-            if vm.taskCase != .none && vm.showKindView == false {
-                textField.becomeFirstResponder()
-            }
-        })
-        .disableAutocorrection(true)
-        .overlay(
-            Image(systemName: "xmark.circle.fill")
-                .padding()
-                .offset(x: 10)
-                .foregroundColor(.secondary)
-                .opacity(vm.bindingText.isEmpty ? 0.0 : 1.0)
-                .onTapGesture {
-            vm.bindingText = ""
-        }
-            , alignment: .trailing
-        )
-        .font(Font.system(.headline, design: .default).weight(.semibold))
-        .padding(14).padding(.horizontal, 2)
-        .frame(maxWidth: 400, alignment: .leading)
-        .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.theme.backgroundColor)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Color.theme.dividerColor)
-        )
-        .overlay(
-            ZStack {
-                if vm.taskCase == .none {
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .fill(Color.theme.backgroundColor.opacity(0.01))
-                        .onTapGesture{
-                            withAnimation(defaultAnimation) {
-                                vm.taskCase = .add
-                            }
-                        }
-                }
-            }
-        )
-        
     }
 }

@@ -98,6 +98,10 @@ struct MenuView: View {
             Color.theme.backgroundColor
         )
         .clipShape(RoundedRectangle(cornerRadius: showMenu ? 30 : 0, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: showMenu ? 30 : 0, style: .continuous)
+                .stroke(Color.theme.dividerColor, lineWidth: 1)
+        )
         .shadow(color: Color.theme.shadowColor.opacity(showMenu ? 0.4 : 0), radius: 40, x: 0.0, y: 20)
     }
     
