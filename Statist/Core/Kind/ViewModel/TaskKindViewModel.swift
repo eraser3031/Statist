@@ -30,7 +30,7 @@ class TaskKindViewModel: ObservableObject {
     init(_ kind: KindEntity?, kinds: [KindEntity]) {
         self.kind = kind
         if let kind = kind {
-            self.kinds = kinds.prefix(while: { ($0.name ?? "") == kind.name}) //
+            self.kinds = kinds.filter{($0.name ?? "") != (kind.name ?? "") }
         } else {
             self.kinds = kinds
         }

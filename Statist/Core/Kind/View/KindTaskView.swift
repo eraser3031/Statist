@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskKindView: View {
+struct KindTaskView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var vm: TaskKindViewModel
     let kind: KindEntity?
@@ -21,39 +21,58 @@ struct TaskKindView: View {
     }
     
     var body: some View {
-        VStack(spacing: 20){
+        VStack(spacing: 30){
             
-            Spacer().frame(height: 0)
+            VStack(alignment: .leading, spacing: 10) {
+                    
+                Text("name")
+                    .foregroundColor(Color.primary)
+                    .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 15)
+                
+                TextField("Write Kind's Name", text: $vm.text)
+                    .font(.body)
+                    .padding(12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .fill(Color.theme.itemBackgroundColor)
+                    )
+            }
+            .padding(.horizontal, 20)
             
-            CustomTextField("Write Kind's Name", text: $vm.text)
-                .padding(.horizontal, 20)
-            
-            CustomColorPicker($vm.color)
+            VStack(alignment: .leading, spacing: 10) {
+                Text("color")
+                    .foregroundColor(Color.primary)
+                    .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 15)
+                
+                CustomColorPicker($vm.color)
+            }
+            .padding(.horizontal, 20)
             
             Spacer()
             
             if vm.isOverlap {
                 Text("kind's name shouldn't ovelap other kinds")
                     .font(.footnote)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.red)
             }
             
             Button(action: {
                 vm.alertDelete = true
             }) {
                 Label("Delete", systemImage: "trash.fill")
+                    .foregroundColor(.red)
+                    .frame(height: 50).frame(maxWidth: 400)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(Color.theme.groupBackgroundColor)
+                    )
             }
-            .foregroundColor(.red)
-            .frame(height: 50).frame(maxWidth: 400)
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color.theme.groupBackgroundColor)
-            )
             .buttonStyle(InteractiveButtonStyle())
-            .padding([.bottom, .horizontal], 20)
+            .padding(.horizontal, 20)
             .opacity(vm.isEdit ? 1 : 0)
             
         }
+        .padding(.vertical, 20)
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing) {
                 Text(vm.isEdit ? "Edit" : "Add")

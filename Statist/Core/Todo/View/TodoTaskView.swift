@@ -37,7 +37,11 @@ struct TodoTaskView: View {
                     KindPicker($vm.bindingKind, showKindView: $vm.showKindView, kinds: vm.kinds)
                 }
                 
-                CustomSection(label: "name") {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("name")
+                        .foregroundColor(Color.primary)
+                        .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 15)
+                    
                     TextField("Solve 10 math problems",
                               text: $vm.bindingText,
                               onEditingChanged: {_ in },
@@ -56,7 +60,11 @@ struct TodoTaskView: View {
                         }
                     })
                     .font(.body)
-                    .padding(6)
+                    .padding(12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .fill(Color.theme.itemBackgroundColor)
+                    )
                 }
                 .padding(.horizontal, 20)
             }

@@ -15,7 +15,7 @@ class KindViewModel: ObservableObject {
     @Published var text: String = ""
     @Published var color: ColorKind?
     
-    @Published var showTaskKindView = false
+    @Published var showKindTaskView = false
     
     let manager = CoreDataManager.instance
     

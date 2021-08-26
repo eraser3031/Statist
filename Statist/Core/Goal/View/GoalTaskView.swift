@@ -14,7 +14,7 @@ struct GoalTaskView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
+            VStack(alignment: .leading, spacing: 30) {
                 
                 VStack(alignment: .leading, spacing: 10) {
                     Text("kind")
@@ -61,15 +61,6 @@ struct GoalTaskView: View {
                     }
                     
                 }.padding(.horizontal, 16)
-                
-                Spacer()
-                
-                if vm.isValid != .clear {
-                    Text(vm.isValid.text)
-                        .font(.footnote)
-                        .foregroundColor(Color.red)
-                        .padding()
-                }
             }
         }
         .background(
@@ -103,17 +94,31 @@ struct GoalTaskView: View {
         .navigationBarTitleDisplayMode(.inline)
         .padding(.vertical, 20)
         .toolbar{
+            
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    vm.clearForTask()
+                }){
+                    Text("Cancel")
+                        .accentColor(Color(.systemGray3))
+                        .font(.body)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+            
             ToolbarItem(placement: .navigationBarTrailing) {
-                Text("Save")
-                    .accentColor(.primary)
-                    .opacity(vm.isValid == .clear ? 1 : 0.3)
-                    .onTapGesture {
-                        if vm.isValid == .clear {
-                            withAnimation {
-                                vm.confirmTask()
-                            }
-                        }
+                Button(action: {
+                    withAnimation(.closeCard) {
+                        vm.confirmTask()
                     }
+                }){
+                    Text("Save")
+                        .accentColor(.primary)
+                        .font(.headline)
+                }
+                .buttonStyle(PlainButtonStyle())
+                .opacity(!vm.isValid.isEmpty ? 0.3: 1)
+                .disabled(!vm.isValid.isEmpty)
             }
         }
         .sheet(isPresented: $vm.showKindView, onDismiss: {vm.kindEntities()}){
@@ -153,16 +158,26 @@ struct GoalTaskView: View {
 }
 
 struct CustomSection<ContentView>: View where ContentView: View {
+    
+//    @Binding var bindingRules: [ValidCase]
+    
     let label: LocalizedStringKey
+//    let matchedRules: [ValidCase]
     let content: () -> ContentView
     
-    init(label: LocalizedStringKey, @ViewBuilder content: @escaping () -> ContentView) {
+    init(label: LocalizedStringKey,
+//         matchedRules: [ValidCase] = [],
+//         bindingRules: Binding<[ValidCase]>,
+         @ViewBuilder content: @escaping () -> ContentView) {
         self.label = label
+//        self.matchedRules = matchedRules
+//        self._bindingRules = bindingRules
         self.content = content
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
+            
             Text(label)
                 .foregroundColor(Color.primary)
                 .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 15)
@@ -173,6 +188,14 @@ struct CustomSection<ContentView>: View where ContentView: View {
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
                         .fill(Color.theme.itemBackgroundColor)
                 )
+            
+//            if let rule = matchedRules.first {
+//                if bindingRules.contains(rule) {
+//                    Text(rule.text)
+//                        .font(Font.system(.caption, design: .default).weight(.medium))
+//                        .foregroundColor(.red)
+//                }
+//            }
         }
     }
 }

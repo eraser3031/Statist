@@ -9,7 +9,11 @@ import Foundation
 import CoreData
 import SwiftUI
 
-enum ValidCase: String {
+enum ValidCase: String, Identifiable {
+    
+    var id: String {
+        rawValue
+    }
     
     var text: String {
         switch self {
@@ -23,8 +27,6 @@ enum ValidCase: String {
             return "Count is empty"
         case .goalLessThanNow:
             return "Count is lower than your now count"
-        case .clear:
-            return "clear"
         }
     }
     
@@ -33,7 +35,6 @@ enum ValidCase: String {
     case emptyKind
     case emptyGoal
     case goalLessThanNow
-    case clear
 }
 
 class GoalViewModel: ObservableObject {
@@ -62,7 +63,8 @@ class GoalViewModel: ObservableObject {
     @Published var kindForTask: KindEntity?
     @Published var goalForTask = ""
     
-    var isValid: ValidCase {
+//    @Published var validCases: [ValidCase] = []
+    var isValid: [ValidCase] {
         var cases: [ValidCase] = []
         if nameForTask.isEmpty {
             cases.append(ValidCase.emptyName)
@@ -82,7 +84,7 @@ class GoalViewModel: ObservableObject {
             }
         }
         
-        return cases.first ?? .clear
+        return cases
     }
     
     let manager = CoreDataManager.instance
@@ -203,6 +205,7 @@ class GoalViewModel: ObservableObject {
         kindForTask = nil
         goalForTask = ""
         editingEntity = nil
+        taskCase = .none
     }
     
     func proceed() {

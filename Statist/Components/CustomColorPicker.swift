@@ -11,49 +11,51 @@ struct CustomColorPicker: View {
     
     @Binding var selectedColorKind: ColorKind?
     
+    let columns: [GridItem] = [
+        GridItem(.adaptive(minimum: 48, maximum: 48), spacing: 16)
+    ]
+    
+    
     init(_ selectedColorKind: Binding<ColorKind?>) {
         self._selectedColorKind = selectedColorKind
     }
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 16) {
+        LazyVGrid(columns: columns,
+                  alignment: .leading,
+                  spacing: 16) {
+            ForEach(ColorKind.allCases) { colorKind in
+                let isSelected = colorKind.id == (selectedColorKind?.id ?? "")
                 
-                Spacer()
-                    .frame(width: 4)
-                
-                ForEach(ColorKind.allCases) { colorKind in
-                    Circle()
-                        .fill(colorKind.primary())
-                        .frame(width: 48, height: 48)
-                        .overlay(
-                            ZStack {
-                                Circle()
-                                    .stroke(Color.primary, lineWidth: 3)
-                                    .padding(1.5)
-                            
-                                Image(systemName: "checkmark")
-                                    .font(Font.system(.subheadline, design: .default).weight(.heavy))
-                                    .foregroundColor(Color(.systemBackground))
-                            }
-                            .opacity((colorKind.id == (selectedColorKind?.id ?? "")) ? 1 : 0)
-                        )
-                        .onTapGesture{
+                Circle()
+                    .fill(isSelected ? colorKind.primary() : colorKind.secondary() )
+                    .frame(width: 48, height: 48)
+                    .overlay(
+                        Image(systemName: "checkmark")
+                            .font(Font.system(.subheadline, design: .default).weight(.heavy))
+                            .foregroundColor(Color(.systemBackground))
+                            .opacity(isSelected ? 1 : 0)
+                    )
+                    .onTapGesture{
+                        withAnimation(.closeCard) {
                             selectedColorKind = colorKind
                         }
-                }
-                
-                Spacer()
-                    .frame(width: 4)
+                    }
             }
         }
     }
 }
 
-struct CustomColorPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomColorPicker(.constant(ColorKind.blue))
-            .padding()
-            .previewLayout(.sizeThatFits)
-    }
-}
+//struct CustomColorPicker_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CustomColorPicker(.constant(ColorKind.blue))
+//            .padding()
+//            .previewLayout(.sizeThatFits)
+//    }
+//}
+
+//struct NewCustomColorPicker: View {
+//    var body: some View {
+//        
+//    }
+//}

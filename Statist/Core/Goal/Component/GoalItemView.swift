@@ -12,6 +12,10 @@ struct GoalItemView: View {
     @ObservedObject var vm: GoalViewModel
     @State var showAlert = false
     
+    var isFinish: Bool {
+        entity.endDate ?? Date().toDay < Date().toDay
+    }
+    
     let defaultAnimation = Animation.closeCard
     
     var body: some View {
@@ -37,6 +41,16 @@ struct GoalItemView: View {
                 
                 Spacer()
                 
+                if entity.isFinish {
+                    Circle()
+                        .fill(entity.kindEntity?.color.primary() ?? .primary)
+                        .frame(width: 28, height: 28)
+                        .overlay(
+                            Image(systemName: "checkmark")
+                                .font(Font.system(.footnote, design: .default).weight(.semibold))
+                                .foregroundColor(Color.theme.backgroundColor)
+                        )
+                }
                 
                 Menu {
                     Button(action: {
@@ -150,13 +164,18 @@ struct GoalItemView: View {
         .background(
             Color.theme.backgroundColor
                 .onTapGesture {
-                    withAnimation(defaultAnimation){
-                        vm.selectedEntity = entity
+                if !isFinish {
+                        withAnimation(defaultAnimation){
+                            vm.selectedEntity = entity
+                        }
                     }
                 }
         )
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(Color.theme.dividerColor))
+        .grayscale(isFinish ? 1 : 0)
+        .opacity(isFinish ? 0.5 : 1)
+        
     }
 }
 

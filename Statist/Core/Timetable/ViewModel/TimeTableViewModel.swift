@@ -90,9 +90,9 @@ class NewTimetableViewModel: ObservableObject {
         }
     }
     
-    private func encodeToTimetableEntitys(items: [[KindEntity?]]) {
+    private func encodeToTimetableEntitys(items: [[KindEntity?]]) -> [TimetableEntity] {
         
-        var entitys: [TimetableEntity] = []
+        var entities: [TimetableEntity] = []
         let flattenItems = items.flatMap{ $0 }
         
         func makeEntity(_ i: Int) {
@@ -103,7 +103,7 @@ class NewTimetableViewModel: ObservableObject {
             newEntity.hour = Int16(i / 6)
             newEntity.minute = Int16( (i % 6) * 10 )
             newEntity.duration = 10
-            entitys.append(newEntity)
+            entities.append(newEntity)
         }
         
         for i in 0..<flattenItems.count-1 {
@@ -115,7 +115,7 @@ class NewTimetableViewModel: ObservableObject {
             
             if flattenItems[i] == flattenItems[i+1] {
                 if flattenItems[i+1] != nil {
-                    entitys[entitys.endIndex - 1].duration += 10
+                    entities[entities.endIndex - 1].duration += 10
                 }
             } else {
                 if flattenItems[i+1] != nil {
@@ -123,6 +123,8 @@ class NewTimetableViewModel: ObservableObject {
                 }
             }
         }
+        
+        return entities
     }
     
     private func decodeToItems(entitys: [TimetableEntity]) -> [[KindEntity?]] {
@@ -164,8 +166,24 @@ class NewTimetableViewModel: ObservableObject {
     
     func saveAndLoad() {
         removeEntitys()
-        encodeToTimetableEntitys(items: items)
+        let result = encodeToTimetableEntitys(items: items)
+        
+        if result.isEmpty == false {
+            if var eventDates = event?.dates {
+                let itemDate = calendarInfo.date
+                eventDates[itemDate] = 1
+                event?.dates = eventDates
+                manager.save()
+            }
+        } else {
+            event?.dates?[calendarInfo.date] = nil
+            manager.save()
+        }
+        
         manager.save()
+        timetableEvent()
         entities()
+        
+        print(event?.dates)
     }
 }

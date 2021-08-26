@@ -20,7 +20,7 @@ struct KindView: View {
                     let name = kind.name ?? ""
                     let primaryColor = kind.color.primary()
                     
-                    NavigationLink(destination: TaskKindView(kind, kinds: vm.kinds, save: {
+                    NavigationLink(destination: KindTaskView(kind, kinds: vm.kinds, save: {
                         vm.save()
                     })) {
                         HStack(spacing: 8) {
@@ -37,10 +37,10 @@ struct KindView: View {
             }
             .navigationBarTitle("Kinds", displayMode: .inline)
             .background(
-                NavigationLink(destination: TaskKindView(nil, kinds: vm.kinds, save: {
+                NavigationLink(destination: KindTaskView(nil, kinds: vm.kinds, save: {
                     vm.save()
                 })
-                , isActive: $vm.showTaskKindView) {
+                , isActive: $vm.showKindTaskView) {
                     EmptyView()
                 }
             )
@@ -69,7 +69,7 @@ struct KindView: View {
     
     private var addButton: some View {
         Button(action: {
-            vm.showTaskKindView = true
+            vm.showKindTaskView = true
         }) {
             Image(systemName: "plus")
         }

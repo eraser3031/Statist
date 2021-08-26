@@ -38,6 +38,8 @@ enum ColorKind: String, Identifiable, Codable, CaseIterable {
     
     func primary() -> Color {
         switch self{
+        case .hotpink:
+            return Color(.systemPink)
         case .red:
             return Color(.systemRed)
         case .orange:
@@ -50,16 +52,31 @@ enum ColorKind: String, Identifiable, Codable, CaseIterable {
             return Color(.systemTeal)
         case .blue:
             return Color(.systemBlue)
+        case .violet:
+            return Color(.systemPurple)
         case .purple:
             return Color("Purple")
         case .pink:
             return Color("Pink")
+        case .apricot:
+            return Color("Apricot")
+        case .leaf:
+            return Color("Leaf")
+        case .indigo:
+            return Color(.systemIndigo)
+        case .sky:
+            return Color("Sky")
+        case .brown:
+            return Color("Brown")
         }
+        
     }
     
     func secondary() -> Color {
         let opacity: CGFloat = 0.1
         switch self{
+        case .hotpink:
+            return Color(.systemPink).opacity(opacity)
         case .red:
             return Color(.systemRed).opacity(opacity)
         case .orange:
@@ -72,19 +89,38 @@ enum ColorKind: String, Identifiable, Codable, CaseIterable {
             return Color(.systemTeal).opacity(opacity)
         case .blue:
             return Color(.systemBlue).opacity(opacity)
+        case .violet:
+            return Color(.systemPurple).opacity(opacity)
         case .purple:
             return Color("Purple").opacity(opacity)
         case .pink:
             return Color("Pink").opacity(opacity)
+        case .apricot:
+            return Color("Apricot").opacity(opacity)
+        case .leaf:
+            return Color("Leaf").opacity(opacity)
+        case .indigo:
+            return Color(.systemIndigo).opacity(opacity)
+        case .sky:
+            return Color("Sky").opacity(opacity)
+        case .brown:
+            return Color("Brown").opacity(opacity)
         }
     }
     
+    case hotpink
     case red
+    case apricot
     case orange
     case yellow
     case green
+    case leaf
     case teal
+    case sky
     case blue
+    case indigo
+    case violet
     case purple
     case pink
+    case brown
 }

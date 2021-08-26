@@ -7,11 +7,15 @@
 
 import SwiftUI
 import Introspect
+import Combine
 
 struct TodoView: View {
     @Environment(\.horizontalSizeClass) var horizontalSize
+    @Environment(\.safeAreaInsets) private var safeAreaInsets
     @StateObject var vm = TodoViewModel()
     @Namespace private var namespace
+    @State private var keyboardHeight: CGFloat = 0
+    
     let show: () -> Void
     
     let defaultAnimation = Animation.closeCard
@@ -34,7 +38,6 @@ struct TodoView: View {
             ,alignment: .bottomTrailing
         )
         .blur(radius: vm.taskCase == .none ? 0 : 16)
-        .ignoresSafeArea(.keyboard)
         .overlay(curtain)
         .overlay(
             ZStack {
@@ -44,15 +47,18 @@ struct TodoView: View {
                         .dividerShadow()
                         .floatShadow()
                         .transition(.move(edge: .bottom))
+                        .padding(.bottom, keyboardHeight - safeAreaInsets.bottom)
                 }
             }
             ,alignment: .bottom
         )
+        .ignoresSafeArea(.keyboard)
         .onChange(of: vm.calendarInfo.date) { _ in
             withAnimation(.spring()){
                 vm.entities()
             }
         }
+        .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }
     }
     
     //  MARK: - Layout
