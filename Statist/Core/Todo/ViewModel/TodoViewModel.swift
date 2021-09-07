@@ -38,42 +38,43 @@ class TodoViewModel: ObservableObject {
         entities()
         kindEntities()
     }
-    
+
     func todoEvent() {
         let request = NSFetchRequest<TodoEvent>(entityName: "TodoEvent")
         do {
             let result = try manager.context.fetch(request).first
-            
-            guard let result = result else {
+
+            guard result != nil else {
                 let newEvent = TodoEvent(context: manager.context)
                 newEvent.id = UUID().uuidString
                 newEvent.dates = [:]
                 newEvent.entities = []
                 manager.save()
-                
+
                 event = newEvent
                 dates = []
-                
+
                 return
             }
-            
+//
             event = result
-            if let resultDates = result.dates {
+            if let resultDates = result?.dates {
                 dates = Array(resultDates.keys)
+                print(dates)
             } else {
                 dates = []
             }
-            
+
         } catch let error {
             print("Error getEvent: \(error)")
         }
     }
-    
+
     func entities() {
         let request = NSFetchRequest<TodoEntity>(entityName: "TodoEntity")
         let filter = NSPredicate(format: "date = %@", calendarInfo.date as NSDate)
         request.predicate = filter
-        
+
         do {
             let result = try manager.context.fetch(request)
             let resultHavingKind = result.filter { $0.kindEntity != nil }
@@ -90,7 +91,7 @@ class TodoViewModel: ObservableObject {
             print("Error Fetching entities: \(error)")
         }
     }
-    
+
     func kindEntities() {
         let request = NSFetchRequest<KindEntity>(entityName: "KindEntity")
         let sort = NSSortDescriptor(keyPath: \KindEntity.name, ascending: true)
@@ -100,7 +101,7 @@ class TodoViewModel: ObservableObject {
         } catch let error {
             print("Error Fetching Kind Entity: \(error)")
         }
-        
+
     }
     
     func addEntity() {

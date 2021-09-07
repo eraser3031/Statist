@@ -12,6 +12,7 @@ struct GoalView: View {
     @StateObject var vm = GoalViewModel()
     let show: () -> Void
     
+    @State var start = false
     let defaultAnimation = Animation.closeCard
     
     var body: some View {
@@ -34,42 +35,37 @@ struct GoalView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 15)
             
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 16) {
-                    ForEach(vm.goals) { goal in
-                        GoalItemView(entity: goal, vm: vm)
-                            .compositingGroup()
+            if start {
+                if vm.goals.isEmpty {
+                     Spacer()
+                        .frame(maxWidth: .infinity)
+                } else {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        
+                        VStack(spacing: 16) {
+                            ForEach(vm.goals) { goal in
+                                GoalItemView(entity: goal, vm: vm)
+                                    .compositingGroup()
+                            }
+                        }
+                        .padding(.top, 15)
+                        .padding(.horizontal, 16)
                     }
+                    .dividerShadow()
+                    .floatShadow()
                 }
-                .padding(.top, 15)
-                .padding(.horizontal, 16)
+            } else {
+                Spacer()
             }
-            .dividerShadow()
-            .floatShadow()
         }
         .overlay(
-            Button(action: {
-                withAnimation {
-                    vm.taskCase = .add
-                }
-            }) {
-                ZStack {
-                    Circle()
-                        .fill(Color.primary)
-                        .frame(width: 52, height: 52)
-                    Image(systemName: "plus")
-                        .font(.title2)
-                        .foregroundColor(Color.theme.backgroundColor)
-                }
-            }
-            .buttonStyle(PlainButtonStyle())
-            .padding()
+            taskButton
             ,alignment: .bottomTrailing
         )
         .sheet(isPresented: $vm.showTaskView, onDismiss: {vm.clearForTask()}){
             NavigationView {
                 GoalTaskView(vm: vm)
-            }
+            }.accentColor(.primary)
         }
         .onChange(of: vm.sortCase) { _ in
             withAnimation(defaultAnimation){
@@ -81,7 +77,13 @@ struct GoalView: View {
                 vm.entities()
             }
         }
-        
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
+                withAnimation(defaultAnimation) {
+                    start = true
+                }
+            }
+        }
     }
     
     private var header: some View {
@@ -95,9 +97,6 @@ struct GoalView: View {
                 }
             
             Spacer()
-            
-            Circle()
-                .frame(width: 32, height: 32)
         }
         .padding(.horizontal, 20)
     }
@@ -134,6 +133,25 @@ struct GoalView: View {
             )
             .accentColor(.primary)
         }
+    }
+    
+    private var taskButton: some View {
+        Button(action: {
+            withAnimation {
+                vm.taskCase = .add
+            }
+        }) {
+            ZStack {
+                Circle()
+                    .fill(Color.primary)
+                    .frame(width: 52, height: 52)
+                Image(systemName: "plus")
+                    .font(.title2)
+                    .foregroundColor(Color.theme.backgroundColor)
+            }
+        }
+        .buttonStyle(PlainButtonStyle())
+        .padding()
     }
 }
 

@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19141.11" systemVersion="21A5268h" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="21A5268h" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="GoalEntity" representedClassName="GoalEntity" syncable="YES" codeGenerationType="class">
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="goal" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="id" attributeType="String"/>
-        <attribute name="name" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="times" optional="YES" attributeType="Transformable" customClassName="[Date]"/>
-        <relationship name="kindEntity" maxCount="1" deletionRule="Nullify" destinationEntity="KindEntity" inverseName="goalEntities" inverseEntity="KindEntity"/>
+        <relationship name="kindEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KindEntity" inverseName="goalEntities" inverseEntity="KindEntity"/>
+    </entity>
+    <entity name="InfoEntity" representedClassName="InfoEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Binary"/>
     </entity>
     <entity name="KindEntity" representedClassName="KindEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="colorKindID" attributeType="String"/>
-        <attribute name="id" attributeType="String"/>
-        <attribute name="name" attributeType="String"/>
+        <attribute name="colorKindID" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="goalEntities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GoalEntity" inverseName="kindEntity" inverseEntity="GoalEntity"/>
         <relationship name="timetableEntities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TimetableEntity" inverseName="kindEntity" inverseEntity="TimetableEntity"/>
         <relationship name="todoEntities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TodoEntity" inverseName="kindEntity" inverseEntity="TodoEntity"/>
@@ -20,35 +24,36 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="duration" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="hour" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="id" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="minute" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimetableEvent" inverseName="entities" inverseEntity="TimetableEvent"/>
-        <relationship name="kindEntity" maxCount="1" deletionRule="Nullify" destinationEntity="KindEntity" inverseName="timetableEntities" inverseEntity="KindEntity"/>
+        <relationship name="kindEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KindEntity" inverseName="timetableEntities" inverseEntity="KindEntity"/>
     </entity>
     <entity name="TimetableEvent" representedClassName="TimetableEvent" syncable="YES" codeGenerationType="class">
-        <attribute name="dates" optional="YES" attributeType="Transformable" customClassName="Dictionary&lt;Date, Int&gt;"/>
+        <attribute name="dates" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="Dictionary&lt;Date, Int&gt;"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <relationship name="entities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimetableEntity" inverseName="event" inverseEntity="TimetableEntity"/>
     </entity>
     <entity name="TodoEntity" representedClassName="TodoEntity" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" attributeType="String"/>
-        <attribute name="isDone" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="name" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoEvent" inverseName="entities" inverseEntity="TodoEvent"/>
-        <relationship name="kindEntity" maxCount="1" deletionRule="Nullify" destinationEntity="KindEntity" inverseName="todoEntities" inverseEntity="KindEntity"/>
+        <relationship name="kindEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KindEntity" inverseName="todoEntities" inverseEntity="KindEntity"/>
     </entity>
     <entity name="TodoEvent" representedClassName="TodoEvent" syncable="YES" codeGenerationType="class">
-        <attribute name="dates" optional="YES" attributeType="Transformable" customClassName="Dictionary&lt;Date, Int&gt;"/>
+        <attribute name="dates" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="Dictionary&lt;Date, Int&gt;"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <relationship name="entities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoEntity" inverseName="event" inverseEntity="TodoEntity"/>
     </entity>
     <elements>
-        <element name="GoalEntity" positionX="-29.10980224609375" positionY="-282.5895233154297" width="128" height="119"/>
-        <element name="KindEntity" positionX="379.282958984375" positionY="-120.0494079589844" width="128" height="133"/>
+        <element name="GoalEntity" positionX="-41.2908935546875" positionY="-295.408935546875" width="128" height="133"/>
+        <element name="KindEntity" positionX="271.6158447265625" positionY="-189.5487365722657" width="128" height="119"/>
         <element name="TimetableEntity" positionX="-38.53082275390625" positionY="-67.05123901367188" width="128" height="148"/>
-        <element name="TimetableEvent" positionX="-231.1759033203125" positionY="-21.7606201171875" width="128" height="74"/>
+        <element name="TimetableEvent" positionX="-239.1181640625" positionY="-15.2552490234375" width="128" height="88"/>
         <element name="TodoEntity" positionX="-40.0025634765625" positionY="89.8092041015625" width="128" height="133"/>
-        <element name="TodoEvent" positionX="-241.1222229003906" positionY="120.127197265625" width="128" height="74"/>
+        <element name="TodoEvent" positionX="-241.1222229003906" positionY="120.127197265625" width="128" height="88"/>
+        <element name="InfoEntity" positionX="-36" positionY="-135" width="128" height="59"/>
     </elements>
 </model>

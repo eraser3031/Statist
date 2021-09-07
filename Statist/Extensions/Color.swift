@@ -24,6 +24,7 @@ struct ColorTheme {
     let groupBackgroundColor = Color("GroupBackgroundColor")
     let subBackgroundColor = Color("SubBackgroundColor")
     let groupItemBackgroundColor = Color("GroupItemBackgroundColor")
+    let inverseBackgroundColor = Color("InverseBackgroundColor")
 }
 
 enum ColorKind: String, Identifiable, Codable, CaseIterable {
@@ -73,7 +74,7 @@ enum ColorKind: String, Identifiable, Codable, CaseIterable {
     }
     
     func secondary() -> Color {
-        let opacity: CGFloat = 0.1
+        let opacity: Double = 0.1
         switch self{
         case .hotpink:
             return Color(.systemPink).opacity(opacity)

@@ -18,6 +18,7 @@ struct TodoView: View {
     
     let show: () -> Void
     
+    @State var start = false
     let defaultAnimation = Animation.closeCard
     
     var body: some View {
@@ -26,10 +27,14 @@ struct TodoView: View {
             header
                 .padding(.vertical, 20)
             
-            if horizontalSize == .regular {
-                regular
+            if start {
+                if horizontalSize == .regular {
+                    regular
+                } else {
+                    compact
+                }
             } else {
-                compact
+                Spacer()
             }
         }
         .overlay(
@@ -40,16 +45,13 @@ struct TodoView: View {
         .blur(radius: vm.taskCase == .none ? 0 : 16)
         .overlay(curtain)
         .overlay(
-            ZStack {
-            if vm.taskCase != .none {
-                    TodoTaskView(vm: vm)
-                        .compositingGroup()
-                        .dividerShadow()
-                        .floatShadow()
-                        .transition(.move(edge: .bottom))
-                        .padding(.bottom, keyboardHeight - safeAreaInsets.bottom)
-                }
-            }
+            TodoTaskView(vm: vm)
+                .compositingGroup()
+                .dividerShadow()
+                .floatShadow()
+                .transition(.move(edge: .bottom))
+                .padding(.bottom, keyboardHeight - safeAreaInsets.bottom)
+                .offset(y: vm.taskCase == .none ? 400 : 0 )
             ,alignment: .bottom
         )
         .ignoresSafeArea(.keyboard)
@@ -59,6 +61,13 @@ struct TodoView: View {
             }
         }
         .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
+                withAnimation(defaultAnimation) {
+                    start = true
+                }
+            }
+        }
     }
     
     //  MARK: - Layout
@@ -175,9 +184,7 @@ struct TodoView: View {
                 }
             
             Spacer()
-            
-            Circle()
-                .frame(width: 32, height: 32)
+        
         }
         .padding(.horizontal, 20)
     }

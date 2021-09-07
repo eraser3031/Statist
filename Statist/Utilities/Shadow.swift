@@ -22,7 +22,7 @@ struct DividerShadowModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .shadow(color: Color.black.opacity(colorScheme == .light ? opacity : opacity + 0.4),
+            .shadow(color: Color.black.opacity(Double(colorScheme == .light ? opacity : opacity + 0.4)),
                     radius: radius,
                     x: 0,
                     y: yOffset)
@@ -43,7 +43,7 @@ struct FloatShadowModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .shadow(color: Color.theme.shadowColor.opacity(colorScheme == .light ? opacity : opacity + 0.4),
+            .shadow(color: Color.theme.shadowColor.opacity(Double(colorScheme == .light ? opacity : opacity + 0.4)),
                     radius: radius,
                     x: 0,
                     y: yOffset)

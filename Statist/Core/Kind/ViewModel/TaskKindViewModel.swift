@@ -51,7 +51,6 @@ class TaskKindViewModel: ObservableObject {
         newEntity.goalEntities = []
         newEntity.todoEntities = []
         newEntity.timetableEntities = []
-        print(newEntity)
     }
     
     func editKindEntity() {

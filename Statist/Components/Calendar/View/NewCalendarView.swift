@@ -9,6 +9,11 @@ import SwiftUI
 import FSCalendar
 import Combine
 
+struct CalendarInfo {
+    var date: Date = Date().toDay
+    var scope: Bool = false
+}
+
 struct CalendarView: UIViewRepresentable {
     @Environment(\.horizontalSizeClass) var horizontalSize
     @Binding var info: CalendarInfo

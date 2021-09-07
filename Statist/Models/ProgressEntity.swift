@@ -21,8 +21,7 @@ extension GoalEntity {
         if goal != 0 {
             return Int(Float(now) / Float(goal) * 100)
         } else {
-            return
-            0
+            return 0
         }
     }
     

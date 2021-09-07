@@ -45,6 +45,14 @@ struct KindView: View {
                 }
             )
             .toolbar {
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("Cancel")
+                        .onTapGesture {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     addButton
                 }

@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 import CoreData
 
-class NewTimetableViewModel: ObservableObject {
+class TimetableViewModel: ObservableObject {
     
     @Published var calendarInfo = CalendarInfo()
     
@@ -39,7 +39,7 @@ class NewTimetableViewModel: ObservableObject {
         do {
             let result = try manager.context.fetch(request).first
             
-            guard let result = result else {
+            guard result != nil else {
                 let newEvent = TimetableEvent(context: manager.context)
                 newEvent.id = UUID().uuidString
                 newEvent.dates = [:]
@@ -53,7 +53,7 @@ class NewTimetableViewModel: ObservableObject {
             }
             
             event = result
-            if let resultDates = result.dates {
+            if let resultDates = result?.dates {
                 dates = Array(resultDates.keys)
             } else {
                 dates = []
@@ -183,7 +183,5 @@ class NewTimetableViewModel: ObservableObject {
         manager.save()
         timetableEvent()
         entities()
-        
-        print(event?.dates)
     }
 }

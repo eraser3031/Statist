@@ -12,9 +12,10 @@ struct TimetableView: View {
     @Environment(\.horizontalSizeClass) var horizontalSize
     @Environment(\.safeAreaInsets) private var safeAreaInsets
     
-    @StateObject var vm = NewTimetableViewModel()
+    @StateObject var vm = TimetableViewModel()
     let show: () -> Void
     
+    @State var start = false
     let defaultAnimation = Animation.closeCard
     let drawAnimation = Animation.flipCard
     
@@ -24,10 +25,16 @@ struct TimetableView: View {
                 header
                     .padding(.vertical, 20)
                 
-                if horizontalSize == .regular {
-                    regular
+                if start {
+                    Group {
+                        if horizontalSize == .regular {
+                            regular
+                        } else {
+                            compact
+                        }
+                    }
                 } else {
-                    compact
+                    Spacer()
                 }
             }
             .onChange(of: vm.calendarInfo.date) { _ in
@@ -63,6 +70,13 @@ struct TimetableView: View {
                }) {
                    KindView()
                }
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
+                withAnimation(.linear) {
+                    start = true
+                }
+            }
+        }
     }
     
     //  MARK: - Layout
@@ -87,8 +101,8 @@ struct TimetableView: View {
             .padding(.bottom, 20).padding(.horizontal, 16)
             
             timetable
-                .dividerShadow()
-                .floatShadow()
+//                .dividerShadow()
+//                .floatShadow()
         }
     }
     
@@ -114,8 +128,8 @@ struct TimetableView: View {
                 .padding(.bottom, 20).padding(.horizontal, 16)
                 
                 timetable
-                    .dividerShadow()
-                    .floatShadow()
+//                    .dividerShadow()
+//                    .floatShadow()
             }
         }
     }
@@ -133,9 +147,6 @@ struct TimetableView: View {
                 }
             
             Spacer()
-            
-            Circle()
-                .frame(width: 32, height: 32)
         }
         .padding(.horizontal, 20)
     }
@@ -160,7 +171,7 @@ struct TimetableView: View {
                         if let item = item {
                             Rectangle()
                                 .fill(item.color.primary().opacity(0.5))
-                                .shadow(color: item.color.primary().opacity(0.2), radius: 10, x: 0, y: 0)
+                                .shadow(color: item.color.primary().opacity(0.3), radius: 6, x: 0, y: 0)
                                 .padding(.vertical, 5)
                                 .onTapGesture {
                                     withAnimation(drawAnimation){

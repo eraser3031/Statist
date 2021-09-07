@@ -18,13 +18,17 @@ enum MenuCase: String {
     case timeTable
     case goal
     case stat
+    case transition
 }
 
 struct MenuView: View {
+    @StateObject var infoVM = InfoViewModel()
+    @State var showInfoView = false
     @State var menuCase: MenuCase = .todo
     @State var showMenu = false
     
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.safeAreaInsets) var safeAreaInsets
     @Environment(\.horizontalSizeClass) var horizontalSize
     
     let menuAnimation = Animation.moreCloseCard
@@ -36,12 +40,11 @@ struct MenuView: View {
     }
     
     private func changeMenu(_ menu: MenuCase) {
+        
+        
         menuCase = menu
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05){
-            withAnimation(menuAnimation) {
-                showMenu = false
-                
-            }
+        withAnimation(menuAnimation) {
+            showMenu = false
         }
     }
     
@@ -58,18 +61,24 @@ struct MenuView: View {
         GeometryReader { geo in
             ZStack {
                 GridPatternView()
+//                Color.theme.inverseBackgroundColor
+//                    .ignoresSafeArea()
                 
                 panel
                     .padding(.horizontal, 30)
                     .padding(.top, 36)
                     .offset(x: showMenu ? 0 : calPanelOffset(proxy: geo) )
-            
+                
                 mainView(geo: geo)
                     .ignoresSafeArea(showMenu ? [] : .all, edges: .all)
                     .padding(.vertical, showMenu ? 20 : 0)
                     .offset(x: showMenu ? calMainViewOffset(proxy: geo) : 0)
-
+                
             }
+        }
+        .sheet(isPresented: $showInfoView, onDismiss: nil) {
+            InfoView()
+                .environmentObject(infoVM)
         }
     }
     
@@ -83,16 +92,17 @@ struct MenuView: View {
                 GoalView(){ show() }
             } else if menuCase == .stat {
                 EmptyView()
+            } else {
+                Color.theme.backgroundColor
             }
-//            .frame(width: UIScreen.main.bounds.width)
         }
-        .padding(.top, geo.safeAreaInsets.top)
-        .padding(.bottom, geo.safeAreaInsets.bottom)
+        .padding(.top, safeAreaInsets.top)
+        .padding(.bottom, safeAreaInsets.bottom)
         .overlay(
-            Color.black.opacity(showMenu ? colorScheme == .dark ? 0.6 : 0.05 : 0)
+            Color.black.opacity(showMenu ? colorScheme == .dark ? 0.6 : 0.4 : 0)
                 .onTapGesture {
-                    changeMenu(menuCase)
-                }
+            changeMenu(menuCase)
+        }
         )
         .background(
             Color.theme.backgroundColor
@@ -102,15 +112,22 @@ struct MenuView: View {
             RoundedRectangle(cornerRadius: showMenu ? 30 : 0, style: .continuous)
                 .stroke(Color.theme.dividerColor, lineWidth: 1)
         )
-        .shadow(color: Color.theme.shadowColor.opacity(showMenu ? 0.4 : 0), radius: 40, x: 0.0, y: 20)
+        .compositingGroup()
+//        .shadow(color: Color.theme.shadowColor.opacity(showMenu ? 0.4 : 0), radius: 40, x: 0.0, y: 20)
     }
     
     private var panel: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 50) {
-                Circle()
-                    .fill(Color.primary)
+                
+                Image(uiImage: UIImage(data: infoVM.info?.thumbnail ?? Data()) ?? UIImage(named: "TempThumbnail")!) //
+                    .resizable()
+                    .scaledToFill()
                     .frame(width: 48, height: 48)
+                    .clipShape(Circle())
+                    .onTapGesture {
+                        showInfoView = true
+                    }
                 
                 VStack(alignment: .leading, spacing: 30) {
                     Text("Todo").onTapGesture {changeMenu(.todo) }
@@ -118,7 +135,7 @@ struct MenuView: View {
                     Text("Goal").onTapGesture {changeMenu(.goal) }
                 }
                 .scaledFont(name: CustomFont.AbrilFatface, size: 28)
-//                .font(Font.system(.title, design: .default).weight(.heavy))
+                //                .font(Font.system(.title, design: .default).weight(.heavy))
                 
                 GeometryReader { geo in
                     Capsule()
@@ -128,8 +145,8 @@ struct MenuView: View {
                 .frame(height: 2)
                 
                 Text("Stat").onTapGesture {changeMenu(.goal) }
-                    .scaledFont(name: CustomFont.AbrilFatface, size: 28)
-//                    .font(Font.system(.title, design: .default).weight(.heavy))
+                .scaledFont(name: CustomFont.AbrilFatface, size: 28)
+                //                    .font(Font.system(.title, design: .default).weight(.heavy))
                 
                 Spacer()
             }

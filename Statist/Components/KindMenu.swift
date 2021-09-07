@@ -105,7 +105,7 @@ struct KindMenuSheet: View {
             }
         }.padding([.horizontal, .top])
         .background(Color.theme.subBackgroundColor )
-        .frame(height: 400)
+        .frame(height: 400).frame(maxWidth: 400)
         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(Color.theme.dividerColor))
         .padding(.horizontal, 16)

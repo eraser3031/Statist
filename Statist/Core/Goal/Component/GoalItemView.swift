@@ -117,7 +117,7 @@ struct GoalItemView: View {
                     )
                 
                 Text("\(entity.percent)%")
-                    .minimumScaleFactor(0.1)
+                    .minimumScaleFactor(0.9)
                     .font(.caption)
                     .foregroundColor(Color.gray)
             }

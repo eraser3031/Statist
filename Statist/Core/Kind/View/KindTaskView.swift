@@ -72,8 +72,9 @@ struct KindTaskView: View {
             .opacity(vm.isEdit ? 1 : 0)
             
         }
-        .padding(.vertical, 20)
-        .toolbar{
+        .padding(.vertical, 30)
+        .toolbar{ 
+            
             ToolbarItem(placement: .navigationBarTrailing) {
                 Text(vm.isEdit ? "Edit" : "Add")
                     .bold()
