@@ -52,7 +52,7 @@ enum GoalCase: Pickerable, Identifiable {
     case recent
 }
 
-struct CustomPicker<PickerableCase>: View where PickerableCase: Pickerable & Identifiable {
+struct CustomPicker<PickerableCase: Pickerable & Identifiable>: View {
     
     @Namespace private var animation
     @Binding var currentPick: PickerableCase

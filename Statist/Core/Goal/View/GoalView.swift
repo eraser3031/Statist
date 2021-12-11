@@ -89,7 +89,7 @@ struct GoalView: View {
     private var header: some View {
         HStack(spacing: 0){
             Text("Goal")
-                .scaledFont(name: CustomFont.AbrilFatface, size: 25)
+                .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 25)
                 .padding(.vertical, 2)
                 .contentShape(Rectangle())
                 .onTapGesture{

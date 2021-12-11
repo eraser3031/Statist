@@ -11,14 +11,30 @@ import CoreData
 class CoreDataManager {
     
     static let instance = CoreDataManager()
-//    let container: NSPersistentContainer
+    static var preview: CoreDataManager = {
+        let result = CoreDataManager(inMemory: true)
+        let viewContext = result.container.viewContext
+        do {
+            try viewContext.save()
+        } catch {
+            print("preview error")
+        }
+        return result
+    }()
+    
+    //    let container: NSPersistentContainer
     let container: NSPersistentCloudKitContainer
     let context: NSManagedObjectContext
-//    let childContext: NSManagedObjectContext
-//    var user: UserEntity?
+    //    let childContext: NSManagedObjectContext
+    //    var user: UserEntity?
     
-    init() {
+    init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "UserDataContainer")
+        
+        if inMemory {
+            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+        }
+        
         container.loadPersistentStores { description, error in
             if let error = error {
                 print("Error loading Core Data \(error)")
@@ -27,8 +43,8 @@ class CoreDataManager {
         context = container.viewContext
         context.automaticallyMergesChangesFromParent = true //
         
-//        childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-//        childContext.parent = container.viewContext
+        //        childContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        //        childContext.parent = container.viewContext
         
         userEntity()
     }
@@ -40,25 +56,25 @@ class CoreDataManager {
             print("Error saving Core Data \(error)")
         }
     }
-
+    
     func userEntity() {
-//        let request = NSFetchRequest<UserEntity>(entityName: "UserEntity")
-//        do {
-//            let result = try context.fetch(request)
-//            if let userResult = result.first {
-//                user = userResult
-//            } else {
-//                let tempUser = UserEntity(context: context)
-//                tempUser.id = UUID().uuidString
-//                tempUser.name = "Yaehoon Kim"
-//                tempUser.thumbnailData = UIImage(named: "TempThumbnail")?.jpegData(compressionQuality: 1)
-//                
-//                save()
-//                
-//                user = tempUser
-//            }
-//        } catch let error {
-//            print("Error Fetching UserEntitys in \(#function): \(error)")
-//        }
+        //        let request = NSFetchRequest<UserEntity>(entityName: "UserEntity")
+        //        do {
+        //            let result = try context.fetch(request)
+        //            if let userResult = result.first {
+        //                user = userResult
+        //            } else {
+        //                let tempUser = UserEntity(context: context)
+        //                tempUser.id = UUID().uuidString
+        //                tempUser.name = "Yaehoon Kim"
+        //                tempUser.thumbnailData = UIImage(named: "TempThumbnail")?.jpegData(compressionQuality: 1)
+        //
+        //                save()
+        //
+        //                user = tempUser
+        //            }
+        //        } catch let error {
+        //            print("Error Fetching UserEntitys in \(#function): \(error)")
+        //        }
     }
 }

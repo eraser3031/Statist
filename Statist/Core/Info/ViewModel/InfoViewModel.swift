@@ -69,10 +69,10 @@ class SettingViewModel: ObservableObject {
     var kinds: [KindEntity] = []
     
     init() {
-        KindEntities()
+        kindEntities()
     }
     
-    func KindEntities() {
+    func kindEntities() {
         let request = NSFetchRequest<KindEntity>(entityName: "KindEntity")
         do {
             kinds = try mananger.context.fetch(request)
@@ -88,6 +88,6 @@ class SettingViewModel: ObservableObject {
     
     private func saveAndLoad() {
         mananger.save()
-        KindEntities()
+        kindEntities()
     }
 }

@@ -134,18 +134,18 @@ struct MenuView: View {
                     Text("Timetable").onTapGesture {changeMenu(.timeTable) }
                     Text("Goal").onTapGesture {changeMenu(.goal) }
                 }
-                .scaledFont(name: CustomFont.AbrilFatface, size: 28)
+                .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 32)
                 //                .font(Font.system(.title, design: .default).weight(.heavy))
                 
                 GeometryReader { geo in
-                    Capsule()
-                        .fill(Color.primary)
-                        .frame(maxWidth: horizontalSize == .compact ? geo.size.width/2 : geo.size.width/3 - 60)
+//                    Capsule()
+//                        .fill(Color.primary)
+//                        .frame(maxWidth: horizontalSize == .compact ? geo.size.width/2 : geo.size.width/3 - 60)
                 }
                 .frame(height: 2)
-                
-                Text("Stat").onTapGesture {changeMenu(.goal) }
-                .scaledFont(name: CustomFont.AbrilFatface, size: 28)
+//
+//                Text("Stat").onTapGesture {changeMenu(.goal) }
+//                .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 32)
                 //                    .font(Font.system(.title, design: .default).weight(.heavy))
                 
                 Spacer()
@@ -182,8 +182,12 @@ struct ContainerView<InnerView>: View where InnerView: View {
 }
 
 
-//struct MenuView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MenuView()
-//    }
-//}
+struct MenuView_Previews: PreviewProvider {
+    static var previews: some View {
+        if #available(iOS 15.0, *) {
+            MenuView()
+        } else {
+            MenuView()
+        }
+    }
+}

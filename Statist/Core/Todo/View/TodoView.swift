@@ -26,7 +26,6 @@ struct TodoView: View {
         VStack(spacing: 0) {
             header
                 .padding(.vertical, 20)
-            
             if start {
                 if horizontalSize == .regular {
                     regular
@@ -176,7 +175,7 @@ struct TodoView: View {
     private var header: some View {
         HStack(spacing: 0){
             Text("Todo")
-                .scaledFont(name: CustomFont.AbrilFatface, size: 25)
+                .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 25)
                 .padding(.vertical, 2)
                 .contentShape(Rectangle())
                 .onTapGesture{

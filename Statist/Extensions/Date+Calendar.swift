@@ -29,6 +29,12 @@ extension Date: Identifiable {
         return calendar.date(bySettingHour: 0, minute: 0, second: 0, of: self) ?? self
     }
     
+    func prevDay() -> Date {
+        let calendar = Calendar.current
+        let newDate = calendar.date(byAdding: .day, value: -1, to: self) ?? self
+        return newDate
+    }
+    
     func nextDay() -> Date {
         let calendar = Calendar.current
         let newDate = calendar.date(byAdding: .day, value: 1, to: self) ?? self

@@ -47,6 +47,8 @@
 		219D566726DCCF610031C602 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 219D566626DCCF610031C602 /* CloudKit.framework */; };
 		21BDAF2426E74BB7009A827C /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BDAF2326E74BB7009A827C /* ImagePicker.swift */; };
 		21BDAF2826E790B9009A827C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BDAF2726E790B9009A827C /* AppInfoView.swift */; };
+		21C06D902764EC79006CE897 /* StatViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C06D8F2764EC79006CE897 /* StatViewModel_Tests.swift */; };
+		21C06D922764EDB7006CE897 /* StatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C06D912764EDB7006CE897 /* StatViewModel.swift */; };
 		21CB33B226D86D110022E4AD /* TimetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F503269623A200E57727 /* TimetableView.swift */; };
 		21CB33B326D86D150022E4AD /* TimeTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F50E26987FD700E57727 /* TimeTableViewModel.swift */; };
 		21CB33B426D86D1E0022E4AD /* TimeTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1F4E32694948600E57727 /* TimeTable.swift */; };
@@ -73,6 +75,16 @@
 		21E9ED7E26C0B78200A66E64 /* TextFieldFocusableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E9ED7D26C0B78200A66E64 /* TextFieldFocusableArea.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		219E97652764EAE100A7F000 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21D045B02691F5D90048685A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 21D045B72691F5D90048685A;
+			remoteInfo = Statist;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		210F75C326CA79A3004CA1C4 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		210F75C726CAAAF2004CA1C4 /* GridPatternView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPatternView.swift; sourceTree = "<group>"; };
@@ -90,7 +102,6 @@
 		215760F626AD9F4B009F617B /* PercentageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentageView.swift; sourceTree = "<group>"; };
 		215760F826AD9F55009F617B /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		215760FA26AD9F63009F617B /* ProgressGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressGraphView.swift; sourceTree = "<group>"; };
-		215760FD26AD9F93009F617B /* StatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatViewModel.swift; sourceTree = "<group>"; };
 		215760FF26AD9FBE009F617B /* CircleChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleChart.swift; sourceTree = "<group>"; };
 		2157610126AD9FCE009F617B /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
 		2157610326ADA018009F617B /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
@@ -119,8 +130,12 @@
 		219C544826A6BBCD009D639D /* ProgressEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressEntity.swift; sourceTree = "<group>"; };
 		219C544A26A6BC35009D639D /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		219D566626DCCF610031C602 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		219E97612764EAE100A7F000 /* Statist_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Statist_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		21BDAF2326E74BB7009A827C /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		21BDAF2726E790B9009A827C /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
+		21C06D8E2764EC79006CE897 /* Statist_Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Statist_Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		21C06D8F2764EC79006CE897 /* StatViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatViewModel_Tests.swift; sourceTree = "<group>"; };
+		21C06D912764EDB7006CE897 /* StatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatViewModel.swift; sourceTree = "<group>"; };
 		21CC0EA4269D715800584873 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		21CC0EA6269D82F300584873 /* KindPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindPicker.swift; sourceTree = "<group>"; };
 		21D045B82691F5D90048685A /* Statist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Statist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +165,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		219E975E2764EAE100A7F000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		21D045B52691F5D90048685A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -196,7 +218,7 @@
 		215760F126AD9DDD009F617B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				215760FD26AD9F93009F617B /* StatViewModel.swift */,
+				21C06D912764EDB7006CE897 /* StatViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -389,10 +411,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		219E97622764EAE100A7F000 /* Statist_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				21C06D8F2764EC79006CE897 /* StatViewModel_Tests.swift */,
+				21C06D8E2764EC79006CE897 /* Statist_Tests-Bridging-Header.h */,
+			);
+			path = Statist_Tests;
+			sourceTree = "<group>";
+		};
 		21D045AF2691F5D90048685A = {
 			isa = PBXGroup;
 			children = (
 				21D045BA2691F5D90048685A /* Statist */,
+				219E97622764EAE100A7F000 /* Statist_Tests */,
 				21D045B92691F5D90048685A /* Products */,
 				219D566526DCCF610031C602 /* Frameworks */,
 			);
@@ -402,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				21D045B82691F5D90048685A /* Statist.app */,
+				219E97612764EAE100A7F000 /* Statist_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -526,6 +559,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		219E97602764EAE100A7F000 /* Statist_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 219E97692764EAE100A7F000 /* Build configuration list for PBXNativeTarget "Statist_Tests" */;
+			buildPhases = (
+				219E975D2764EAE100A7F000 /* Sources */,
+				219E975E2764EAE100A7F000 /* Frameworks */,
+				219E975F2764EAE100A7F000 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				219E97662764EAE100A7F000 /* PBXTargetDependency */,
+			);
+			name = Statist_Tests;
+			productName = Statist_Tests;
+			productReference = 219E97612764EAE100A7F000 /* Statist_Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		21D045B72691F5D90048685A /* Statist */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 21D045C72691F5DC0048685A /* Build configuration list for PBXNativeTarget "Statist" */;
@@ -554,9 +605,14 @@
 		21D045B02691F5D90048685A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					219E97602764EAE100A7F000 = {
+						CreatedOnToolsVersion = 13.0;
+						LastSwiftMigration = 1300;
+						TestTargetID = 21D045B72691F5D90048685A;
+					};
 					21D045B72691F5D90048685A = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -581,11 +637,19 @@
 			projectRoot = "";
 			targets = (
 				21D045B72691F5D90048685A /* Statist */,
+				219E97602764EAE100A7F000 /* Statist_Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		219E975F2764EAE100A7F000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		21D045B62691F5D90048685A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -601,6 +665,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		219E975D2764EAE100A7F000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21C06D902764EC79006CE897 /* StatViewModel_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		21D045B42691F5D90048685A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -611,6 +683,7 @@
 				21BDAF2426E74BB7009A827C /* ImagePicker.swift in Sources */,
 				2171376026D258D500FEE614 /* CustomPicker.swift in Sources */,
 				2157610226AD9FCE009F617B /* LineChart.swift in Sources */,
+				21C06D922764EDB7006CE897 /* StatViewModel.swift in Sources */,
 				217BB3BC26A41BEF00FD5D7A /* Animation.swift in Sources */,
 				216E10AF26C4C1750054AB35 /* Style.swift in Sources */,
 				2114E3B226D04E1500565275 /* SafeAreaInsets.swift in Sources */,
@@ -665,7 +738,70 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		219E97662764EAE100A7F000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 21D045B72691F5D90048685A /* Statist */;
+			targetProxy = 219E97652764EAE100A7F000 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		219E97672764EAE100A7F000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VT69ZW2DRC;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eraser.Statist-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Statist_Tests/Statist_Tests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Statist.app/Statist";
+			};
+			name = Debug;
+		};
+		219E97682764EAE100A7F000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VT69ZW2DRC;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eraser.Statist-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Statist_Tests/Statist_Tests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Statist.app/Statist";
+			};
+			name = Release;
+		};
 		21D045C52691F5DC0048685A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -833,6 +969,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		219E97692764EAE100A7F000 /* Build configuration list for PBXNativeTarget "Statist_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				219E97672764EAE100A7F000 /* Debug */,
+				219E97682764EAE100A7F000 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		21D045B32691F5D90048685A /* Build configuration list for PBXProject "Statist" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
