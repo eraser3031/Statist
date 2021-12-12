@@ -91,7 +91,7 @@ struct MenuView: View {
             } else if menuCase == .goal {
                 GoalView(){ show() }
             } else if menuCase == .stat {
-                EmptyView()
+                StatView(){ show() }
             } else {
                 Color.theme.backgroundColor
             }
@@ -133,6 +133,16 @@ struct MenuView: View {
                     Text("Todo").onTapGesture {changeMenu(.todo) }
                     Text("Timetable").onTapGesture {changeMenu(.timeTable) }
                     Text("Goal").onTapGesture {changeMenu(.goal) }
+                    
+                    Text("Timetable")
+                        .opacity(0)
+                        .overlay(
+                            Capsule()
+                                .foregroundColor(.theme.inverseBackgroundColor)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 1)
+                        )
+                    Text("Stat").onTapGesture {changeMenu(.stat) }
                 }
                 .scaledFont(name: CustomFont.Gilroy_ExtraBold, size: 32)
                 //                .font(Font.system(.title, design: .default).weight(.heavy))

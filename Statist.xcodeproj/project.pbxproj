@@ -25,6 +25,8 @@
 		21615022269DB50F00401572 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21615021269DB50F00401572 /* CustomTextField.swift */; };
 		21615024269DB62F00401572 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21615023269DB62F00401572 /* CustomButton.swift */; };
 		216955A8269AA816007DF171 /* RandomAcessCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216955A7269AA816007DF171 /* RandomAcessCollection.swift */; };
+		216DC6132765F5BC00146094 /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216DC6122765F5BC00146094 /* StatView.swift */; };
+		216DC6162765FD5800146094 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 216DC6152765FD5800146094 /* OrderedCollections */; };
 		216E10AB26C4BB280054AB35 /* KindTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E10AA26C4BB280054AB35 /* KindTaskView.swift */; };
 		216E10AD26C4BB850054AB35 /* TaskKindViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E10AC26C4BB850054AB35 /* TaskKindViewModel.swift */; };
 		216E10AF26C4C1750054AB35 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216E10AE26C4C1750054AB35 /* Style.swift */; };
@@ -100,7 +102,6 @@
 		215760F226AD9E99009F617B /* AchievementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementView.swift; sourceTree = "<group>"; };
 		215760F426AD9F3E009F617B /* PeriodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodView.swift; sourceTree = "<group>"; };
 		215760F626AD9F4B009F617B /* PercentageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentageView.swift; sourceTree = "<group>"; };
-		215760F826AD9F55009F617B /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		215760FA26AD9F63009F617B /* ProgressGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressGraphView.swift; sourceTree = "<group>"; };
 		215760FF26AD9FBE009F617B /* CircleChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleChart.swift; sourceTree = "<group>"; };
 		2157610126AD9FCE009F617B /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
@@ -108,6 +109,7 @@
 		21615021269DB50F00401572 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		21615023269DB62F00401572 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		216955A7269AA816007DF171 /* RandomAcessCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAcessCollection.swift; sourceTree = "<group>"; };
+		216DC6122765F5BC00146094 /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		216E10AA26C4BB280054AB35 /* KindTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindTaskView.swift; sourceTree = "<group>"; };
 		216E10AC26C4BB850054AB35 /* TaskKindViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskKindViewModel.swift; sourceTree = "<group>"; };
 		216E10AE26C4C1750054AB35 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				216DC6162765FD5800146094 /* OrderedCollections in Frameworks */,
 				2114E3B526D08F5900565275 /* PopupView in Frameworks */,
 				219D566726DCCF610031C602 /* CloudKit.framework in Frameworks */,
 				2114E3BB26D08F7300565275 /* FSCalendar in Frameworks */,
@@ -206,7 +209,7 @@
 		215760F026AD9DD8009F617B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				215760F826AD9F55009F617B /* StatView.swift */,
+				216DC6122765F5BC00146094 /* StatView.swift */,
 				215760F226AD9E99009F617B /* AchievementView.swift */,
 				215760F426AD9F3E009F617B /* PeriodView.swift */,
 				215760F626AD9F4B009F617B /* PercentageView.swift */,
@@ -594,6 +597,7 @@
 				2114E3B426D08F5900565275 /* PopupView */,
 				2114E3B726D08F6300565275 /* Introspect */,
 				2114E3BA26D08F7300565275 /* FSCalendar */,
+				216DC6152765FD5800146094 /* OrderedCollections */,
 			);
 			productName = Statist;
 			productReference = 21D045B82691F5D90048685A /* Statist.app */;
@@ -631,6 +635,7 @@
 				2114E3B326D08F5900565275 /* XCRemoteSwiftPackageReference "PopupView" */,
 				2114E3B626D08F6300565275 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				2114E3B926D08F7300565275 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				216DC6142765FD5800146094 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 21D045B92691F5D90048685A /* Products */;
 			projectDirPath = "";
@@ -725,6 +730,7 @@
 				21D098E926C3BA600085DB34 /* KindViewModel.swift in Sources */,
 				21CB33B426D86D1E0022E4AD /* TimeTable.swift in Sources */,
 				2181EBBB26DC9DFC00407444 /* InfoView.swift in Sources */,
+				216DC6132765F5BC00146094 /* StatView.swift in Sources */,
 				2171375E26D208B400FEE614 /* GoalViewModel.swift in Sources */,
 				211D35DE26BD4CFF007EC9FF /* NewCalendarView.swift in Sources */,
 				21CB33B526D86D1E0022E4AD /* TimeTableHeader.swift in Sources */,
@@ -1023,6 +1029,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		216DC6142765FD5800146094 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1040,6 +1054,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2114E3B926D08F7300565275 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		216DC6152765FD5800146094 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 216DC6142765FD5800146094 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
 		};
 /* End XCSwiftPackageProductDependency section */
 
